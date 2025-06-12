@@ -1,0 +1,9 @@
+/assets              [36m (Status: 301)[0m [Size: 237][34m [--> http://192.168.72.129/assets/][0m
+/cgi-bin             [36m (Status: 301)[0m [Size: 238][34m [--> http://192.168.72.129/cgi-bin/][0m
+/cgi-bin/            [32m (Status: 200)[0m [Size: 1070]
+/images              [36m (Status: 301)[0m [Size: 237][34m [--> http://192.168.72.129/images/][0m
+/index               [32m (Status: 200)[0m [Size: 1227]
+/javascript          [36m (Status: 301)[0m [Size: 241][34m [--> http://192.168.72.129/javascript/][0m
+/phpmyadmin          [36m (Status: 301)[0m [Size: 241][34m [--> http://192.168.72.129/phpmyadmin/][0m
+/test                [36m (Status: 301)[0m [Size: 235][34m [--> http://192.168.72.129/test/][0m
+/wordpress           [36m (Status: 301)[0m [Size: 240][34m [--> http://192.168.72.129/wordpress/][0m
