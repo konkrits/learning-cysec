@@ -1,4 +1,0 @@
-OSINT FRAMEWORK
-
-osint framework membantu untuk memvisualisasikan alat alat OSINT yang ada. sayangnya, sebagain udah ketinggalan zaman, dan sebagian sudah tidak bisa dipakai lagi.
-tapi ini sangat membantu buat kalian untuk tahu alat-alat apa aja yang dipakai untuk osint dan cara penggunaanya.
