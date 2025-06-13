@@ -1,0 +1,42 @@
+inroduction
+
+sepanajang kursus ini kita akan dipandu oleh virtual mentor "Alex" yang bekerja di perusahaan fiksi protego security solusitiom.
+
+perusahaan kita : PROTEGP SECURITY SOLUTIONS
+CLIENT : PIXEL PARADISE
+
+Apa yang akan dipelajari?
+
+kursus ini dirancang untuk menjadi efiesien dalam scoping executing dan reporting vulnerabilty assessment
+dan memiliki 10 module yang diantaranya:
+
+- intorduction to ethical hacking and penetration testing | menjelaskan pentingnya metodelogi dalam ethical hacking dan penetration testing
+- planning scoping a penetration testing assessment       | membuat pendahuluan dokumen penteration testing
+- information gathering and vulnerability scanning	  | melakukan pengumpulan informasi dan pencarian kerentanan
+- social engineering attack				  | menjelaskan bagaimana rekayasa sosial berhasil
+- exploiting wired and wireless networks 		  | menjelaskan cara mengexploitasi  wired dan wireless
+- exploiting app based vulnerabilities			  | menjelaskan cara mengekploitasi kerentanan aplikasi
+- cloud, monile, and iot security			  | menjelaskan cara mengekploitasi cloud, mobile, and iot security
+- performing post-exploitation teqniques		  | menjelaskan cara melakukan setelah exploitasi
+- create reporting report and comunication		  | membuat laporan dan komunikasi
+- tools and code analysis				  | mengklasifikasn alat pentest sesuai tujuan
+
+pernyataan peretasan etis
+
+sangat penting untuk diperjelas bahwa akses tidak sah ke data, komputer, dan jaringan adalah tindakan melawan hukum terlepas dari niat dan motivasinya
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
