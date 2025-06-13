@@ -1,5 +1,0 @@
-ketik recon-ng di terminal
-
-dan ketik help buat ngeliah comand yang tersedia
-
-
