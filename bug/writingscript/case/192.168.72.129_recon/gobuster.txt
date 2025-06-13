@@ -1,0 +1,27 @@
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://192.168.72.129
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/wordlists/dirb/small.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.6
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+[2K/assets               (Status: 301) [Size: 237] [--> http://192.168.72.129/assets/]
+[2K/cgi-bin/             (Status: 200) [Size: 1070]
+[2K/cgi-bin              (Status: 301) [Size: 238] [--> http://192.168.72.129/cgi-bin/]
+[2K/images               (Status: 301) [Size: 237] [--> http://192.168.72.129/images/]
+[2K/index                (Status: 200) [Size: 1227]
+[2K/javascript           (Status: 301) [Size: 241] [--> http://192.168.72.129/javascript/]
+[2K/phpmyadmin           (Status: 301) [Size: 241] [--> http://192.168.72.129/phpmyadmin/]
+[2K/test                 (Status: 301) [Size: 235] [--> http://192.168.72.129/test/]
+[2K/wordpress            (Status: 301) [Size: 240] [--> http://192.168.72.129/wordpress/]
+
+===============================================================
+Finished
+===============================================================
