@@ -1,0 +1,11 @@
+1. in wireshark how to filter packet is go top panel and look for search icon and this is how to filter whatever you want to use such protocol example:
+dns, http, icmp and the others the green selection indicate valid and pink invalid
+
+2. what if you want to search some string example netacad.com 
+you can and just go to tab in search icon and choose string now  add there
+
+3. if you want to see the username and password or like how attacker see
+hijack cookie 
+
+you just go display filter http and search string post and look for username
+password and cookie
