@@ -1,0 +1,199 @@
+/* 
+   * Global Styles 
+*/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: black;
+    background-color: white;
+  }
+  
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  a:hover {
+    color: #666;
+  }
+  
+  /* 
+     * Header Styles
+  */
+  
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header h5 {
+    color: white;
+    margin-right: 20px;
+  }
+  
+  .header-links {
+    list-style: lower-latin;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .header-links li {
+    margin-right: 10px;
+  }
+  
+  /* 
+     * Main Styles
+  */
+  
+  main {
+    display: block;
+    margin-top: 60px;
+  }
+  
+  /* 
+     * Section Styles
+  */
+  
+  section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: black;
+  }
+  
+  /* 
+     * Link Styles
+  */
+  
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  a:hover {
+    color: #666;
+  }
+  
+  /* 
+     * Image Styles
+  */
+  
+  img {
+    image-resolution: 300;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 5px 20px 20px rgba(0, 0, 0, 0.829);
+    float: left;
+  }
+
+  .song-audio {
+          display: inline-block;
+   }
+    
+  .view{
+    border: 2px solid black;
+    height: auto;
+    width: 50%;
+    float: left;
+
+  }
+
+  
+  /* 
+     * Audio/Video Styles
+ 
+  
+  audio, video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+  }
+  
+  /* 
+     * Pre Styles
+  */
+  
+  pre {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  code {
+    font-size: 14px;
+    color: black;
+  }
+  
+  /* 
+     * Button Styles
+  */
+  
+  button {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.692);
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #666;
+  }
+  
+  /* 
+     * Table Styles
+  */
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: white;
+  }
+  
+  td {
+    background-color: #f9f9f9;
+  }
+  .fortit{
+    color: white;
+    margin: 10px;
+  }
+  .end{
+    background-color: rgb(0, 0, 0);
+    display: flow-root;
+    color: white;
+  }
+  

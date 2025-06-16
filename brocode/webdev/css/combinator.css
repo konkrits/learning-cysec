@@ -1,0 +1,15 @@
+#container{
+    border: 2px solid grey;
+}
+#container  p{
+    background-color: rgb(255, 59, 59);
+}
+#container + p{
+    background-color: rgb(59, 255, 92);
+}
+#container > p{
+    background-color: rgb(59, 105, 255);
+}
+#container ~ p{
+    background-color: rgb(213, 255, 59);
+}

@@ -1,0 +1,23 @@
+a:link{
+    color: rgb(84, 206, 255);
+}
+a:hover{
+    color: rgb(85, 110, 255);
+    font-size: 1.1em;
+}
+a:active{
+    color: rgb(226, 43, 43);
+    font-size: 1.1em;
+}
+a:visited{
+    color: grey;
+}
+li:hover{
+    color: rgb(151, 151, 15);
+}
+li:not(:hover){
+    color: rgb(172, 93, 93);
+}
+dl:nth-child(2n+2){
+    background-color: aqua;
+}
