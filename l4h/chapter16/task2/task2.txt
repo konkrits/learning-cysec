@@ -1,0 +1,2 @@
+0 0   10 4,6,7 * liv   /home/liv/l4h/chapter16/task2/mysqlscanner.sh
+

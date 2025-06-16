@@ -1,0 +1,277 @@
+──(liv㉿durden)-[~]
+└─$ set | more  
+'!'=0
+'#'=0
+'$'=10936
+'*'=(  )
+-=3569JXghiks
+0=/usr/bin/zsh
+'?'=0
+@=(  )
+ARGC=0
+CDPATH=''
+COLORFGBG='15;0'
+COLORTERM=truecolor
+COLUMNS=235
+COMMAND_NOT_FOUND_INSTALL_PROMPT=1
+CPUTYPE=x86_64
+DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/1000/bus'
+DESKTOP_SESSION=lightdm-xsession
+DISPLAY=:0.0
+DOTNET_CLI_TELEMETRY_OPTOUT=1
+EGID=1000
+EUID=1000
+FIGNORE=''
+FPATH=/usr/local/share/zsh/site-functions:/usr/share/zsh/vendor-functions:/usr/share/zsh/vendor-completions:/usr/share/zsh/functions/Calendar:/usr/share/zsh/functions/Chpwd:/usr/share/zsh/functions/Completion:/usr/share/zsh/functions/C
+ompletion/AIX:/usr/share/zsh/functions/Completion/BSD:/usr/share/zsh/functions/Completion/Base:/usr/share/zsh/functions/Completion/Cygwin:/usr/share/zsh/functions/Completion/Darwin:/usr/share/zsh/functions/Completion/Debian:/usr/share/
+zsh/functions/Completion/Linux:/usr/share/zsh/functions/Completion/Mandriva:/usr/share/zsh/functions/Completion/Redhat:/usr/share/zsh/functions/Completion/Solaris:/usr/share/zsh/functions/Completion/Unix:/usr/share/zsh/functions/Comple
+tion/X:/usr/share/zsh/functions/Completion/Zsh:/usr/share/zsh/functions/Completion/openSUSE:/usr/share/zsh/functions/Exceptions:/usr/share/zsh/functions/MIME:/usr/share/zsh/functions/Math:/usr/share/zsh/functions/Misc:/usr/share/zsh/fu
+nctions/Newuser:/usr/share/zsh/functions/Prompts:/usr/share/zsh/functions/TCP:/usr/share/zsh/functions/VCS_Info:/usr/share/zsh/functions/VCS_Info/Backends:/usr/share/zsh/functions/Zftp:/usr/share/zsh/functions/Zle
+FUNCNEST=500
+GDMSESSION=lightdm-xsession
+GID=1000
+HISTCHARS='!^#'
+HISTCMD=470
+HISTFILE=/home/liv/.zsh_history
+HISTSIZE=1000
+HOME=/home/liv
+HOST=durden
+IFS=$' \t\n\C-@'
+KEYBOARD_HACK=''
+KEYTIMEOUT=40
+LANG=en_US.UTF-8
+LANGUAGE=en_US:en
+LESS_TERMCAP_mb=$'\C-[[1;31m'
+LESS_TERMCAP_md=$'\C-[[1;36m'
+LESS_TERMCAP_me=$'\C-[[0m'
+LESS_TERMCAP_se=$'\C-[[0m'
+LESS_TERMCAP_so=$'\C-[[01;33m'
+LESS_TERMCAP_ue=$'\C-[[0m'
+LESS_TERMCAP_us=$'\C-[[1;32m'
+LINENO=3
+LINES=55
+LISTMAX=100
+LOGNAME=liv
+LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.7z=01;31:*.ace=01;31:*.alz=01;31:*.apk=01;31:*.arc=01;31:*.arj=0
+1;31:*.bz=01;31:*.bz2=01;31:*.cab=01;31:*.cpio=01;31:*.crate=01;31:*.deb=01;31:*.drpm=01;31:*.dwm=01;31:*.dz=01;31:*.ear=01;31:*.egg=01;31:*.esd=01;31:*.gz=01;31:*.jar=01;31:*.lha=01;31:*.lrz=01;31:*.lz=01;31:*.lz4=01;31:*.lzh=01;31:*.
+lzma=01;31:*.lzo=01;31:*.pyz=01;31:*.rar=01;31:*.rpm=01;31:*.rz=01;31:*.sar=01;31:*.swm=01;31:*.t7z=01;31:*.tar=01;31:*.taz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tgz=01;31:*.tlz=01;31:*.txz=01;31:*.tz=01;31:*.tzo=01;31:*.tzst=01;31:*.udeb=0
+1;31:*.war=01;31:*.whl=01;31:*.wim=01;31:*.xz=01;31:*.z=01;31:*.zip=01;31:*.zoo=01;31:*.zst=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:
+*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.
+mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35
+:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;9
+0:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-n
+ew=00;90:*.ucf-old=00;90::ow=30;44:'
+MACHTYPE=x86_64
+MAILCHECK=60
+MAILPATH=''
+MANPATH=''
+MODULE_PATH=/usr/lib/x86_64-linux-gnu/zsh/5.9
+NEWLINE_BEFORE_PROMPT=yes
+NMAP_PRIVILEGED=''
+NULLCMD=cat
+OLDPWD=/home/liv
+OPTARG=''
+OPTIND=1
+OSTYPE=linux-gnu
+PATH=/home/liv/.local/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/liv/.dotnet/tools
+POWERSHELL_TELEMETRY_OPTOUT=1
+POWERSHELL_UPDATECHECK=Off
+PPID=10933
+PROMPT=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n㉿%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n└─%B%(#.%F{red}#.%F{b
+lue}$)%b%F{reset} '
+PROMPT2='%_> '
+PROMPT3='?# '
+PROMPT4='+%N:%i> '
+PROMPT_ALTERNATIVE=twoline
+PROMPT_EOL_MARK=''
+PS1=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n㉿%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n└─%B%(#.%F{red}#.%F{blue
+}$)%b%F{reset} '
+PS2='%_> '
+PS3='?# '
+PS4='+%N:%i> '
+PSVAR=''
+PWD=/home/liv
+QT_ACCESSIBILITY=1
+QT_AUTO_SCREEN_SCALE_FACTOR=0
+QT_QPA_PLATFORMTHEME=qt5ct
+RANDOM=9334
+READNULLCMD=/usr/bin/pager
+SAVEHIST=2000
+SECONDS=598
+SESSION_MANAGER=local/durden:@/tmp/.ICE-unix/1748,unix/durden:/tmp/.ICE-unix/1748
+SHELL=/usr/bin/zsh
+SHLVL=1
+SPROMPT='zsh: correct '\''%R'\'' to '\''%r'\'' [nyae]? '
+SSH_AGENT_PID=1858
+SSH_AUTH_SOCK=/tmp/ssh-LVkAxRiDydZf/agent.1857
+TERM=xterm-256color
+TERM_TITLE=$'\C-[]0;${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%n@%m: %~\C-G'
+TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S\ncpu\t%P'
+TMPPREFIX=/tmp/zsh
+TRY_BLOCK_ERROR=-1
+TRY_BLOCK_INTERRUPT=-1
+TTY=/dev/pts/0
+TTYIDLE=-1
+UID=1000
+USER=liv
+USERNAME=liv
+VENDOR=debian
+VIRTUAL_ENV_DISABLE_PROMPT=1
+WATCH
+WINDOWID=0
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+XAUTHORITY=/home/liv/.Xauthority
+XDG_CACHE_HOME=/home/liv/.cache
+XDG_CONFIG_DIRS=/etc/xdg
+XDG_CONFIG_HOME=/home/liv/.config
+XDG_CURRENT_DESKTOP=XFCE
+XDG_DATA_DIRS=/usr/share/xfce4:/usr/local/share/:/usr/share/:/usr/share
+XDG_GREETER_DATA_DIR=/var/lib/lightdm/data/liv
+XDG_MENU_PREFIX=xfce-
+XDG_RUNTIME_DIR=/run/user/1000
+XDG_SEAT=seat0
+XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+XDG_SESSION_CLASS=user
+XDG_SESSION_DESKTOP=lightdm-xsession
+XDG_SESSION_ID=2
+XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+XDG_SESSION_TYPE=x11
+XDG_VTNR=7
+ZSH_ARGZERO=/usr/bin/zsh
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=( forward-char end-of-line vi-forward-char vi-end-of-line vi-add-eol )
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS=( history-search-forward history-search-backward history-beginning-search-forward history-beginning-search-backward history-beginning-search-forward-end history-beginning-search-backward-end history-substr
+ing-search-up history-substring-search-down up-line-or-beginning-search down-line-or-beginning-search up-line-or-history down-line-or-history accept-line copy-earlier-word )
+ZSH_AUTOSUGGEST_COMPLETIONS_PTY_NAME=zsh_autosuggest_completion_pty
+ZSH_AUTOSUGGEST_EXECUTE_WIDGETS=(  )
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
+ZSH_AUTOSUGGEST_IGNORE_WIDGETS=( 'orig-*' beep run-help set-local-history which-command yank yank-pop 'zle-*' )
+ZSH_AUTOSUGGEST_ORIGINAL_WIDGET_PREFIX=autosuggest-orig-
+ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=( forward-word emacs-forward-word vi-forward-word vi-forward-word-end vi-forward-blank-word vi-forward-blank-word-end vi-find-next-char vi-find-next-char-skip )
+ZSH_AUTOSUGGEST_STRATEGY=( history )
+ZSH_AUTOSUGGEST_USE_ASYNC=''
+ZSH_EVAL_CONTEXT=toplevel
+ZSH_HIGHLIGHT_DIRS_BLACKLIST=(  )
+ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets pattern )
+ZSH_HIGHLIGHT_PATTERNS=( )
+ZSH_HIGHLIGHT_REGEXP=( )
+ZSH_HIGHLIGHT_REVISION=debian/0.7.1-2
+ZSH_HIGHLIGHT_STYLES=( [arg0]='fg=cyan' [assign]=none [autodirectory]='fg=green,underline' [back-dollar-quoted-argument]='fg=magenta,bold' [back-double-quoted-argument]='fg=magenta,bold' [back-quoted-argument]=none [back-quoted-argumen
+t-delimiter]='fg=blue,bold' [bracket-error]='fg=red,bold' [bracket-level-1]='fg=blue,bold' [bracket-level-2]='fg=green,bold' [bracket-level-3]='fg=magenta,bold' [bracket-level-4]='fg=yellow,bold' [bracket-level-5]='fg=cyan,bold' [comma
+nd-substitution]=none [command-substitution-delimiter]='fg=magenta,bold' [commandseparator]='fg=blue,bold' [comment]='fg=black,bold' [cursor]=standout [cursor-matchingbracket]=standout [default]=none [dollar-double-quoted-argument]='fg
+=magenta,bold' [dollar-quoted-argument]='fg=yellow' [double-hyphen-option]='fg=green' [double-quoted-argument]='fg=yellow' [global-alias]='fg=green,bold' [globbing]='fg=blue,bold' [history-expansion]='fg=blue,bold' [line]='' [named-fd]
+=none [numeric-fd]=none [path]=bold [path_pathseparator]='' [path_prefix_pathseparator]='' [precommand]='fg=green,underline' [process-substitution]=none [process-substitution-delimiter]='fg=magenta,bold' [rc-quote]='fg=magenta' [redire
+ction]='fg=blue,bold' [reserved-word]='fg=cyan,bold' [root]=standout [single-hyphen-option]='fg=green' [single-quoted-argument]='fg=yellow' [suffix-alias]='fg=green,underline' [unknown-token]=underline )
+ZSH_HIGHLIGHT_VERSION=0.7.1-2_debian
+ZSH_NAME=zsh
+ZSH_PATCHLEVEL=debian/5.9-8+b2
+ZSH_SUBSHELL=1
+ZSH_VERSION=5.9
+_=set
+_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
+_NEW_LINE_BEFORE_PROMPT=1
+_ZSH_AUTOSUGGEST_ASYNC_FD=''
+_ZSH_AUTOSUGGEST_BIND_COUNTS=( [accept-and-hold]=1 [accept-and-infer-next-history]=1 [accept-and-menu-complete]=1 [accept-line]=1 [accept-line-and-down-history]=1 [accept-search]=1 [argument-base]=1 [auto-suffix-remove]=1 [auto-suffix-
+retain]=1 [autosuggest-capture-completion]=1 [backward-char]=1 [backward-delete-char]=1 [backward-delete-word]=1 [backward-kill-line]=1 [backward-kill-word]=1 [backward-word]=1 [beginning-of-buffer-or-history]=1 [beginning-of-history]=
+1 [beginning-of-line]=1 [beginning-of-line-hist]=1 [bracketed-paste]=1 [capitalize-word]=1 [clear-screen]=1 [complete-word]=1 [copy-prev-shell-word]=1 [copy-prev-word]=1 [copy-region-as-kill]=1 [deactivate-region]=1 [delete-char]=1 [de
+lete-char-or-list]=1 [delete-word]=1 [describe-key-briefly]=1 [digit-argument]=1 [down-case-word]=1 [down-history]=1 [down-line]=1 [down-line-or-history]=1 [down-line-or-search]=1 [emacs-backward-word]=1 [emacs-forward-word]=1 [end-of-
+buffer-or-history]=1 [end-of-history]=1 [end-of-line]=1 [end-of-line-hist]=1 [end-of-list]=1 [exchange-point-and-mark]=1 [execute-last-named-cmd]=1 [execute-named-cmd]=1 [expand-cmd-path]=1 [expand-history]=1 [expand-or-complete]=1 [ex
+pand-or-complete-prefix]=1 [expand-word]=1 [forward-char]=1 [forward-word]=1 [get-line]=1 [gosmacs-transpose-chars]=1 [history-beginning-search-backward]=1 [history-beginning-search-forward]=1 [history-incremental-pattern-search-backwa
+rd]=1 [history-incremental-pattern-search-forward]=1 [history-incremental-search-backward]=1 [history-incremental-search-forward]=1 [history-search-backward]=1 [history-search-forward]=1 [infer-next-history]=1 [insert-last-word]=1 [kil
+l-buffer]=1 [kill-line]=1 [kill-region]=1 [kill-whole-line]=1 [kill-word]=1 [list-choices]=1 [list-expand]=1 [magic-space]=1 [menu-complete]=1 [menu-expand-or-complete]=1 [neg-argument]=1 [overwrite-mode]=1 [pound-insert]=1 [push-input
+]=1 [push-line]=1 [push-line-or-edit]=1 [put-replace-selection]=1 [quote-line]=1 [quote-region]=1 [quoted-insert]=1 [read-command]=1 [recursive-edit]=1 [redisplay]=1 [redo]=1 [reset-prompt]=1 [reverse-menu-complete]=1 [select-a-blank-w
+ord]=1 [select-a-shell-word]=1 [select-a-word]=1 [select-in-blank-word]=1 [select-in-shell-word]=1 [select-in-word]=1 [self-insert]=1 [self-insert-unmeta]=1 [send-break]=1 [set-mark-command]=1 [spell-word]=1 [split-undo]=1 [toggle_onel
+ine_prompt]=1 [transpose-chars]=1 [transpose-words]=1 [undefined-key]=1 [undo]=1 [universal-argument]=1 [up-case-word]=1 [up-history]=1 [up-line]=1 [up-line-or-history]=1 [up-line-or-search]=1 [vi-add-eol]=1 [vi-add-next]=1 [vi-backwar
+d-blank-word]=1 [vi-backward-blank-word-end]=1 [vi-backward-char]=1 [vi-backward-delete-char]=1 [vi-backward-kill-word]=1 [vi-backward-word]=1 [vi-backward-word-end]=1 [vi-beginning-of-line]=1 [vi-caps-lock-panic]=1 [vi-change]=1 [vi-c
+hange-eol]=1 [vi-change-whole-line]=1 [vi-cmd-mode]=1 [vi-delete]=1 [vi-delete-char]=1 [vi-digit-or-beginning-of-line]=1 [vi-down-case]=1 [vi-down-line-or-history]=1 [vi-end-of-line]=1 [vi-fetch-history]=1 [vi-find-next-char]=1 [vi-fin
+d-next-char-skip]=1 [vi-find-prev-char]=1 [vi-find-prev-char-skip]=1 [vi-first-non-blank]=1 [vi-forward-blank-word]=1 [vi-forward-blank-word-end]=1 [vi-forward-char]=1 [vi-forward-word]=1 [vi-forward-word-end]=1 [vi-goto-column]=1 [vi-
+goto-mark]=1 [vi-goto-mark-line]=1 [vi-history-search-backward]=1 [vi-history-search-forward]=1 [vi-indent]=1 [vi-insert]=1 [vi-insert-bol]=1 [vi-join]=1 [vi-kill-eol]=1 [vi-kill-line]=1 [vi-match-bracket]=1 [vi-open-line-above]=1 [vi-
+open-line-below]=1 [vi-oper-swap-case]=1 [vi-pound-insert]=1 [vi-put-after]=1 [vi-put-before]=1 [vi-quoted-insert]=1 [vi-repeat-change]=1 [vi-repeat-find]=1 [vi-repeat-search]=1 [vi-replace]=1 [vi-replace-chars]=1 [vi-rev-repeat-find]=
+1 [vi-rev-repeat-search]=1 [vi-set-buffer]=1 [vi-set-mark]=1 [vi-substitute]=1 [vi-swap-case]=1 [vi-undo-change]=1 [vi-unindent]=1 [vi-up-case]=1 [vi-up-line-or-history]=1 [vi-yank]=1 [vi-yank-eol]=1 [vi-yank-whole-line]=1 [visual-line
+-mode]=1 [visual-mode]=1 [what-cursor-position]=1 [where-is]=1 )
+_ZSH_AUTOSUGGEST_BUILTIN_ACTIONS=( clear fetch suggest accept execute enable disable toggle )
+_ZSH_AUTOSUGGEST_CHILD_PID=14789
+_ZSH_HIGHLIGHT_PRIOR_BUFFER=''
+_ZSH_HIGHLIGHT_PRIOR_CURSOR=0
+_comp_assocs=( '' )
+_comp_dumpfile=/home/liv/.cache/zcompdump
+_comp_options
+_comp_setup
+_compautos
+_comps
+_lastcomp
+_patcomps
+_postpatcomps
+_services
+_zsh_highlight__highlighter_brackets_cache=(  )
+_zsh_highlight__highlighter_main_cache=( '0 3 fg=cyan' '4 5 fg=blue,bold' '6 10 fg=cyan' )
+_zsh_highlight__highlighter_pattern_cache=(  )
+_zsh_highlight_main__command_type_cache=( [g]=none [gr]=none [gre]=none [m]=none [mo]=none [mor]=none [more]=command [s]=none [se]=none [set]=builtin [st]=none )
+aliases
+argv=(  )
+builtins
+cdpath=(  )
+commands
+comppostfuncs=(  )
+compprefuncs=(  )
+debian_missing_features=(  )
+dirstack
+dis_aliases
+dis_builtins
+dis_functions
+dis_functions_source
+dis_galiases
+dis_patchars
+dis_reswords
+dis_saliases
+errnos
+fignore=(  )
+fpath=( /usr/local/share/zsh/site-functions /usr/share/zsh/vendor-functions /usr/share/zsh/vendor-completions /usr/s
+/Completion/AIX /usr/share/zsh/functions/Completion/BSD /usr/share/zsh/functions/Completion/Base /usr/share/zsh/func
+e/zsh/functions/Completion/Linux /usr/share/zsh/functions/Completion/Mandriva /usr/share/zsh/functions/Completion/Re
+letion/X /usr/share/zsh/functions/Completion/Zsh /usr/share/zsh/functions/Completion/openSUSE /usr/share/zsh/functio
+functions/Newuser /usr/share/zsh/functions/Prompts /usr/share/zsh/functions/TCP /usr/share/zsh/functions/VCS_Info /u
+funcfiletrace
+funcsourcetrace
+funcstack
+functions
+functions_source
+functrace
+galiases
+histchars='!^#'
+history
+historywords
+jobdirs
+jobstates
+jobtexts
+key=( [BackSpace]=$'\C-?' [Delete]=$'\C-[[3~' [Down]=$'\C-[OB' [End]=$'\C-[OF' [Home]=$'\C-[OH' [Insert]=$'\C-[[2~' 
+keymaps
+mailpath=(  )
+manpath=(  )
+module_path=( /usr/lib/x86_64-linux-gnu/zsh/5.9 )
+modules
+nameddirs
+options
+parameters
+patchars
+path=( /home/liv/.local/bin /usr/local/sbin /usr/sbin /sbin /usr/local/bin /usr/bin /bin /usr/local/games /usr/games
+pipestatus=( 0 )
+precmd_functions=( _zsh_highlight_main__precmd_hook _zsh_autosuggest_start )
+preexec_functions=( _zsh_highlight_preexec_hook )
+prompt=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%
+lue}$)%b%F{reset} '
+psvar=(  )
+reswords
+saliases
+signals=( EXIT HUP INT QUIT ILL TRAP IOT BUS FPE KILL USR1 SEGV USR2 PIPE ALRM TERM STKFLT CHLD CONT STOP TSTP TTIN 
+status=0
+sysparams
+termcap
+terminfo
+userdirs
+usergroups
+watch
+widgets
+zle_bracketed_paste=( $'\C-[[?2004h' $'\C-[[?2004l' )
+zsh_eval_context=( toplevel )
+zsh_highlight__pat_static_bug=false
+zsh_scheduled_events

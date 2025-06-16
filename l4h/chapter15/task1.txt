@@ -1,0 +1,7 @@
+┌──(liv㉿durden)-[~/l4h/chapter15]
+└─$ uname -a
+Linux durden 6.11.2-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.11.2-1kali1 (2024-10-15) x86_64 GNU/Linux
+                                                                                                                                                                                                                                           
+┌──(liv㉿durden)-[~/l4h/chapter15]
+└─$ cat /proc/version    
+Linux version 6.11.2-amd64 (devel@kali.org) (x86_64-linux-gnu-gcc-14 (Debian 14.2.0-6) 14.2.0, GNU ld (GNU Binutils for Debian) 2.43.1) #1 SMP PREEMPT_DYNAMIC Kali 6.11.2-1kali1 (2024-10-15)

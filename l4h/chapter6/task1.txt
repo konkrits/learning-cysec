@@ -1,0 +1,9 @@
+──(liv㉿durden)-[~/l4h/chapter6]
+└─$ ps aux             
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.9  0.3  23428 14036 ?        Ss   20:55   0:01 /sbin/init splash
+
+--------------------snipet-----------------------
+
+liv         3292  0.0  0.0   9484  4268 pts/0    R+   20:57   0:00 ps aux
+

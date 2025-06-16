@@ -1,0 +1,8 @@
+(liv㉿durden)-[~/Desktop]
+└─$ sudo apt-get update        
+Hit:1 https://brave-browser-apt-release.s3.brave.com stable InRelease
+Get:2 http://kali.download/kali kali-rolling InRelease [41.5 kB]     
+Get:3 http://kali.download/kali kali-rolling/main amd64 Packages [20.3 MB]
+Get:4 http://kali.download/kali kali-rolling/main amd64 Contents (deb) [48.9 MB]                                   
+Fetched 69.2 MB in 24s (2,857 kB/s)                                                                                
+Reading package lists... Done

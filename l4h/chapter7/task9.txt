@@ -1,0 +1,4 @@
+┌──(liv㉿durden)-[~]
+└─$ PS1="World Greatest hacker: "
+
+World Greatest hacker: 

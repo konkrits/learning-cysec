@@ -1,0 +1,2 @@
+┌──(liv㉿durden)-[~/l4h/chapter10]
+└─$ umount /dev/sdb1  

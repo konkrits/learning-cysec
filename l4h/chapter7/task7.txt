@@ -1,0 +1,3 @@
+┌──(liv㉿durden)-[~]                                                                                                
+└─$ echo $PATH
+/home/liv/.local/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/liv/.dotnet/tools  

@@ -1,0 +1,7 @@
+┌──(liv㉿durden)-[~/l4h/chapter8/task1]
+└─$ ./firshgreet.sh
+what is your name?
+Liv
+what cahpter you are now?
+8
+welcome Liv you are now in chapter 8 in linuxbasic4hacker book

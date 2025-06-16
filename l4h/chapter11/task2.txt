@@ -1,0 +1,3 @@
+# keep 4 weeks worth of backlogs
+rotate 1
+

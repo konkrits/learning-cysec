@@ -1,0 +1,4 @@
+locate wordlist.txt
+/usr/share/legion/wordlists/gvit_subdomain_wordlist.txt
+/usr/share/set/src/fasttrack/wordlist.txt
+/usr/share/sqlmap/data/txt/wordlist.txt

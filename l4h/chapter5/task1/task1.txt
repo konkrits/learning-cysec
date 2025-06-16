@@ -1,0 +1,5 @@
+┌──(liv㉿durden)-[~/l4h/chapter5/task1]
+└─$ ls -l
+total 4
+drwxr-xr-x 2 root root 4096 Dec 19 15:42 rootdir
+-rw-r--r-- 1 root root    0 Dec 19 15:42 rootfile

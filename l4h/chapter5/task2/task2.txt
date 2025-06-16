@@ -1,0 +1,22 @@
+UGO METHOD
+
+┌──(liv㉿durden)-[~/l4h/chapter5]
+└─$ chmod u+x task2succes.sh     
+                                                                                                                    
+┌──(liv㉿durden)-[~/l4h/chapter5]
+└─$ ls -l
+total 12
+drwxrwxr-x 3 liv liv 4096 Dec 19 15:44 task1
+-rw-rw-r-- 1 liv liv   69 Dec 19 15:46 task2.sh
+-r-xr--r-- 1 liv liv   63 Dec 19 15:47 task2succes.sh
+
+
+┌──(liv㉿durden)-[~/l4h/chapter5]
+└─$ chmod 744 task2succes.sh
+                                                                                                                    
+┌──(liv㉿durden)-[~/l4h/chapter5]
+└─$ ls -l
+total 12
+drwxrwxr-x 3 liv liv 4096 Dec 19 15:44 task1
+-rw-rw-r-- 1 liv liv   69 Dec 19 15:46 task2.sh
+-rwxr--r-- 1 liv liv   63 Dec 19 15:47 task2succes.sh

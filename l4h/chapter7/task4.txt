@@ -1,0 +1,2 @@
+┌──(liv㉿durden)-[~/l4h/chapter7]
+└─$ MYNEWVARIABLE="Liv tyler"

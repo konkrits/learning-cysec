@@ -1,0 +1,23 @@
+liv㉿durden)-[~/Desktop]
+└─$ sudo apt-get purge synaptic   
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  imagemagick-6-common imagemagick-6.q16 libbfio1 libc++1-19 libc++abi1-19 libept1.6.0t64 libfmt9
+  libmagickcore-6.q16-7-extra libmagickcore-6.q16-7t64 libmagickwand-6.q16-7t64 libmbedcrypto7t64 libsuperlu6
+  libunwind-19 libxapian30
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  synaptic*
+0 upgraded, 0 newly installed, 1 to remove and 17 not upgraded.
+After this operation, 7,839 kB disk space will be freed.
+Do you want to continue? [Y/n] Y
+(Reading database ... 405675 files and directories currently installed.)
+Removing synaptic (0.91.3+b1) ...
+Processing triggers for desktop-file-utils (0.28-1) ...
+Processing triggers for hicolor-icon-theme (0.18-1) ...
+Processing triggers for man-db (2.13.0-1) ...
+Processing triggers for kali-menu (2024.4.0) ...
+(Reading database ... 405395 files and directories currently installed.)
+Purging configuration files for synaptic (0.91.3+b1) ...

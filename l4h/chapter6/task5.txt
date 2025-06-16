@@ -1,0 +1,13 @@
+this is at for task5
+
+┌──(liv㉿durden)-[~/l4h/chapter6]
+└─$ at 7:20am december 25
+warning: commands will be executed using /bin/sh
+at Wed Dec 25 07:20:00 2024
+at> /home/liv/l4h/chapter6/task5.txt
+at> <EOT>
+job 2 at Wed Dec 25 07:20:00 2024
+                                                                                                                    
+┌──(liv㉿durden)-[~/l4h/chapter6]
+└─$ atq                  
+2       Wed Dec 25 07:20:00 2024 a liv

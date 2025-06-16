@@ -1,0 +1,9 @@
+liv㉿durden)-[~/l4h/chapter3]
+└─$ sudo ifconfig eth0 hw ether 00:11:22:33:44:55
+
+liv㉿durden)-[~/l4h/chapter3]
+└─$ ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.5  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::211:22ff:fe33:4455  prefixlen 64  scopeid 0x20<link>
+        ether 00:11:22:33:44:55  

@@ -1,0 +1,17 @@
+──(liv㉿durden)-[~/l4h/chapter10]
+└─$ sudo fdisk -l     
+[sudo] password for liv: 
+Sorry, try again.
+[sudo] password for liv: 
+Disk /dev/sda: 45.18 GiB, 48507846656 bytes, 94741888 sectors
+Disk model: VBOX HARDDISK   
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x7018f7b0
+
+Device     Boot    Start      End  Sectors  Size Id Type
+/dev/sda1  *        2048 89817087 89815040 42.8G 83 Linux
+/dev/sda2       89819134 94740479  4921346  2.3G  f W95 Ext'd (LBA)
+/dev/sda5       89819136 94740479  4921344  2.3G 82 Linux swap / Solaris

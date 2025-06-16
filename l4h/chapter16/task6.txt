@@ -1,0 +1,2 @@
+┌──(liv㉿durden)-[~/l4h/chapter16]
+└─$ sudo apt install rcconf  

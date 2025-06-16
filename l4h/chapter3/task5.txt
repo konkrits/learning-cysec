@@ -1,0 +1,3 @@
+(liv㉿durden)-[~/l4h/chapter3]
+└─$ sudo dhclient eth0   
+Error: ipv4: Address already assigned.

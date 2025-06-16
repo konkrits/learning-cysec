@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "what is your name? "
+
+read name
+
+echo "what chapter you now? "
+
+read chapter
+
+echo "welcome back" $name "and you now in chapter" $chapter "in books of basic linux"
+
+

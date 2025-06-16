@@ -1,0 +1,12 @@
+┌──(liv㉿durden)-[~/l4h/chapter11]
+└─$ tail /var/log/syslog      
+2024-12-27T10:15:43.992066+07:00 durden rsyslogd: imuxsock: Acquired UNIX socket '/run/systemd/journal/syslog' (fd 3) from systemd.  [v8.2410.0]
+2024-12-27T10:15:43.992217+07:00 durden rsyslogd: [origin software="rsyslogd" swVersion="8.2410.0" x-pid="15589" x-info="https://www.rsyslog.com"] start
+2024-12-27T10:15:43.992292+07:00 durden systemd[1]: Started rsyslog.service - System Logging Service.
+2024-12-27T10:17:01.563544+07:00 durden CRON[16306]: (root) CMD (cd / && run-parts --report /etc/cron.hourly)
+2024-12-27T10:18:13.211194+07:00 durden NetworkManager[645]: <info>  [1735269493.2103] dhcp4 (eth0): state changed new lease, address=10.0.2.15
+2024-12-27T10:18:13.212597+07:00 durden dbus-daemon[566]: [system] Activating via systemd: service name='org.freedesktop.nm_dispatcher' unit='dbus-org.freedesktop.nm-dispatcher.service' requested by ':1.4' (uid=0 pid=645 comm="/usr/sbin/NetworkManager --no-daemon")
+2024-12-27T10:18:13.217249+07:00 durden systemd[1]: Starting NetworkManager-dispatcher.service - Network Manager Script Dispatcher Service...
+2024-12-27T10:18:13.268625+07:00 durden dbus-daemon[566]: [system] Successfully activated service 'org.freedesktop.nm_dispatcher'
+2024-12-27T10:18:13.269314+07:00 durden systemd[1]: Started NetworkManager-dispatcher.service - Network Manager Script Dispatcher Service.
+2024-12-27T10:18:23.425656+07:00 durden systemd[1]: NetworkManager-dispatcher.service: Deactivated successfully.

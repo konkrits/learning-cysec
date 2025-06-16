@@ -1,0 +1,6 @@
+┌──(liv㉿durden)-[~/l4h/chapter9/task4]
+└─$ ll
+total 20
+-rw-rw-r-- 1 liv liv   317 Dec 22 23:17 l4h1.tar.bz2
+-rw-rw-r-- 1 liv liv   633 Dec 22 23:18 l4h2.tar.Z
+-rw-rw-r-- 1 liv liv 10240 Dec 22 23:16 l4h.tar

@@ -1,0 +1,9 @@
+┌──(liv㉿durden)-[~/l4h/chapter12]
+└─$ sudo service ssh start   
+
+┌──(liv㉿durden)-[~/l4h/chapter12]
+└─$ ssh liv@10.0.2.4   
+
+Last login: Tue Dec 24 15:58:35 2024 from 192.168.1.5
+liv@ubuntu:~$ 
+

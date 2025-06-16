@@ -1,0 +1,2 @@
+┌──(liv㉿durden)-[~/l4h/chapter14]
+└─$ nmcli dev wifi connect pek password 12345678

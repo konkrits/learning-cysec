@@ -1,0 +1,5 @@
+┌──(liv㉿durden)-[~/l4h/chapter14]
+└─$ nmcli dev wifi                              
+IN-USE  BSSID              SSID       MODE   CHAN  RATE        SIGNAL  BARS  SECURITY  
+        78:91:E9:AF:41:0C  waifasyaa  Infra  1     270 Mbit/s  62      ▂▄▆_  WPA1 WPA2 
+*       52:FE:7E:4D:5B:F7  pek        Infra  7     117 Mbit/s  61      ▂▄▆_  WPA2      

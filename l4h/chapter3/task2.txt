@@ -1,0 +1,9 @@
+                                                                                                                
+┌──(liv㉿durden)-[~/l4h/chapter3]
+└─$ sudo ifconfig eth0 192.168.1.1
+[sudo] password for liv: 
+                                                                                                                    
+┌──(liv㉿durden)-[~/l4h/chapter3]
+└─$ ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.1  

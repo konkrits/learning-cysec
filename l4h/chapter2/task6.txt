@@ -1,0 +1,21 @@
+tail -20 password.lst   
+zxcvbnm
+zydeco
+zygote
+zygotic
+zymurgy
+zyrtec
+zyuganov
+zzz
+zürich
+Ågar
+Ångström
+éclair
+éclairs
+éclat
+élan
+émigré
+émigrés
+épée
+étude
+vagrant

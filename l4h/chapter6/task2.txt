@@ -1,0 +1,7 @@
+┌──(liv㉿durden)-[~/l4h/chapter6]
+└─$ top      
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                      
+   1611 root      20   0  484356 179976  76516 S   1.0   3.9   0:07.47 Xorg                                         
+   1952 liv       20   0  338140  28000  20936 S   0.7   0.6   0:00.69 panel-15-genmon                              
+   2264 liv       20   0  696368 114228  92008 S   0.7   2.5   0:03.73 qterminal           

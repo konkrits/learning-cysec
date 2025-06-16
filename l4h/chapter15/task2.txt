@@ -1,0 +1,89 @@
+┌──(root㉿durden)-[/home/liv/l4h/chapter15]
+└─# lsmod
+Module                  Size  Used by
+snd_seq_dummy          12288  0
+snd_hrtimer            12288  1
+snd_seq               110592  7 snd_seq_dummy
+snd_seq_device         16384  1 snd_seq
+vboxvideo              36864  0
+drm_vram_helper        28672  1 vboxvideo
+rfkill                 40960  2
+qrtr                   57344  2
+sunrpc                872448  1
+binfmt_misc            28672  1
+intel_rapl_msr         20480  0
+intel_rapl_common      53248  1 intel_rapl_msr
+kvm_amd               217088  0
+ccp                   163840  1 kvm_amd
+snd_intel8x0           49152  1
+kvm                  1372160  1 kvm_amd
+snd_ac97_codec        196608  1 snd_intel8x0
+ac97_bus               12288  1 snd_ac97_codec
+snd_pcm               188416  2 snd_intel8x0,snd_ac97_codec
+vboxguest              53248  1
+snd_timer              53248  3 snd_seq,snd_hrtimer,snd_pcm
+snd                   155648  10 snd_seq,snd_seq_device,snd_intel8x0,snd_timer,snd_ac97_codec,snd_pcm
+pcspkr                 12288  0
+soundcore              16384  1 snd
+joydev                 24576  0
+ac                     16384  0
+sg                     45056  0
+evdev                  28672  10
+serio_raw              16384  0
+configfs               69632  1
+efi_pstore             12288  0
+nfnetlink              20480  1
+vsock_loopback         12288  0
+vmw_vsock_virtio_transport_common    61440  1 vsock_loopback
+vmw_vsock_vmci_transport    45056  0
+vsock                  61440  5 vmw_vsock_virtio_transport_common,vsock_loopback,vmw_vsock_vmci_transport
+vmw_vmci              110592  1 vmw_vsock_vmci_transport
+ip_tables              28672  0
+x_tables               53248  1 ip_tables
+autofs4                57344  2
+ext4                 1142784  1
+crc16                  12288  1 ext4
+mbcache                16384  1 ext4
+jbd2                  200704  1 ext4
+crc32c_generic         12288  0
+hid_generic            12288  0
+usbhid                 77824  0
+hid                   262144  2 usbhid,hid_generic
+sr_mod                 28672  0
+cdrom                  81920  1 sr_mod
+sd_mod                 81920  2
+crct10dif_pclmul       12288  1
+crc32_pclmul           12288  0
+ata_generic            12288  0
+crc32c_intel           16384  2
+ahci                   49152  2
+ghash_clmulni_intel    16384  0
+xhci_pci               24576  0
+libahci                61440  1 ahci
+ata_piix               45056  0
+vmwgfx                466944  1
+xhci_hcd              364544  1 xhci_pci
+drm_ttm_helper         16384  4 vmwgfx,drm_vram_helper,vboxvideo
+sha512_ssse3           53248  0
+libata                458752  4 ata_piix,libahci,ahci,ata_generic
+ttm                   102400  3 vmwgfx,drm_vram_helper,drm_ttm_helper
+usbcore               405504  3 xhci_hcd,usbhid,xhci_pci
+sha256_ssse3           32768  0
+drm_kms_helper        249856  4 vmwgfx,drm_vram_helper,vboxvideo,drm_ttm_helper
+i2c_piix4              28672  0
+scsi_mod              327680  4 sd_mod,libata,sg,sr_mod
+drm                   765952  8 vmwgfx,drm_kms_helper,drm_vram_helper,vboxvideo,drm_ttm_helper,ttm
+psmouse               212992  0
+sha1_ssse3             32768  0
+e1000                 180224  0
+scsi_common            16384  5 scsi_mod,sd_mod,libata,sg,sr_mod
+usb_common             16384  2 xhci_hcd,usbcore
+video                  81920  0
+i2c_smbus              16384  1 i2c_piix4
+battery                28672  0
+wmi                    32768  1 video
+button                 24576  0
+aesni_intel           122880  0
+gf128mul               16384  1 aesni_intel
+crypto_simd            16384  1 aesni_intel
+cryptd                 28672  2 crypto_simd,ghash_clmulni_intel

@@ -1,0 +1,2 @@
+┌──(root㉿durden)-[/home/liv/l4h/chapter10]
+└─# fsck -p /dev/sdb1

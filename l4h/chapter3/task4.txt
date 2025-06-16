@@ -1,0 +1,6 @@
+┌──(liv㉿durden)-[~/l4h/chapter3]
+└─$ iwconfig
+lo        no wireless extensions.
+
+eth0      no wireless extensions.
+

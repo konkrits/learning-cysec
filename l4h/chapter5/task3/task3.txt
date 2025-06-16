@@ -1,0 +1,12 @@
+liv㉿durden)-[~/l4h/chapter5/task3]
+└─$ ls -l
+total 0
+-rwxrwxrwx 1 tyler liv 0 Dec 19 16:19 tylerfile
+                                                                                                                    
+┌──(liv㉿durden)-[~/l4h/chapter5/task3]
+└─$ sudo chown liv tylerfile  
+                                                                                                                    
+┌──(liv㉿durden)-[~/l4h/chapter5/task3]
+└─$ ls -l
+total 0
+-rwxrwxrwx 1 liv liv 0 Dec 19 16:19 tylerfile

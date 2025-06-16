@@ -1,0 +1,3 @@
+┌──(root㉿durden)-[/home/liv/l4h/chapter11]
+└─# locate rsyslog
+/usr/share/metasploit-framework/modules/auxiliary/dos/syslog/rsyslog_long_tag.rb

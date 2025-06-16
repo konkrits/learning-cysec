@@ -1,0 +1,32 @@
+                                                                                                                                                                                                                                           
+┌──(liv㉿durden)-[~/l4h/chapter5]
+└─$ sudo find / -user root -perm -400 | tail -n -20
+find: ‘/run/user/1000/gvfs’: Permission denied
+find: ‘/run/user/1000/doc’: Permission denied
+find: ‘/proc/1916/task/1916/net’: Invalid argument
+find: ‘/proc/1916/net’: Invalid argument
+find: ‘/proc/5535/task/5535/fd/5’: No such file or directory
+find: ‘/proc/5535/task/5535/fdinfo/5’: No such file or directory
+find: ‘/proc/5535/fd/6’: No such file or directory
+find: ‘/proc/5535/fdinfo/6’: No such file or directory
+/dev/kvm
+/dev/vcs2
+/dev/vcsu2
+/dev/vcsa2
+/dev/vcs3
+/dev/vcsu3
+/dev/vcsa3
+/dev/vcs4
+/dev/vcsu4
+/dev/vcsa4
+/dev/vcs5
+/dev/vcsu5
+/dev/vcsa5
+/dev/vcs6
+/dev/vcsu6
+/dev/vcsa6
+/dev/vcs7
+/dev/vcsu7
+/dev/vcsa7
+/lib32
+        

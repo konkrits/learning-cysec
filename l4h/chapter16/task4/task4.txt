@@ -1,0 +1,1 @@
+@noon           liv     /home/lic/l4h/chapter16/task4/mysqlscanner.sh

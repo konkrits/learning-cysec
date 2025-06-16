@@ -1,0 +1,75 @@
+liv㉿durden)-[~/l4h/chapter3]
+└─$ dig tiktok.com          
+
+; <<>> DiG 9.20.4-2-Debian <<>> tiktok.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 31424
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;tiktok.com.                    IN      A
+
+;; ANSWER SECTION:
+tiktok.com.             60      IN      A       108.156.133.118
+tiktok.com.             60      IN      A       108.156.133.4
+tiktok.com.             60      IN      A       108.156.133.28
+tiktok.com.             60      IN      A       108.156.133.46
+
+;; Query time: 140 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8) (UDP)
+;; WHEN: Thu Dec 19 07:03:11 WIB 2024
+;; MSG SIZE  rcvd: 103
+
+                                                                                                                    
+┌──(liv㉿durden)-[~/l4h/chapter3]
+└─$ dig tiktok.com ns
+
+; <<>> DiG 9.20.4-2-Debian <<>> tiktok.com ns
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 37695
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;tiktok.com.                    IN      NS
+
+;; ANSWER SECTION:
+tiktok.com.             9810    IN      NS      ns-1574.awsdns-04.co.uk.
+tiktok.com.             9810    IN      NS      ns-440.awsdns-55.com.
+tiktok.com.             9810    IN      NS      ns-722.awsdns-26.net.
+tiktok.com.             9810    IN      NS      ns-1475.awsdns-56.org.
+
+;; Query time: 80 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8) (UDP)
+;; WHEN: Thu Dec 19 07:03:25 WIB 2024
+;; MSG SIZE  rcvd: 176
+
+                                                                                                                    
+┌──(liv㉿durden)-[~/l4h/chapter3]
+└─$ dig tiktok.com mx
+
+; <<>> DiG 9.20.4-2-Debian <<>> tiktok.com mx
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 25319
+;; flags: qr rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;tiktok.com.                    IN      MX
+
+;; ANSWER SECTION:
+tiktok.com.             3040    IN      MX      20 mx2.tiktok.com.
+tiktok.com.             3040    IN      MX      10 mx1.tiktok.com.
+tiktok.com.             3040    IN      MX      30 mx3.tiktok.com.
+
+;; Query time: 128 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8) (UDP)
+;; WHEN: Thu Dec 19 07:03:40 WIB 2024
+;; MSG SIZE  rcvd: 99

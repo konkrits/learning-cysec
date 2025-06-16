@@ -1,0 +1,8 @@
+┌──(liv㉿durden)-[~/l4h/chapter15]
+└─$ sudo sysctl -w net.ipv4.ip_forward=0
+[sudo] password for liv: 
+net.ipv4.ip_forward = 0
+
+sudo nano costum_ip_forward.conf
+
+net.ipvv4.ip_forward=0

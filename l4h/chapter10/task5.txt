@@ -1,0 +1,8 @@
+┌──(root㉿durden)-[/home/liv/l4h/chapter10]
+└─# lsblk            
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda      8:0    0 45.2G  0 disk 
+├─sda1   8:1    0 42.8G  0 part /
+├─sda2   8:2    0    1K  0 part 
+└─sda5   8:5    0  2.3G  0 part [SWAP]
+sr0     11:0    1 56.9M  0 rom  

@@ -1,0 +1,5 @@
+┌──(liv㉿durden)-[~/l4h/chapter7]
+└─$ echo $MYNEWVARIABLE
+Liv tyler
+                                        
+

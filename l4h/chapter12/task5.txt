@@ -1,0 +1,154 @@
+──(liv㉿durden)-[~]
+└─$ sudo apt install postgresql  
+[sudo] password for liv: 
+postgresql is already the newest version (17+264).
+The following packages were automatically installed and are no longer required:
+  imagemagick-6-common  libbfio1    libc++abi1-19  libept1.6.0t64  libgl1-mesa-dev  libgles1           libglvnd-dev                 libmagickcore-6.q16-7t64  libmbedcrypto7t64  libunwind-19
+  imagemagick-6.q16     libc++1-19  libegl-dev     libfmt9         libgles-dev      libglvnd-core-dev  libmagickcore-6.q16-7-extra  libmagickwand-6.q16-7t64  libsuperlu6        libxapian30
+Use 'sudo apt autoremove' to remove them.
+
+Summary:
+  Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: 21
+                                                                                                                                                                                                                                           
+┌──(liv㉿durden)-[~]
+└─$ sudo service postgresql start
+                                                                                                                                                                                                                                           
+┌──(liv㉿durden)-[~]
+└─$ msfconsole      
+Metasploit tip: Use the analyze command to suggest runnable modules for 
+hosts
+                                                  
+
+ ______________________________________________________________________________
+|                                                                              |
+|                   METASPLOIT CYBER MISSILE COMMAND V5                        |
+|______________________________________________________________________________|
+      \                                  /                      /
+       \     .                          /                      /            x
+        \                              /                      /
+         \                            /          +           /
+          \            +             /                      /
+           *                        /                      /
+                                   /      .               /
+    X                             /                      /            X
+                                 /                     ###
+                                /                     # % #
+                               /                       ###
+                      .       /
+     .                       /      .            *           .
+                            /
+                           *
+                  +                       *
+
+                                       ^
+####      __     __     __          #######         __     __     __        ####
+####    /    \ /    \ /    \      ###########     /    \ /    \ /    \      ####
+################################################################################
+################################################################################
+# WAVE 5 ######## SCORE 31337 ################################## HIGH FFFFFFFF #
+################################################################################
+                                                           https://metasploit.com
+
+
+       =[ metasploit v6.4.38-dev                          ]
++ -- --=[ 2466 exploits - 1273 auxiliary - 393 post       ]
++ -- --=[ 1475 payloads - 49 encoders - 13 nops           ]
++ -- --=[ 9 evasion                                       ]
+
+Metasploit Documentation: https://docs.metasploit.com/
+
+msf6 > msfdbinit
+[-] Unknown command: msfdbinit. Run the help command for more details.
+msf6 > msfdb init
+[*] exec: msfdb init
+
+[-] Error: /usr/bin/msfdb must be run as root
+msf6 > sudo msfdb init
+[*] exec: sudo msfdb init
+
+[i] Database already started
+[+] Creating database user 'msf'
+[+] Creating databases 'msf'
+[+] Creating databases 'msf_test'
+[+] Creating configuration file '/usr/share/metasploit-framework/config/database.yml'
+[+] Creating initial database schema
+msf6 > sudo su postgresql
+[*] exec: sudo su postgresql
+
+su: user postgresql does not exist or the user entry does not contain all the required fields
+msf6 > su postgres
+[*] exec: su postgres
+
+Password: 
+su: Authentication failure
+msf6 > Interrupt: use the 'exit' command to quit
+msf6 > exit
+                                                                                                                                                                                                                                           
+┌──(liv㉿durden)-[~]
+└─$ sudo su                      
+┌──(root㉿durden)-[/home/liv]
+└─# msfconsole   
+Metasploit tip: Open an interactive Ruby terminal with irb
+                                                  
+                                   ___          ____
+                               ,-""   `.      < HONK >
+                             ,'  _   e )`-._ /  ----                                                                                                                                                                                       
+                            /  ,' `-._<.===-'                                                                                                                                                                                              
+                           /  /                                                                                                                                                                                                            
+                          /  ;                                                                                                                                                                                                             
+              _          /   ;                                                                                                                                                                                                             
+ (`._    _.-"" ""--..__,'    |                                                                                                                                                                                                             
+ <_  `-""                     \                                                                                                                                                                                                            
+  <`-                          :                                                                                                                                                                                                           
+   (__   <__.                  ;                                                                                                                                                                                                           
+     `-.   '-.__.      _.'    /                                                                                     
+        \      `-.__,-'    _,'                                                                                      
+         `._    ,    /__,-'                                                                                         
+            ""._\__,'< <____                                                                                        
+                 | |  `----.`.                                                                                      
+                 | |        \ `.                                                                                    
+                 ; |___      \-``                                                                                   
+                 \   --<                                                                                            
+                  `.`.<                                                                                             
+                    `-'                                                                                             
+                                                                                                                    
+                                                                                                                    
+
+       =[ metasploit v6.4.38-dev                          ]
++ -- --=[ 2466 exploits - 1273 auxiliary - 393 post       ]
++ -- --=[ 1475 payloads - 49 encoders - 13 nops           ]
++ -- --=[ 9 evasion                                       ]
+
+Metasploit Documentation: https://docs.metasploit.com/
+
+msf6 > msfdb init
+[*] exec: msfdb init
+
+[i] Database already started
+[i] The database appears to be already configured, skipping initialization
+msf6 > su postgres
+[*] exec: su postgres
+
+postgres@durden:/home/liv$ createuser msf_user -p
+/usr/lib/postgresql/17/bin/createuser: option requires an argument -- 'p'
+createuser: hint: Try "createuser --help" for more information.
+postgres@durden:/home/liv$ createuser msf_user -P
+Enter password for new role: 
+Enter it again: 
+postgres@durden:/home/liv$ createdb --owner=msf_user user_db
+postgres@durden:/home/liv$ exit
+exit
+msf6 > db_connect msf_user:post@10.0.2.15/user_db
+[-] Connection already established. Only one connection is allowed at a time.
+[-] Run db_disconnect first if you wish to connect to a different data service.
+
+Current connection information:
+[*] Connected to msf. Connection type: postgresql.
+msf6 > db_status
+[*] Connected to msf. Connection type: postgresql.
+msf6 > exit
+                                                                                                                    
+┌──(root㉿durden)-[/home/liv]
+└─# su liv
+┌──(liv㉿durden)-[~]
+└─$ sudo service postgresql stop                

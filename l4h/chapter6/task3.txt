@@ -1,0 +1,2 @@
+┌──(liv㉿durden)-[~/l4h/chapter6]
+└─$ sudo kill -9 2675      

@@ -1,0 +1,55 @@
+┌──(liv㉿durden)-[~]
+└─$ sudo service apache2 start   
+                                                                                                                    
+┌──(liv㉿durden)-[~]
+└─$ sudo systemctl status apache2
+● apache2.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/apache2.service; disabled; preset: disabled)
+     Active: active (running) since Tue 2024-12-24 19:57:17 WIB; 20s ago
+ Invocation: e07239947fb94585b6a3b9832a30b47d
+       Docs: https://httpd.apache.org/docs/2.4/
+    Process: 13600 ExecStart=/usr/sbin/apachectl start (code=exited, status=0/SUCCESS)
+   Main PID: 13616 (apache2)
+      Tasks: 6 (limit: 5191)
+     Memory: 24.1M (peak: 24.5M)
+        CPU: 77ms
+     CGroup: /system.slice/apache2.service
+             ├─13616 /usr/sbin/apache2 -k start
+             ├─13619 /usr/sbin/apache2 -k start
+             ├─13620 /usr/sbin/apache2 -k start
+             ├─13621 /usr/sbin/apache2 -k start
+             ├─13622 /usr/sbin/apache2 -k start
+             └─13623 /usr/sbin/apache2 -k start
+
+Dec 24 19:57:16 durden systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Dec 24 19:57:17 durden apachectl[13615]: AH00558: apache2: Could not reliably determine the server's fully qualifie>
+Dec 24 19:57:17 durden systemd[1]: Started apache2.service - The Apache HTTP Server.
+lines 1-21/21 (END)
+
+┌──(root㉿durden)-[/home/liv/l4h/chapter12]
+└─# mysql -u root -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 35
+Server version: 11.4.3-MariaDB-1 Debian n/a
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.001 sec)
+
+MariaDB [(none)]> use mysql;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [mysql]> ALTER USER 'root'@'localhost' IDENTIFIED BY 'abcd';
+Query OK, 0 rows affected (0.002 sec)
