@@ -1,0 +1,7 @@
+http://192.168.72.129/
+http://192.168.72.129/WebGoat/attack
+http://192.168.72.129/ghost
+http://192.168.72.129/ESAPI-Java-SwingSet-Interactive/main
+http://192.168.72.129/webgoat.net/
+http://192.168.72.129/wordpress/
+http://192.168.72.129/orangehrm/login.php

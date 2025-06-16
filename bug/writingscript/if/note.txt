@@ -1,0 +1,9 @@
+for syntax of if statement is
+
+if [ "variable/data" == "something" ]; then
+	do something
+elif [ "variable/date" == "something" ]; then
+	do something
+else
+	do something else
+fi

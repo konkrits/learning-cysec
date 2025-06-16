@@ -1,0 +1,6 @@
+for syntax of function is
+
+function_name()
+{
+	do something
+}
