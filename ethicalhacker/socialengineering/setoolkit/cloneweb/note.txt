@@ -1,0 +1,32 @@
+setoolkit clone website
+
+part 1  setoolkit
+
+this is tool used for social engineering 
+
+setoolkit have 6 menu with different attack method for this task
+i am gonna use (1) 
+
+from menu 1 social engineering attack containing 8 menu
+select 2
+
+the goal is to clone website so choose 3 credential harvester attack and select 2 site cloner
+
+enter my ip addres 
+
+now clone the site that you want to clone
+
+now from the real life attack this is where the attacker create exploit so for simulation i am going to create html that containing my clone website
+
+now open the html and noticed that is my ip machine so when u give some password and username setoolkit will look like this
+
+
+after you enter the username and password the web will redirect quickly to the real one
+
+the report will store in root .set/report/"date"
+
+
+
+
+
+
