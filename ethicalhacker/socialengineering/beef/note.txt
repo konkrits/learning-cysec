@@ -1,0 +1,22 @@
+step 1 launch beef
+
+use sudo beef-xss the default port for beef is 3000 and navigate to them
+
+side pannel is where the victim located in online or offline browser and the four tab in main menu
+
+step 2 attack with fake notification
+
+click online browser > current browser >social engineering > fake notification bar (browser type)
+
+at this point attacker could use some phising trick and redirect victim to download malware
+
+but in this i am going to redirect victim to owaspdwa
+
+step 3 tabnnabing
+  
+in social engineering tab select tabnabbing and specify time what you want
+
+tabnabbing mean the tab in browser will automatically redirect to a website
+within spesific amount of time 
+
+
