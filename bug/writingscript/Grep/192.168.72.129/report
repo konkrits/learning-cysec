@@ -1,0 +1,9 @@
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+139/tcp  open  netbios-ssn
+143/tcp  open  imap
+443/tcp  open  https
+445/tcp  open  microsoft-ds
+8080/tcp open  http-proxy
+8081/tcp open  blackice-icecap
