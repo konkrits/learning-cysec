@@ -1,0 +1,7 @@
+ganti url paramater ke random alphanumeric
+
+ispect dan cari random alphanumeric nya
+
+jika ada maka masukan payload berikut
+
+ganti dari returnPath=/ returnPath=javascript:alert(document.cookie)

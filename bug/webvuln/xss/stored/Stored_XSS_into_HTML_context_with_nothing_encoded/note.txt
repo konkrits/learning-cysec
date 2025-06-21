@@ -1,0 +1,107 @@
+Apa itu Stored XSS?
+
+Stored Cross-Site Scripting (XSS) adalah jenis kerentanan keamanan yang terjadi ketika data berbahaya disimpan di server (misalnya, dalam database) dan kemudian disajikan kembali kepada pengguna tanpa validasi atau encoding yang tepat. Ini berbeda dengan Reflected XSS, di mana skrip berbahaya hanya dieksekusi saat pengguna mengklik tautan tertentu.
+Konteks Kerentanan Stored XSS
+
+Dalam konteks ini, kita akan membahas kerentanan Stored XSS yang terjadi pada fitur komentar di sebuah aplikasi web. Misalnya, jika pengguna dapat mengirimkan komentar yang berisi skrip berbahaya, dan komentar tersebut disimpan di database, maka setiap kali pengguna lain melihat postingan blog tersebut, skrip berbahaya akan dieksekusi di browser mereka.
+Contoh Kode Rentan
+
+Berikut adalah contoh sederhana dari aplikasi web yang memiliki kerentanan Stored XSS dalam fitur komentar:
+
+index.html
+
+html
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Post</title>
+</head>
+<body>
+    <h1>Judul Postingan Blog</h1>
+    <p>Ini adalah konten dari postingan blog.</p>
+
+    <h2>Komentar</h2>
+    <form id="commentForm">
+        <textarea id="comment" placeholder="Tulis komentar..."></textarea>
+        <button type="submit">Kirim</button>
+    </form>
+
+    <div id="commentsSection"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+script.js
+
+javascript
+
+let comments = [];
+
+document.getElementById('commentForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const comment = document.getElementById('comment').value;
+    comments.push(comment);
+    displayComments();
+});
+
+function displayComments() {
+    const commentsSection = document.getElementById('commentsSection');
+    commentsSection.innerHTML = '';
+    comments.forEach((comment) => {
+        commentsSection.innerHTML += `<p>${comment}</p>`;
+    });
+}
+
+Dalam contoh di atas, jika pengguna mengirimkan komentar seperti <script>alert('XSS');</script>, maka setiap kali komentar tersebut ditampilkan, skrip akan dieksekusi, menampilkan alert.
+Cara Mengamankan dari Stored XSS
+
+Untuk mengamankan aplikasi Anda dari Stored XSS, Anda dapat melakukan langkah-langkah berikut:
+
+    Sanitasi Input Pengguna
+        Pastikan untuk memvalidasi dan menyaring semua input pengguna sebelum menyimpannya. Hanya izinkan karakter yang diharapkan.
+
+    Encoding Output
+        Gunakan fungsi untuk mengencode karakter khusus sebelum menampilkannya di halaman. Ini mencegah eksekusi skrip berbahaya.
+
+    Perbaikan Kode:
+
+    script.js
+
+javascript
+
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    document.getElementById('commentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const comment = document.getElementById('comment').value;
+        comments.push(escapeHtml(comment)); // Encode comment before storing
+        displayComments();
+    });
+
+    function displayComments() {
+        const commentsSection = document.getElementById('commentsSection');
+        commentsSection.innerHTML = '';
+        comments.forEach((comment) => {
+            commentsSection.innerHTML += `<p>${comment}</p>`;
+        });
+    }
+
+    Dalam perbaikan di atas, fungsi escapeHtml digunakan untuk mengencode karakter khusus sebelum menyimpannya dalam array comments. Ini mencegah eksekusi skrip berbahaya saat komentar ditampilkan.
+
+    Gunakan Templating Engine
+        Jika Anda menggunakan server-side rendering, pertimbangkan untuk menggunakan templating engine yang secara otomatis melakukan encoding output.
+
+Kesimpulan
+
+Stored XSS adalah kerentanan serius yang dapat dieksploitasi oleh penyerang untuk menjalankan skrip berbahaya di browser pengguna. Dengan menerapkan sanitasi input, encoding output, 
+dan menggunakan metode yang aman untuk menyimpan dan menampilkan data, Anda dapat melindungi aplikasi web Anda dari serangan XSS, terutama dalam fitur yang memungkinkan pengguna untuk mengirimkan konten seperti komentar.

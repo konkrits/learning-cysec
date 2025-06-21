@@ -1,0 +1,81 @@
+Apa itu DOM XSS?
+
+DOM-based Cross-Site Scripting (XSS) adalah jenis kerentanan keamanan yang terjadi ketika skrip berbahaya dieksekusi di sisi klien (browser) akibat manipulasi Document Object Model (DOM). Dalam konteks ini, 
+data yang tidak terfilter dari URL (seperti location.search) digunakan secara langsung dalam atribut HTML, seperti href, yang dapat menyebabkan eksekusi skrip berbahaya.
+Konteks Kerentanan DOM XSS
+
+Dalam lab ini, terdapat kerentanan DOM XSS pada halaman umpan balik (feedback) yang menggunakan jQuery untuk mengubah atribut href dari elemen anchor (<a>). Jika pengguna dapat mengontrol parameter dalam URL, 
+mereka dapat menyisipkan skrip berbahaya yang akan dieksekusi saat pengguna mengklik tautan tersebut.
+Contoh Kode Rentan
+
+Berikut adalah contoh aplikasi web yang memiliki kerentanan DOM XSS:
+
+index.html
+
+html
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Halaman Umpan Balik</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Halaman Umpan Balik</h1>
+    <a id="backLink" href="#">Kembali</a>
+</body>
+</html>
+
+script.js
+
+javascript
+
+// Mengambil query dari URL
+const query = location.search;
+
+// Menggunakan jQuery untuk mengubah href dari elemen anchor
+$('#backLink').attr('href', query);
+
+Dalam contoh di atas, jika pengguna mengunjungi URL seperti index.html?query=javascript:alert(document.cookie);, maka ketika pengguna mengklik tautan "Kembali", skrip tersebut akan dieksekusi, menampilkan cookie dokumen.
+Cara Mengamankan dari DOM XSS
+
+Untuk mengamankan aplikasi Anda dari DOM XSS, Anda dapat melakukan langkah-langkah berikut:
+
+    Sanitasi Input Pengguna:
+        Pastikan untuk memvalidasi dan menyaring semua input pengguna sebelum menggunakannya. Hanya izinkan karakter yang diharapkan.
+
+    Encoding Output:
+        Gunakan fungsi untuk mengencode karakter khusus sebelum menyisipkannya ke dalam atribut HTML. Ini mencegah eksekusi skrip berbahaya.
+
+    Perbaikan Kode:
+
+    script.js
+
+javascript
+
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    // Mengambil query dari URL
+    const query = location.search;
+
+    // Mengencode query sebelum mengubah href dari elemen anchor
+    $('#backLink').attr('href', escapeHtml(query));
+
+    Dalam perbaikan di atas, fungsi escapeHtml digunakan untuk mengencode karakter khusus sebelum menyisipkannya ke dalam atribut href. Ini mencegah eksekusi skrip berbahaya.
+
+    Hindari Penggunaan javascript: dalam URL:
+        Sebaiknya hindari penggunaan skema URL javascript: dalam atribut href. Pastikan bahwa hanya URL yang valid yang diizinkan.
+
+Kesimpulan
+
+DOM XSS adalah kerentanan serius yang dapat dieksploitasi oleh penyerang untuk menjalankan skrip berbahaya di browser pengguna. Dengan menerapkan sanitasi input, encoding output, dan menghindari penggunaan metode yang tidak aman, 
+Anda dapat melindungi aplikasi web Anda dari serangan XSS, bahkan saat menggunakan jQuery untuk manipulasi DOM.

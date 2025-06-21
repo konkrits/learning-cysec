@@ -1,0 +1,54 @@
+
+
+Dalam contoh di atas, jika pengguna mengunjungi URL seperti index.html?query=<script>alert('XSS');</script>, maka skrip tersebut akan dieksekusi, menampilkan alert. 
+Ini terjadi karena innerHTML langsung menyisipkan konten yang tidak terfilter ke dalam halaman.
+Cara Mengamankan dari DOM XSS
+
+Untuk mengamankan aplikasi Anda dari DOM XSS, Anda dapat melakukan langkah-langkah berikut:
+
+    Sanitasi Input Pengguna
+        Pastikan untuk memvalidasi dan menyaring semua input pengguna sebelum menggunakannya. Hanya izinkan karakter yang diharapkan.
+
+    Encoding Output
+        Gunakan fungsi untuk mengencode karakter khusus sebelum menyisipkannya ke dalam DOM. Ini mencegah eksekusi skrip berbahaya.
+
+    Perbaikan Kode:
+
+    script.js
+
+javascript
+
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+// Mengambil query dari URL
+const query = location.search;
+
+// Mengencode query sebelum menulis ke elemen result
+document.getElementById('result').innerHTML = `<h2>Hasil Pencarian untuk: ${escapeHtml(query)}</h2>`;
+
+Dalam perbaikan di atas, fungsi escapeHtml digunakan untuk mengencode karakter khusus sebelum menyisipkannya ke dalam elemen result. Ini mencegah eksekusi skrip berbahaya.
+
+Hindari Penggunaan innerHTML
+
+    Sebaiknya hindari penggunaan innerHTML untuk menambahkan konten ke halaman. Sebagai gantinya, gunakan metode yang lebih aman seperti textContent atau innerText.
+
+Contoh Alternatif:
+
+javascript
+
+    const resultElement = document.createElement('h2');
+    resultElement.textContent = `Hasil Pencarian untuk: ${escapeHtml(query)}`;
+    document.getElementById('result').appendChild(resultElement);
+
+Kesimpulan
+
+DOM XSS adalah kerentanan serius yang dapat dieksploitasi oleh penyerang untuk menjalankan skrip berbahaya di browser pengguna. Dengan menerapkan sanitasi input, encoding output, 
+dan menghindari penggunaan metode yang tidak aman seperti innerHTML, Anda dapat melindungi aplikasi web Anda dari serangan XSS. 
+Ini sangat penting dalam konteks aplikasi yang memungkinkan pengguna untuk memasukkan data yang kemudian ditampilkan kembali di halaman.

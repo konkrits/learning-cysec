@@ -1,0 +1,87 @@
+Apa itu Reflected XSS?
+
+Reflected Cross-Site Scripting (XSS) adalah jenis kerentanan keamanan yang terjadi ketika aplikasi web mengambil input dari pengguna dan langsung menampilkannya kembali di halaman tanpa validasi atau encoding yang tepat.
+ Ini memungkinkan penyerang untuk menyisipkan skrip berbahaya yang dapat dieksekusi di browser pengguna.
+Contoh Kode Rentan dengan Skrip Eksternal
+
+Berikut adalah contoh aplikasi web sederhana yang menggunakan JavaScript eksternal dan rentan terhadap Reflected XSS:
+
+index.html
+
+html
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Pencarian</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <form id="searchForm">
+        <input type="text" id="searchQuery" placeholder="Masukkan pencarian">
+        <button type="submit">Cari</button>
+    </form>
+    <div id="result"></div>
+</body>
+</html>
+
+script.js
+
+javascript
+
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const query = document.getElementById('searchQuery').value;
+    document.getElementById('result').innerHTML = `<h1>Hasil Pencarian untuk: ${query}</h1>`;
+});
+
+Dalam contoh di atas, jika pengguna memasukkan <script>alert('XSS');</script> ke dalam kotak pencarian dan mengklik tombol "Cari", skrip tersebut akan dieksekusi, menampilkan alert.
+Cara Mengamankan dari Reflected XSS
+
+Untuk mengamankan aplikasi Anda dari Reflected XSS saat menggunakan JavaScript eksternal, Anda dapat melakukan langkah-langkah berikut:
+
+    Sanitasi Input Pengguna
+        Pastikan untuk memvalidasi dan menyaring input pengguna sebelum menggunakannya.
+
+    Encoding Output
+        Gunakan fungsi untuk mengencode karakter khusus sebelum menyisipkannya ke dalam DOM. Anda dapat membuat fungsi sederhana untuk melakukan ini.
+
+    Perbaikan Kode:
+
+    script.js
+
+javascript
+
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const query = document.getElementById('searchQuery').value;
+    const safeQuery = escapeHtml(query);
+    document.getElementById('result').innerHTML = `<h1>Hasil Pencarian untuk: ${safeQuery}</h1>`;
+});
+
+Dalam perbaikan di atas, fungsi escapeHtml digunakan untuk mengencode karakter khusus sebelum menyisipkannya ke dalam elemen result. Ini mencegah eksekusi skrip berbahaya.
+
+Gunakan textContent atau innerText
+
+    Sebagai alternatif, Anda dapat menggunakan textContent atau innerText untuk menyisipkan teks ke dalam elemen, yang secara otomatis akan mengencode karakter khusus.
+
+Contoh:
+
+javascript
+
+    document.getElementById('result').textContent = `Hasil Pencarian untuk: ${query}`;
+
+Kesimpulan
+
+Reflected XSS adalah kerentanan serius yang dapat dieksploitasi oleh penyerang untuk menjalankan skrip berbahaya di browser pengguna.
+ Dengan menerapkan sanitasi input, encoding output, dan menggunakan metode yang aman untuk menyisipkan data ke dalam DOM, Anda dapat melindungi aplikasi web Anda dari serangan XSS, bahkan saat menggunakan skrip eksternal.
