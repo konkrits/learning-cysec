@@ -1,0 +1,24 @@
+#count{
+    display: block;
+    text-align: center;
+    font-size: 10em;
+    font-family: Verdana;
+    color: #00b809;
+}
+#BtnCountainer{
+    text-align: center;
+}
+.Bttn{
+    padding: 10px 20px;
+    font-size: 1.5em;
+    color: white;
+    background-color: #00b809;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.25s;   
+}
+.Bttn:hover{
+    background-color: #004902;
+}
+
+
