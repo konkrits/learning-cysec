@@ -1,0 +1,12 @@
+Tujuan:
+	Dapatkan password administrator dan hapus user carlos
+
+Brief:
+	lab ini menampilkan sensitif informasi di versi control historynya yaitu git.
+
+Analisa:
+	1.) Coba pergi ke direcotry .git dan ternyata bisa diakses publik 
+	2.) Download directorynya dengan wget
+	3.) dan show git dan disitu terlihat password adminnya meskipun sebelumnya dicoba dihapus dengan enviroment variable ADMIN_PASSWORD
+	4.) login dengan user administrator dan password yang baru didapat
+	5.) hapus carlos

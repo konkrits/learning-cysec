@@ -1,0 +1,10 @@
+Tujuan:
+	menemukan password database yang dikodekan via source cpde yang bocor
+
+Brief:
+	lab ini membocorkan source codenya sendiri oleh backup file yang terdapat di directory tersembunyi
+	
+analisa:
+	Pergi ke /robots.txt dan disana akan ada directory tersembunyi yaitu ProductTemplate.java.bak
+	masuk dan temukan passwordnya di line 41 di ConectionBuilder.from
+	dan berhasil.

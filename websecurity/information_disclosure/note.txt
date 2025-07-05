@@ -40,9 +40,16 @@ Umumnya information disclosure terjadi di:
 -Directory Listing
 -Developer comment
 -pesan error
-	informasi tentang teknologi yang berbeda yang digunakan oleh situs web. Misalnya, mereka mungkin secara eksplisit menyebutkan mesin template, jenis database, atau server yang digunakan situs web, bersama dengan nomor versinya.
+	informasi tentang teknologi yang berbeda yang digunakan oleh situs web. Misalnya, mereka mungkin secara eksplisit menyebutkan mesin template, jenis database, 
+	atau server yang digunakan situs web, bersama dengan nomor versinya.
 -debugging data
 -halaman akun user
 -source code yang terbuka via backup file
+	trik untuk memndapatatkan source code contohnya di text editor yang biasanya menyimpan backup file, meminta request kode file via backup terkadang bisa mengijinkan dibaca diresponse.
 -konfigurasi tidak aman
+	karena menggunakan pihak ketiga dan tidak paham cara mengimplementasikannya
+	kasus lain developer lupa untuk menonaktifkan Http Trace yang digunakan untuk mendiagnostik, jika aktif web akan merespon dan kadang
+		malah mengungkapkan otentikasi header internal yang ditambahkan via request oleh proxies reverse.
 -history control version
+	biasnya web dikembangkan dengan versi kontrol sistem seperti git yang secara default ada difolder .git jika folder tersbut bisa diakses oleh publik.
+	 maka bisa didownload dan bisa berisi logs berisi pesan commited dan data sensitif.

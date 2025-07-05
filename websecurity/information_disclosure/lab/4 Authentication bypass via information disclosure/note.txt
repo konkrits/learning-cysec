@@ -1,0 +1,13 @@
+Tujuan:
+	login ke halaman admin dan menghapus user carlos. dengan cara membypass autentikasi dengan nama header.
+
+Brief:
+	Antarmuka administrasi lab ini memiliki kerentanan bypass otentikasi dan harus punya pengetahuan header http khusus yang digunakan front-end.
+
+Analisa:
+	1.) mencoba ke panel tetapi hanya bisa diakses oleh localhost
+	2.) ganti request method nya ke Trace ternyata berhasil, dan lihat diresponse bawah ternyata ada header X-Custom-IP-Authorization
+		default value dari header tersebut adalah ip pengguna, dan coba untuk ganti ke localhost atau 127.0.0.1
+	3.) ke match dan replace dan tambahkan custome ip nya di kolom replace
+	4.) kembali ke directory admin lagi dan berhasil. hapus akun carlos
+ 
