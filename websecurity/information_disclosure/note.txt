@@ -1,0 +1,48 @@
+Apa itu informasi disclosure?
+kalo di translatekan menjadi informasi yang terbuka
+
+dari namanya saja sudah bisa ditebak bahwa kerentanan ini disebabkan karena keterbukaan informasi yang tidak disengaja dan tergantung konteknya yang mencakup:
+
+	-Data tentang user seperti username atau data keuangan user
+	-Data sensitif atau data bisnis perusahaan
+	-detail teknis situs web dan infrastukturnya
+	
+Contoh dari information disclosure:
+
+	-menampilkan nama directory tersembunyi, struktur, dan isinya via file robots.txt atau list dari directory
+	-menyediakan file source code via temporary backups
+	-secara eksplisit menyebut nama database table atau nama coloum di error message
+	-secara tidak perlu mengekspos sensitif informasi
+	-ip address, database, dan seterusnya di source code
+	-Mengisyaratkan keberadaan atau tidak adanya sumber daya, nama pengguna, dan sebagainya melalui perbedaan halus dalam perilaku aplikasi
+	
+Bagaimana information disclosure terjadi?
+
+	-gagal menghapus konten internal dari publik
+	-konfigurasi tidak aman web dan teknologi terkait
+	-desain dan perilaku aplikasi yang cacat
+
+Apa dampak dari information disclosure
+
+	Dampaknya bisa secara langsung dan tidak, tergantung informasi yang didapat
+	contoh web toko online secara tidak sengaja membocorkan kartu kredit ini tentu bisa jadi masalah serius.
+	
+Cara menilai tingkat keparahannnya
+
+	meskipun dampak yang bisa serius, tetapi hanya dapat dibuktikan dengan demonstrasi penyerang mengeksploitasi dengan informasi yang didapat
+	misalnya jika web menggunakan framework lama yang mengandung vulnerabilty,
+	penting diingat hanya untuk berfokus pada dampak dan eksploitasi tentang informasi.
+	
+Umumnya information disclosure terjadi di:
+
+-Files untuk web crawler
+	seperti robots.txt atau sitemap.xml File-file ini sering mencantumkan direktori tertentu yang harus dilewati crawler, misalnya, karena mereka mungkin berisi informasi sensitif.
+-Directory Listing
+-Developer comment
+-pesan error
+	informasi tentang teknologi yang berbeda yang digunakan oleh situs web. Misalnya, mereka mungkin secara eksplisit menyebutkan mesin template, jenis database, atau server yang digunakan situs web, bersama dengan nomor versinya.
+-debugging data
+-halaman akun user
+-source code yang terbuka via backup file
+-konfigurasi tidak aman
+-history control version

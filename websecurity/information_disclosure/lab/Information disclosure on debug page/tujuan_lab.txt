@@ -1,0 +1,10 @@
+Tujuan:
+	Dapatkan variable SECRET_KEY
+
+Brief:
+	web ini menampilkan informasi sensitif tentang aplikasi di halaman debug
+	
+Analisa:
+	pergi ke halaman log dan kirim file log ke repeater
+	dan kirim request ke server dan server merespon dengan variable secret key
+	
