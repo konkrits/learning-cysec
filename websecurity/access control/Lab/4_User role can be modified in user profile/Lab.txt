@@ -1,0 +1,12 @@
+Brief:
+	admin panel /admin, hanya bisa diakses dengan user yang login dengan roleid 2
+
+Tujuan:
+	akses panel admin dan hapus carlos
+
+Analisa:
+	1. tidak bisa ke /admin sebagai user biasa
+	2. ubah email dan intercept dan kirim ke repeater dan diresponse ada "roleid":1
+	3. tambahkan roleid:2 dijson jangan lupa koma
+	4. berhasil langsung ada halaman admin dan hapus carlos
+	
