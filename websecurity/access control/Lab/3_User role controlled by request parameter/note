@@ -1,0 +1,12 @@
+brief:
+	admin panel di /admin dan cookie bisa dipalsukan
+
+Tujuan:
+	akses panel admin dan hapus carlos
+	
+Analisa:
+	1. pergi ke admin panel dan ternyata harus jadi admin dulu
+	2. sekarang pergi ke panel admin sebaigai user dan diburp request dibagian cookie tertulis admin;false
+	3. coba ubah jadi true dan ternyata bisa.
+	4. di response cari end point yang menghapus carlos dan kirim direquest
+	5. ikuti redirectnya dan berhasil 

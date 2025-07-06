@@ -1,0 +1,10 @@
+Brief:
+	Lab ini tidak melindungi panel admin dan lokasi tidak bisa diprediksi dimana. tapi lokasi ditampilkan di suatu tempat aplikasi.
+	
+Tujuan:
+	akses panel admin dan hapus user carlos
+	
+Analisa:
+	1. pada Get /login ada javascript yang memberitahukan bahwa panel admin di /admin-9zge8t
+	2. pergi ke sana dan hapus carlos
+	

@@ -1,0 +1,9 @@
+Brief:
+	Lab punya halaman admin yang tidak dilindungi
+
+Tujuan:
+	hapus user carlos
+
+Analisa:
+	1. ketika pergi ke halaman robots.txt disana ada directory tersembunyi
+	2. ikuti admin panel dan hapus carlos
