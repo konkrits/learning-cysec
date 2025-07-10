@@ -1,0 +1,17 @@
+Lab: Referer-based access control
+
+Brief:
+	akses kontrol berdasarkan header referer
+	
+Tujuan:
+	jadikan wiener admin
+	
+Analisa:
+	1. login jadi administrator, upgrade carlos
+	
+	2. di jendela samaran login wiener
+	
+	3. ganti request header tadi refer nya jadi /admin dan kirim endpoint yang mengupgrade carlos jadi admin ganti jadi wiener: /admin-roles?username=wiener&action=upgrade
+	
+	4. berhasil
+	
