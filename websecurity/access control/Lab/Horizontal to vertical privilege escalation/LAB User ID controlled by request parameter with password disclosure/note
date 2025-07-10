@@ -1,0 +1,17 @@
+LAB User ID controlled by request parameter with password disclosure
+
+Brief:
+	lab ini menyimpan password user di laman akun, dan hanya ditutupi atau dimasking dengan titik dan isinya masih ada.
+	
+Tujuan:
+	Jadi Admin untuk menghapus carlos
+	
+Analisa:
+	1. login dan pergi ke laman akun
+	
+	2. lihat di response password ditampilkan
+	
+	3. kita ubah id dari id=carlos jadi id=administrator dan kita sudah bisa melihat password admin
+		karna lab ini punya kerentanan id tampering
+		
+	4. login jadi admin dan hapus carlos

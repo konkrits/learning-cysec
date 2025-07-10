@@ -1,0 +1,20 @@
+Brief:
+	panel admin /admin, framework backend support X-Original-URL, akses diluar diblok
+
+Tujuan:
+	akses panel admin hapus carlos
+	
+Analisa:
+	1. akses panel admin dan ternyata diblok.
+		tapi response nya di plain text biasa mungkin ini berasal dari front-end
+	2. ubah request url nya jadi / dan tambahkan X-Original-URL: /invalid
+		setelah dikirim jadi not found ini menginditifikasi back end memproses X-Original-URL
+	3. ubah X-Original-URL: /admin dan muncul panelnya
+	
+	kita sudah berhasil mengakses panel admin dan untuk menghapus carlos sebagai berikut:
+	
+	4. ubah X-Original-URL: /admin/delete dan request querynya jadi /?username=carlos.
+		endpoin untuk menghapus carlos di /admin/delete?username=carlos
+	
+	5. berhasil
+		meskipun statusnya forbidden tapi ketika merefresh dibrowser sudah solve dan carlos sudah tidak ada.

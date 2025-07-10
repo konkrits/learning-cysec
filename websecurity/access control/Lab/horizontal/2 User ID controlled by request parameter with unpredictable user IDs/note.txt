@@ -1,0 +1,20 @@
+3 User ID controlled by request parameter, with unpredictable user IDs 
+
+Brief: 
+	lab yang mengidentifikasi dengan gui, kerentanan di laman user
+
+Tujuan:
+	cari GUId carlos dan submit API nya
+	
+Analisa:
+	1. ganti id=carlos gagal
+		dan malah ke /login
+		
+	2. diintercept dan di response body aman
+	
+	3.cari postingan carlos, klik carlos dan ada userid="19a8836f-3ff8-4988-98cb-e5294d0e9db9"
+	
+	4. ganti guid wiener di id= jadi guid carlos
+		dan ternyata bisa dan ada API
+		
+	5. submit API dan berhasil

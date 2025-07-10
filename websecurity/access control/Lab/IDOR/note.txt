@@ -1,0 +1,24 @@
+Brief:
+	lab yang menyimpan log chat pengguna di server dan emngakses nya dengan url statis
+	
+Tujuan:
+	cari password carlos dan login
+	
+Analisa:
+	1. login
+	
+	2. pergi ke halaman live-chat
+	
+	3. ketik sesuatu, kirim
+	
+	4. klik transkrip otomatis kita mendowload file, file4.txt 
+		kita bisa berasumsi bahwa file1.txt adalah milik carlos
+		
+	5. soo intercept dan ubah di request nama filenya dari 4 ke 1, dan krim
+	
+	6. dan kita dapat file carlos yang berisi password
+	
+	7. login jadi carlos dan berhasil
+		
+	 
+		

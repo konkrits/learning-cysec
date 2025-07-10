@@ -1,0 +1,7 @@
+brief:
+	akses kontrol berdasarkan sebagian http method request, user admin: administartor pw: admin
+Tujuan:
+	jadikan wiener:peter jadi administrator
+	
+Analisa:
+	

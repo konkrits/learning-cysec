@@ -1,0 +1,18 @@
+LAB 3 User ID controlled by request parameter with data leakage in redirect
+
+Brief:
+	leaked sensitif informasi di response body
+	
+Tujuan:
+	dapatkan kunci API carlos
+	
+Analisa:
+	1. login dulu
+	
+	2. ganti id jadi carlos id=carlos dan gagal 
+		malah kita jadi logout dan kembali ke laman /login
+	
+	3. di response bodi ada API carlos
+		ketika kita mengintercept info carlos malah dikirim diresponse body
+		
+	4. submit dan berhasil

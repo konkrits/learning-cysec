@@ -1,0 +1,21 @@
+Brief:
+	lab yang punya kerentanan dalam double pengecekan u:p administrator:admin
+Tujuan:
+	jadikan wiener jadi admin dengan diri sendiri
+
+Analisa:
+	1. login jadi administrator dan jadikan carlos admin, dan intercept
+	
+	2. sekarang web menkonfirmasi ketika 2 kali ketika ingin mempromosikan
+	
+	2. login jadi wiener di incognito
+	
+	4. kirim request admin untuk mempromosikan carlos ke repeater
+	
+	5. ubah cookienya jadi cookie wiener dan ubah username jadi wiener
+	
+	6. kirim dan gagal
+	
+	7. coba yang proses kedua ganti cookie nya dan username nya wiener dan berhasil
+	
+	

@@ -1,0 +1,14 @@
+Lab 1 User ID controlled by request parameter
+
+Brief:
+	lab ini punya horizontal akses kontrol di halaman akun user
+	
+Tujuan:
+	dapatkan API nya carlos
+	
+Analisa:
+	1. login dulu
+	
+	2. ganti url id nya jadi carlos
+	
+	3. kita udah login jadi carlos kirim api nya

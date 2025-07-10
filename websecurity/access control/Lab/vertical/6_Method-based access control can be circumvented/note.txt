@@ -1,0 +1,25 @@
+Lab 6 Method-based access control can be circumvented
+
+Brief: lab ini mengimplementasikan akses kontrol berdasarkan http request method, kamu bisa login jadi admin.
+	
+Tujuan: Jadikan wiener admin
+
+Analisa:
+	1. login jadi administrator dan upgrade user carlos
+	
+	2. intercept waktu pas pengupgradan
+	
+	3. buka incognito baru 
+	
+	4. dan login jadi wiener peter
+	
+	5. interceptan untuk mengupgrade carlos ganti cookie nya dari admin ke wiener
+	
+	6.sekarang coba kirim dan gagal unotorisazie
+	
+	7. ganti dari request methodnya dari post ke postx
+	
+	8. jadi missing parameter dan sekarang ganti request method nya dengan klik kanan dan chage request method
+	
+	9.dan ganti usernamenya jadi wiener
+	
