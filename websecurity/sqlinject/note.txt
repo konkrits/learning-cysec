@@ -1,0 +1,77 @@
+Apa itu sqli?
+Kerentanan yang terjadi di query database web yang dapat menyebabkan penyerang melihat, memodifikasi, menghapus data dari database.
+	bahkan sqli bisa menggagu server dasar atau bahkan dos.
+	
+
+Cara mendeteksi SQLi
+mentest setiap entry point di web yang mencakup:
+	- tanda kutip satu ' dan cari error atau anomalinya
+	- beberapa syntax spesific sql dan cari perbedaannya di response web
+	- kondidi boolean  OR 1=1 dan OR 1=2 dan cari perbedaannya di response web
+	- cari perbedaan response dengan payload yang sengaja untuk memicu penundaan waktu ketika dieksekusi dalam kueri sql
+	- Muatan OAST dirancang untuk memicu interaksi jaringan out-of-band ketika dieksekusi dalam kueri SQL, dan memantau interaksi yang dihasilkan.
+	
+Lokasi umum sqli terjadi:
+	
+    -In UPDATE statements, within the updated values or the WHERE clause.
+    -In INSERT statements, within the inserted values.
+    -In SELECT statements, within the table or column name.
+    -In SELECT statements, within the ORDER BY clause.
+
+Retrieving HIDDEN Data
+
+	Bayangkan aplikasi yang menampilkan halaman produk dengan kategori berbeda, ketika user negklik kategori gifts
+	urlnya: https://insecure-website.com/products?category=Gifts
+	
+	databasenya: SELECT * FROM products WHERE category = 'Gifts' AND released = 1
+	sql query penjelasan: * semua details, dari table produk, dimana kategorinya gift dan rilisnya 1
+		release = 1 digunakan untuk menyembunyikan produk yang belum dirilis kita asumsikan produk yang belum dirili itu realesed = 0
+		
+	Aplikasi ini tidak ada pertahannya jadi kita bisa menyerangnya dengan: https://insecure-website.com/products?category=Gifts'--
+	di query sql: SELECT * FROM products WHERE category = ' Gifts'--' AND released = 1
+		dalam sql query -- adalah komen jadi ketika di inject semua query berikutnya adalah komen dan dapat menampikan semua produk di kategori gift termasuk yang belum di rilis.
+		
+	kalo ingin menampilakan semua produk di kategory mana saja
+		gunakan: https://insecure-website.com/products?category=Gifts'+OR+1=1--
+	di query sql: SELECT * FROM products WHERE category 'Gifts' OR 1=1 --' AND released = 1
+		query ini menampilkan semua item di category Gifts atau mana saja karena 1 sama dengan 1, 1=1 selalu benar dan query menampilkan semua item.
+	
+Subverting Application logic / menumbangkan logika aplikasi
+
+	Bayangkan sebuah web dimana user bisa login dengan username wiener dan password bluecheese aplikasi mencek kredensial nya denga query sql: SELECT * FROM users WHERE username = 'wiener' AND password = 'bluecheese'
+	 	jika username dan password benar maka login berhasil jika salah gagal
+	 	
+	 	dalam kasus ini penyerang bisa login menjadi user apa aja tanpa password dengan cara menghapus password check di WHERE clause dengan -- contoh
+	 	mensubmit username administrator'-- dan passwordnya kosong di sql querynya jadi: SELECT * FROM users WHERE username 'administrator'--' AND password ''
+	 	
+	 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
