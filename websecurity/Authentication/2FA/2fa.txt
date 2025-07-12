@@ -1,0 +1,105 @@
+Vulnerabilities in multi-factor authentication
+
+	Banyak situs web mengandalkan secara eksklusif pada otentikasi faktor tunggal menggunakan kata sandi untuk mengotentikasi pengguna. 
+	Namun, beberapa mengharuskan pengguna untuk membuktikan identitas mereka menggunakan beberapa faktor otentikasi.
+
+	Memverifikasi faktor biometrik tidak praktis untuk sebagian besar situs web. Namun, semakin umum untuk melihat otentikasi dua faktor wajib dan opsional (2FA) 
+	berdasarkan sesuatu yang Anda ketahui dan sesuatu yang Anda miliki. Ini biasanya mengharuskan pengguna untuk memasukkan kata sandi tradisional dan kode verifikasi sementara dari perangkat fisik di luar band yang dimilikinya.
+
+	Meskipun kadang-kadang mungkin bagi penyerang untuk mendapatkan faktor berbasis pengetahuan tunggal, seperti kata sandi, dapat secara bersamaan memperoleh faktor lain 
+	dari sumber di luar band jauh lebih kecil kemungkinannya. Untuk alasan ini, otentikasi dua faktor terbukti lebih aman daripada otentikasi faktor tunggal. 
+	Namun, seperti halnya tindakan keamanan, itu hanya seeku implementasinya. Otentikasi dua faktor yang diterapkan dengan buruk dapat dipukuli, atau bahkan dilewati seluruhnya, seperti otentikasi faktor tunggal.
+
+	Perlu juga dicatat bahwa manfaat penuh dari otentikasi multi-faktor hanya dicapai dengan memverifikasi beberapa faktor yang berbeda. 
+	Memverifikasi faktor yang sama dalam dua cara yang berbeda bukanlah otentikasi dua faktor yang benar. 
+	Email berbasis 2FA adalah salah satu contohnya. Meskipun pengguna harus memberikan kata sandi dan kode verifikasi, 
+	mengakses kode hanya bergantung pada mereka mengetahui kredensial login untuk akun email mereka. Oleh karena itu, faktor otentikasi pengetahuan hanya diverifikasi dua kali.
+	
+Two-factor authentication tokens
+
+	Kode verifikasi biasanya dibaca oleh pengguna dari perangkat fisik beberapa jenis. Banyak situs web keamanan tinggi sekarang menyediakan pengguna dengan perangkat khusus untuk tujuan ini, 
+	seperti token RSA atau perangkat keypad yang mungkin Anda gunakan untuk mengakses perbankan online atau laptop kerja Anda. 
+	Selain dibuat khusus untuk keamanan, perangkat khusus ini juga memiliki keuntungan untuk menghasilkan kode verifikasi secara langsung. 
+	Hal ini juga umum untuk situs web untuk menggunakan aplikasi seluler khusus, seperti Google Authenticator, untuk alasan yang sama.
+
+	Di sisi lain, beberapa situs web mengirim kode verifikasi ke ponsel pengguna sebagai pesan teks. Sementara ini secara teknis masih memverifikasi faktor "sesuatu yang Anda miliki",
+	itu terbuka untuk penyalahgunaan. Pertama, kode sedang ditransmisikan melalui SMS daripada yang dihasilkan oleh perangkat itu sendiri. 
+	Ini menciptakan potensi kode untuk dicegat. Ada juga risiko pertukaran SIM, di mana penyerang secara curang mendapatkan kartu SIM dengan nomor telepon korban. 
+	Penyerang kemudian akan menerima semua pesan SMS yang dikirim ke korban, termasuk yang berisi kode verifikasi mereka.	
+	
+Bypassing two-factor authentication
+
+	1. (LAB) 2FA simple bypass	
+	
+		Kadang-kadang, penerapan otentikasi dua faktor cacat ke titik di mana ia dapat dilewati sepenuhnya.
+
+		Jika pengguna pertama kali diminta untuk memasukkan kata sandi, dan kemudian diminta untuk memasukkan kode verifikasi pada halaman terpisah, 
+		pengguna secara efektif dalam keadaan "logged in" sebelum mereka memasukkan kode verifikasi. 
+		Dalam hal ini, ada baiknya pengujian untuk melihat apakah Anda dapat langsung melompat ke halaman "logged in only" setelah menyelesaikan langkah otentikasi pertama. 
+		Kadang-kadang, Anda akan menemukan bahwa situs web tidak benar-benar memeriksa apakah Anda menyelesaikan langkah kedua sebelum memuat halaman.
+		
+Flawed two-factor verification logic
+
+	2. (LAB) 2FA broken logic	
+	
+		Terkadang logika yang cacat dalam otentikasi dua faktor berarti bahwa setelah pengguna menyelesaikan langkah login awal, 
+		situs web tidak cukup memverifikasi bahwa pengguna yang sama sedang menyelesaikan langkah kedua.
+
+		Misalnya, pengguna masuk dengan kredensial normal mereka pada langkah pertama sebagai berikut:
+			
+			---------------------------------------------
+			POST /login-steps/first HTTP/1.1
+			Host: vulnerable-website.com
+			...
+			username=carlos&password=qwerty
+			---------------------------------------------
+			
+		Mereka kemudian diberi cookie yang berkaitan dengan akun mereka, sebelum dibawa ke langkah kedua dari proses login:
+			
+			---------------------------------------------
+			HTTP/1.1 200 OK
+			Set-Cookie: account=carlos
+
+			GET /login-steps/second HTTP/1.1
+			Cookie: account=carlos
+			---------------------------------------------
+			
+		Saat mengirimkan kode verifikasi, permintaan tersebut menggunakan cookie ini untuk menentukan akun mana yang ingin diakses pengguna:
+		
+			---------------------------------------------
+			POST /login-steps/second HTTP/1.1
+			Host: vulnerable-website.com
+			Cookie: account=carlos
+			...
+			verification-code=123456
+			---------------------------------------------
+		
+		Dalam kasus ini, penyerang dapat masuk menggunakan kredensial mereka sendiri tetapi kemudian mengubah nilai cookie akun ke nama pengguna sembarangan saat mengirimkan kode verifikasi.
+		
+			---------------------------------------------
+			POST /login-steps/second HTTP/1.1
+			Host: vulnerable-website.com
+			Cookie: account=victim-user
+			...
+			verification-code=123456
+			---------------------------------------------
+			
+		Hal ini sangat berbahaya jika penyerang kemudian dapat menggunakan brute force pada kode verifikasi karena hal ini akan memungkinkan mereka untuk masuk ke akun pengguna acak 
+		hanya berdasarkan nama pengguna mereka. Mereka bahkan tidak perlu mengetahui kata sandi pengguna.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

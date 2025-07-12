@@ -1,0 +1,36 @@
+Horizontal privilege escalation 
+		
+	(Lab 1 User ID controlled by request parameter )
+
+		Eskalasi hak istimewa horizontal terjadi jika pengguna dapat memperoleh akses ke sumber daya milik pengguna lain, bukan sumber daya mereka sendiri dari jenis itu. Misalnya, 
+		jika seorang karyawan dapat mengakses catatan
+		karyawan lain dan juga mereka sendiri, maka ini adalah eskalasi hak istimewa horizontal.
+
+		Serangan eskalasi hak istimewa horizontal dapat menggunakan jenis metode eksploitasi yang serupa dengan eskalasi hak istimewa vertikal. Misalnya, pengguna dapat mengakses halaman akun 
+		mereka sendiri menggunakan URL berikut:
+		https://insecure-website.com/myaccount?id=123
+
+		Jika penyerang memodifikasi nilai parameter id menjadi pengguna lain, mereka mungkin mendapatkan akses ke halaman akun pengguna lain, dan data dan fungsi terkait.	
+			
+			
+		"""
+		Catatan
+
+		Ini adalah contoh dari kerentanan referensi objek langsung yang tidak aman (IDOR). Jenis kerentanan ini muncul di mana nilai parameter pengontrol pengguna digunakan 
+		untuk mengakses sumber daya atau fungsi secara langsung.
+		
+		"""
+	
+	(Lab 2 User ID controlled by request parameter, with unpredictable user IDs)
+	
+		 Dalam beberapa aplikasi, parameter yang dapat dieksploitasi tidak memiliki nilai yang dapat diprediksi. Misalnya, alih-alih menghitung angka, aplikasi mungkin menggunakan pengidentifikasi unik global (GUID) untuk
+		 mengidentifikasi pengguna. Ini dapat mencegah penyerang menebak atau memprediksi pengidentifikasi pengguna lain. Namun, PANDUAN milik pengguna lain mungkin diungkapkan di tempat lain 
+		 dalam aplikasi di mana pengguna dirujuk,
+		 seperti pesan pengguna atau ulasan.
+	
+	
+	(LAB 3 User ID controlled by request parameter with data leakage in redirect )	
+	
+		Dalam beberapa kasus, aplikasi mendeteksi ketika pengguna tidak diizinkan untuk mengakses sumber daya, dan mengembalikan pengalihan ke halaman login. Namun, respons yang berisi pengalihan mungkin masih mencakup 
+		beberapa data sensitif milik pengguna yang ditargetkan, sehingga serangan masih berhasil.
+		

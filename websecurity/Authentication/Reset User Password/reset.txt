@@ -1,0 +1,48 @@
+Resetting user passwords
+
+	Dalam prakteknya beberapa pengguna akan melupakan password mereka, sehingga adalah umum untuk memiliki cara bagi mereka untuk mengatur ulang itu. 
+	Karena otentikasi berbasis kata sandi yang biasa jelas tidak mungkin dalam skenario ini, situs web harus bergantung pada metode alternatif untuk 
+	memastikan bahwa pengguna sebenarnya mengatur ulang kata sandi mereka sendiri. Untuk alasan ini, fungsi reset kata sandi secara inheren berbahaya dan perlu diimplementasikan dengan aman.
+
+	Ada beberapa cara berbeda bahwa fitur ini biasanya diimplementasikan, dengan berbagai tingkat kerentanan.
+	
+Sending passwords by email
+
+	Tentu saja, mengirimkan kata sandi terbaru kepada pengguna seharusnya tidak mungkin dilakukan jika situs web menangani kata sandi dengan aman sejak awal. 
+	Sebaliknya, beberapa situs web membuat kata sandi baru dan mengirimkannya kepada pengguna melalui email.
+
+	Secara umum, pengiriman kata sandi persisten melalui saluran yang tidak aman sebaiknya dihindari. Dalam hal ini, keamanan bergantung pada kata sandi yang dihasilkan
+	yang kedaluwarsa setelah waktu yang sangat singkat, atau pengguna segera mengganti kata sandinya kembali. Jika tidak, pendekatan ini sangat rentan terhadap serangan man-in-the-middle.
+
+	Email juga umumnya tidak dianggap aman karena kotak masuk bersifat persisten dan tidak dirancang untuk penyimpanan informasi rahasia yang aman. 
+	Banyak pengguna juga secara otomatis menyinkronkan kotak masuk mereka di beberapa perangkat melalui saluran yang tidak aman.
+	
+Resetting passwords using a URL
+
+	1. (LAB) Password reset broken logic
+
+		Metode yang lebih kuat untuk mengatur ulang kata sandi adalah dengan mengirim URL unik ke pengguna yang membawanya ke halaman reset kata sandi. 
+		Implementasi yang kurang aman dari metode ini menggunakan URL dengan parameter yang mudah ditebak untuk mengidentifikasi akun mana yang sedang diatur ulang, 
+	
+			misalnya: http://vulnerable-website.com/reset-password?user=victim-user
+	
+				Dalam contoh ini, penyerang dapat mengubah parameter pengguna untuk merujuk pada nama pengguna yang telah mereka identifikasi. 
+				Mereka kemudian akan dibawa langsung ke halaman di mana mereka berpotensi mengatur kata sandi baru untuk pengguna yang sewenang-wenang ini.
+
+		Implementasi yang lebih baik dari proses ini adalah untuk menghasilkan token berekstrak tinggi, sulit ditebak dan membuat URL reset berdasarkan itu. 
+		
+		Dalam skenario kasus terbaik, URL ini tidak boleh memberikan petunjuk tentang kata sandi pengguna mana yang sedang diatur ulang.
+
+			http://vulnerable-website.com/reset-password?token=a0ba0d1cb3b63d13822572fcff1a241895d893f659164d4cc550b421ebdd48a8
+	
+				Ketika pengguna mengunjungi URL ini, sistem akan memeriksa apakah token ini ada di back-end dan, jika ada, 
+				kata sandi pengguna mana yang seharusnya direset. Token ini akan kedaluwarsa setelah beberapa saat dan akan segera dihancurkan setelah kata sandi direset.
+
+		Namun, beberapa situs web gagal memvalidasi token lagi ketika formulir reset dikirimkan. 
+		Dalam hal ini, penyerang dapat dengan mudah mengunjungi formulir reset dari akun mereka sendiri, menghapus token, 
+		dan memanfaatkan halaman ini untuk mereset kata sandi pengguna yang tidak diinginkan.
+
+
+
+
+

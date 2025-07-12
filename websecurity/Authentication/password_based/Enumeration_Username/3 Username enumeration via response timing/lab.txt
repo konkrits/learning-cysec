@@ -1,0 +1,32 @@
+Lab: Username enumeration via response timing
+
+Brief:
+	vulnerable terhadap username enumeration melalui response time, akun wiener:peter dan memblokir ip ketika gagal 3kali
+	
+Tujuan:
+	enumerate username dan brute force passwordnya lalu login
+	
+Analisa:
+	1. dikonfirmasi bahwa setelah 3 kali kita diblokir ip nya
+	
+	2. ternyata kita bisa membypass dengan menambahkan X-Forwarded-For:ip acak
+		otomatis kita bisa membypass
+	
+	3. menginput bebrapa username yang tidak ada response nya sama tetapi
+		ketika meninput username yang ada yaitu wiener response waktunya berbeda tergantung
+			seberapa banyak karakter dari passwordnya
+	
+	4. ganti dari sniper ke pitchfork attack lalu tambahkan X-Forwarded-For: di request header
+		set ip acak jadi payload 1 dan username jadi payload 2
+			sementara passwordnya lebihkan dari 100
+				
+	5. dari kanan pilih payload posisi ke 1 dan jadikan number, from 0 to 255 dan stepnya 1
+					pilih payload 2 list username nya 
+					
+	6. setelah selesai klik kolom response received yang paling terbesar nah inilah username yang ada
+	
+	7. clear posisi, username jadi user no 6 dan tambahkan posisi untuk password
+		untuk X-Forwarded-For ubah 1 angka ip nya selbihnya ikutin langkah sebelumnya
+		
+	8. setelah selesai nanti ada status 302 pengalihan
+		login menggunakan kredensial ini dan berhasil

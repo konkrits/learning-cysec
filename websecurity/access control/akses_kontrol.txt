@@ -1,0 +1,29 @@
+Apa itu access control?
+
+	akses kontrol adalah tindakan mengakses dan mengontrol tindakan apa yang bisa dilakukan oleh sesorang atau user
+	dalam konteks web application akses kontrol bergantung pada otentikasi dan managemen sesi
+		-Otentikasi mengkonfirmasi dan memverifikasi user yang mengklaim dirinya
+		-managemen sesi mengidentifikasi apakah http request masih dibuat oleh user yang sama
+		-Kontrol akses menentukan apakah pengguna diizinkan untuk melakukan tindakan yang mereka coba lakukan.
+		
+Verikal akses kontrol
+
+	adalah mekanisme yang membatasi akses senstif pada beberapa tipe user. bayangkan seperti segitiga makin ke atas makin tinggi kontrol ke bawah
+
+horizontal akses kontrol
+
+	Misalnya, aplikasi perbankan akan memungkinkan pengguna untuk melihat transaksi dan melakukan pembayaran dari akun mereka sendiri, tetapi bukan akun pengguna lain
+	
+Context-dependent access controls
+
+	Kontrol akses tergantung konteks mencegah pengguna melakukan tindakan dalam urutan yang salah. Misalnya, situs web ritel dapat mencegah pengguna memodifikasi konten keranjang belanja mereka setelah mereka melakukan pembayaran.
+
+Cara mencegah kerentanan kontrol akses
+
+	Kerentanan kontrol akses dapat dicegah dengan mengambil pendekatan pertahanan-dalam-mendalam dan menerapkan prinsip-prinsip berikut:
+
+	    Jangan pernah mengandalkan kebingungan saja untuk kontrol akses.
+	    Kecuali sumber daya dimaksudkan untuk dapat diakses publik, menolak akses secara default.
+	    Jika memungkinkan, gunakan mekanisme aplikasi tunggal untuk menegakkan kontrol akses.
+	    Pada tingkat kode, pastikan bagi pengembang untuk menyatakan akses yang diizinkan untuk setiap sumber daya, dan menolak akses secara default.
+	    Mengitiru dan menguji kontrol akses secara menyeluruh untuk memastikan mereka bekerja seperti yang dirancang.

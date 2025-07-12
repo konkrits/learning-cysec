@@ -1,0 +1,16 @@
+Lab: 2FA simple bypass
+
+Brief:
+	akun kamu   : 	wiener:peter
+	akun korban : 	carlos:montoya
+	
+	vulnerable ke 2fa, sudah punya akun korban tetapi tidak dengan 2fa nya
+	
+Tujuan:
+	bypass 2fa dan login menjadi korban
+	
+Analisa:
+	1. login ke akun kamu dan masukan 2fa nya saat selesai perhatikan urlnya
+		atau requestnya di /my-account
+		
+	2. login ke korban, pada saat diminta 2fa langsung saja pergi ke url /my-account atau di request pun bisa

@@ -1,0 +1,23 @@
+LAB1 Username enumeration via different responses
+
+Brief:
+	vulnerable terhadap username enumeration dan brute force
+	
+Tujuan:
+	enumerate username dan brute force untuk login
+	
+Analisa:
+	1. kirim POST /login ke intruder
+	
+	2. higliht username dan tambahkan posisi kemudian isikan list username
+	
+	3. start attack dan nanti ada satu username yang response nya beda
+		disaat username yang salah response 3248 dan mendisplay invalid username dan ketika username yang benar lenght response nya 3250 dan mendisplay incorrect password
+		
+	4. isi username dengan username nomor 3 tambahkan posisi ke password dan tempel list password dan start attack
+	
+	5. ketika password benar nanti ada status code 302 dan butuh redirect dan
+	
+	6. login aja. BERHASIL
+	
+	

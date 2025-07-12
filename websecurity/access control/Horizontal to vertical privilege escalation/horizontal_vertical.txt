@@ -1,0 +1,13 @@
+Horizontal to vertical privilege escalation
+
+	(LAB User ID controlled by request parameter with password disclosure)
+			
+		Seringkali, serangan eskalasi hak istimewa horizontal dapat diubah menjadi eskalasi hak istimewa vertikal, dengan mengorbankan pengguna yang lebih istimewa. 
+		Misalnya, eskalasi horizontal memungkinkan penyerang untuk mengatur ulang atau menangkap kata sandi milik pengguna lain. Jika penyerang menargetkan pengguna administrasi dan mengkompromikan akun mereka, 
+		maka mereka dapat memperoleh akses administratif dan melakukan eskalasi hak istimewa vertikal.
+
+		Penyerang mungkin dapat memperoleh akses ke halaman akun pengguna lain menggunakan teknik perusak parameter yang sudah dijelaskan untuk eskalasi hak istimewa horizontal:
+		https://insecure-website.com/myaccount?id=456
+
+		Jika pengguna target adalah administrator aplikasi, maka penyerang akan mendapatkan akses ke halaman akun administratif. Halaman ini dapat mengungkapkan kata sandi administrator atau 
+		menyediakan sarana untuk mengubahnya, atau dapat memberikan akses langsung ke fungsi istimewa.

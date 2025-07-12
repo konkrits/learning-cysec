@@ -1,0 +1,62 @@
+Vertical privilage escalation
+
+	jika user biasa bisa mengakses fungsi yang tidak boleh mereka lakukan.
+	
+		-FUNGSI YANG TIDAK DILINDUNGI (LAB1 Unprotected admin functionality)
+		
+			 contoh: jika aplikasi tidak melindungi halaman login admin maka user bisa pergi kehalaman admin dengan url yang relevan seperti http://web/admin user tinggal pergi kesana dengan membrute force lokasi
+			 atau dalam kasus lain user bisa pergi ke robots.txt 
+		
+		(LAB2 Unprotected admin functionality with unpredictable URL)
+		
+			atau jika web menyembunyikan fungsi sensitif tapi tidak secara jelas contohnya: jika web menyembunyikan panel admin-192103-a memang ini sulit ditebak tapi penyerang mungkin mendapatkan url ini tapi web mungkin 
+			mebocorkan url ini di javascript dan dapat diakses berdasarkan rolenya: 
+			
+			<script>
+				var isAdmin = false;
+				if (isAdmin) {
+					...
+					var adminPanelTag = document.createElement('a');
+					adminPanelTag.setAttribute('href', 'https://insecure-website.com/administrator-panel-yb556');
+					adminPanelTag.innerText = 'Admin panel';
+					...
+				}
+			</script>
+
+			script ini akan menuju ke admin panel tapi masih bisa dilihat oleh pengguna biasa terlepas dari perannya. 
+		
+		-AKSES KONTROL PARAMETER  (Lab3 User role controlled by request parameter dan Lab4 User role can be modified in user profile)
+		
+			  beberapa web menentukan peran user saat login dan menyimpannya di: cookie, hidden field, query string parameter
+			  aplikasi memutuskan peran akses kontrol berdasarkan value yang diberikan contoh:
+			  https://insecure-website.com/login/home.jsp?admin=true
+			  https://insecure-website.com/login/home.jsp?role=1
+
+		-Kontrol akses yang rusak akibat miskonfigurasi platform (Lab5 URL-based access control can be circumvented)
+		
+			Aplikasi mungkin membatasi peran user dengan membatasi akses ke url dan http method. contoh: DENY:POST /admin/deleteUser, manager
+			yang artinya menolak akses melalui POST method di url /admin/deleteUser untuk user yang ada di grup manager.
+			ini bisa mengarah ke akses kontrol bypass.
+			
+			beberapa framework mendukung header HTTP non standar untuk mengganti url pada permintaan asli seperti,
+				X-Original-URL dan X-Rewrite-URL, jika aplikasi membatasi akses url, tapi menginjinkan url ditimpa melalu request header
+				maka bisa dibypass dengan permintaan berikut :  POST / HTTP/1.1
+										X-Original-URL: /admin/deleteUser
+										...
+			
+		-Lab Method-based access control can be circumvented (LAB6 METHOD-based access control can be circumvented)
+		
+			 serangan sebelumnya membatasi berdasarkan url dan http method, beberapa web mentolerir request method, contoh jika GET  method bisa dipakai di url yang 
+			 dibatasi ini bisa membypass akses kontrol pada layer aplikasi.
+			 
+				-Kontrol akses yang rusak yang dihasilkan dari perbedaan pencocokan URL
+		
+			Situs web dapat bervariasi dalam seberapa ketat mereka cocok dengan jalur permintaan yang masuk ke titik akhir yang ditentukan. 
+			Misalnya, mereka dapat mentolerir kapitalisasi yang tidak konsisten, sehingga permintaan 	
+
+			Perbedaan serupa dapat muncul jika pengembang menggunakan kerangka Musim Semi telah memungkinkan opsi useSuffixPatternMatch. 
+			Hal ini memungkinkan jalur dengan ekstensi file sewenang-wenang untuk dipetakan ke titik akhir yang setara tanpa ekstensi file. 
+			Dengan kata lain, permintaan untuk /admin/deleteUser.apa pun masih akan sesuai dengan pola /admin/deleteUser. Sebelum Spring 5.3, opsi ini diaktifkan secara default.
+
+			Pada sistem lain, Anda mungkin menemukan perbedaan dalam apakah /admin/deleteUser dan /admin/deleteUser/ diperlakukan sebagai titik akhir yang berbeda. Dalam hal ini, 
+			Anda mungkin dapat melewati kontrol akses dengan menambahkan tebasan trailing ke jalan.

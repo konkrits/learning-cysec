@@ -1,0 +1,7 @@
+Insecure direct object references
+
+	(Lab: Insecure direct object references)
+
+	Insecure direct object References (IDOR) adalah subkategori kerentanan kontrol akses. IDOR terjadi jika aplikasi menggunakan input yang disediakan pengguna untuk mengakses objek secara langsung 
+	dan penyerang dapat memodifikasi input untuk mendapatkan akses yang tidak sah. Itu dipopulerkan oleh penampilannya di OWASP 2007 Top Ten. 
+	Ini hanyalah salah satu contoh dari banyak kesalahan implementasi yang dapat memberikan sarana untuk memotong kontrol akses.

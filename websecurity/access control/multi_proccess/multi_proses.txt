@@ -1,0 +1,19 @@
+Access control vulnerabilities in multi-step processes
+
+	(Lab: Multi-step process with no access control on one step)
+
+	Banyak situs web menerapkan fungsi penting selama serangkaian langkah. Ini adalah umum ketika:
+
+	    Berbagai input atau opsi perlu ditangkap.
+	    Pengguna perlu meninjau dan mengkonfirmasi rincian sebelum tindakan dilakukan.
+
+	Misalnya, fungsi administratif untuk memperbarui detail pengguna mungkin melibatkan langkah-langkah berikut:
+
+	    Beban bentuk yang berisi rincian untuk pengguna tertentu.
+	    Kirimkan perubahan.
+	    Tinjau perubahan dan konfirmasikan.
+
+	Terkadang, sebuah situs web akan menerapkan kontrol akses yang ketat atas beberapa langkah ini, tetapi mengabaikan yang lain. Bayangkan sebuah situs web di mana kontrol akses diterapkan dengan benar 
+	pada langkah pertama dan kedua, tetapi tidak ke langkah ketiga. 
+	Situs web mengasumsikan bahwa pengguna hanya akan mencapai langkah 3 jika mereka telah menyelesaikan langkah pertama, yang dikontrol dengan benar. 
+	Penyerang dapat memperoleh akses tidak sah ke fungsi dengan melewatkan dua langkah pertama dan langsung mengajukan permintaan untuk langkah ketiga dengan parameter yang diperlukan.

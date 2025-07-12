@@ -1,0 +1,15 @@
+Lab: Username enumeration via subtly different responses
+
+Brief:
+	Lab yang agak rentan dengan brute force
+	
+Tujuan:
+	enumerate username lalu brute force passwordnya dan login ke akunnya
+	
+Analisa:
+	1. kirim post /login ke intruder, tambahkan posisi di username dal tambahkan list usernamenya
+	2. pergi ke setting kanan temukan grep-extract klik add lalu refetch response kemudian highlight Invalid username and password. dan OK start ATTACK
+	3. ketika selesai klik kolum warning perhatikan ada satu response berbeda yang berisi username yang ada, response yang lain "Invalid username and password." tapi yang ini "Invalid username and password"
+		hanya tidak ada titik saja
+	4. isi username dengan username yang ditemukan nomor 3 dan tambahkan posisi ke password isi payload dengan list password
+	5. ketika sudah semua, klik response dan ada kode 302 login menggunakan username dan pasword itu dan berhasil.

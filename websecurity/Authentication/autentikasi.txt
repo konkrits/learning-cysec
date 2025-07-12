@@ -1,0 +1,85 @@
+1.) Authentication vulnerabilities
+
+	Secara konseptual, kerentanan otentik mudah dimengerti. Namun, mereka biasanya kritis karena hubungan yang jelas antara otentikasi dan keamanan.
+
+	Kerentanan otentikasi dapat memungkinkan penyerang untuk mendapatkan akses ke data dan fungsionalitas sensitif. Mereka juga mengekspos permukaan serangan tambahan untuk eksploitasi lebih lanjut. 
+	Untuk alasan ini, penting untuk mempelajari cara mengidentifikasi dan mengeksploitasi kerentanan otentikasi, dan cara melewati langkah-langkah perlindungan umum.
+
+	Di bagian ini, kami menjelaskan:
+
+	    Mekanisme otentikasi yang paling umum digunakan oleh situs web.
+	    Potensi kerentanan dalam mekanisme ini.
+	    Kerentanan yang melekat pada mekanisme otentikasi yang berbeda.
+	    Kerentanan khas yang diperkenalkan oleh implementasi yang tidak tepat.
+	    Bagaimana Anda dapat membuat mekanisme otentikasi Anda sendiri sekuat mungkin.
+
+2.) What is authentication?
+
+	Otentikasi adalah proses verifikasi identitas pengguna atau klien. Situs web berpotensi terkena siapa saja yang terhubung ke internet. 
+	Ini membuat mekanisme otentikasi yang kuat menjadi bagian integral dari keamanan web yang efektif.
+
+	Ada tiga jenis utama otentikasi:
+
+	    Sesuatu yang Anda ketahui, seperti kata sandi atau jawaban untuk pertanyaan keamanan. Ini kadang-kadang disebut "faktor pengetahuan".
+	    Sesuatu yang Anda miliki, ini adalah objek fisik seperti ponsel atau token keamanan. Ini kadang-kadang disebut "faktor kepemilikan".
+	    Sesuatu yang Anda lakukan atau lakukan. Misalnya, biometrik atau pola perilaku Anda. Ini kadang-kadang disebut "faktor inherensi".
+	    
+3.) What is the difference between authentication and authorization?
+
+	Otentikasi adalah proses verifikasi bahwa pengguna adalah siapa yang mereka klaim. Otorisasi melibatkan verifikasi apakah pengguna diperbolehkan melakukan sesuatu.
+
+		Misalnya, 
+		
+		otentikasi menentukan apakah seseorang yang mencoba mengakses situs web dengan nama pengguna Carlos123 benar-benar adalah orang yang sama yang membuat akun.
+
+		Setelah Carlos123 diautentikasi, izin mereka menentukan apa yang mereka berwenang untuk melakukan. Misalnya, mereka mungkin berwenang untuk mengakses informasi pribadi tentang pengguna lain, 
+		atau melakukan tindakan seperti menghapus akun pengguna lain.
+		
+4.) How do authentication vulnerabilities arise?
+
+	Sebagian besar kerentanan dalam mekanisme otentikasi terjadi dalam salah satu dari dua cara:
+
+	    Mekanisme otentikasi lemah karena gagal melindungi secara memadai terhadap serangan brute-force.
+	    Kelemahan logika atau pengkodean yang buruk dalam implementasi memungkinkan mekanisme otentikasi untuk dilewati sepenuhnya oleh penyerang. Hal ini kadang-kadang disebut "arkenasi otentikasi yang rusak".
+
+	Di banyak bidang pengembangan web, kelemahan logika menyebabkan situs web berperilaku tak terduga, yang mungkin atau mungkin bukan masalah keamanan. 
+	Namun, karena otentikasi sangat penting bagi keamanan, sangat mungkin bahwa logika otentikasi yang cacat mengekspos situs web untuk masalah keamanan.
+	
+5.) What is the impact of vulnerable authentication?
+
+	Dampak kerentanan otentikasi bisa sangat parah. Jika penyerang melewati otentikasi atau brute-forces jalan mereka ke akun pengguna lain, mereka memiliki akses ke semua data dan fungsi yang dimiliki akun yang dikompromikan. 
+	
+	Jika mereka mampu berkompromi dengan akun berprivilegungan tinggi, seperti administrator sistem, mereka dapat mengambil kendali penuh atas seluruh aplikasi dan berpotensi mendapatkan akses ke infrastruktur internal.
+
+	Bahkan mengorbankan akun berpritasi rendah mungkin masih memberikan akses penyerang ke data yang seharusnya tidak mereka miliki, 
+		seperti informasi bisnis yang sensitif secara komersial. 
+
+	Bahkan jika akun tidak memiliki akses ke data sensitif, itu mungkin masih memungkinkan penyerang untuk mengakses halaman tambahan, yang menyediakan permukaan serangan lebih lanjut. 
+
+	Seringkali, serangan tingkat tinggi tidak mungkin dilakukan dari halaman yang dapat diakses publik, tetapi mereka mungkin mungkin dari halaman internal.	
+	
+6.) Vulnerabilities in authentication mechanisms
+
+	Sistem otentikasi situs web biasanya terdiri dari beberapa mekanisme berbeda di mana kerentanan dapat terjadi. Beberapa kerentanan berlaku di semua konteks ini. Yang lain lebih spesifik untuk fungsi yang disediakan.
+
+	Kami akan melihat lebih dekat pada beberapa kerentanan yang paling umum di bidang-bidang berikut:	
+	
+	    Vulnerabilities in password-based login 		(LABS)
+	    Vulnerabilities in multi-factor authentication 	(LABS)
+	    Vulnerabilities in other authentication mechanisms  (LABS)
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
