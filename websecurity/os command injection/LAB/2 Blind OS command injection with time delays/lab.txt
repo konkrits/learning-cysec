@@ -1,0 +1,30 @@
+LAB 2 Blind OS command injection with time delays
+
+Brief:
+
+	web ini punya kerentanan blind command os injection di feedback, response nya tidak di kembalikan ke user
+	
+Tujuan:
+
+	sebabkan delay selama 10 detik
+	
+Analisa:
+
+	1. pergi ke laman feedback
+	
+	2. isi semua kolom dan intercept
+	
+	3. masukan payload di parameter email=x(PAYLOAD) dan kirim response akan memakan waktu selama yang ditentukan
+		payload: ||ping+c+10+127.0.0.1|| -> || = or.  + = spasi c=waktu
+			
+	4. setelah comamnd meng ping selama waktu yang ditentukan response bari di kirim
+
+	5. berhasil
+
+
+
+
+
+
+
+

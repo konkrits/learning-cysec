@@ -1,0 +1,16 @@
+LAB 1 OS command injection, simple case
+
+brief:
+	os command injection di produk stok
+	
+Tujuan:
+	eksekusi perintah whoami
+	
+Analisa:
+	1. pergi ke laman produk
+	
+	2. klik stok produk dan intercept
+	
+	3. pada paramater produkid=2 berika |whoami -> produkid=2|whoami
+	
+	4. berhasil

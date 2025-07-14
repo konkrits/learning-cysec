@@ -1,0 +1,66 @@
+Lab 3 : Blind OS command injection with output redirection
+
+Brief:
+
+	vulnerabilty di feedback, Aplikasi ini mengeksekusi perintah shell yang berisi detail yang disediakan pengguna. Output dari perintah tidak dikembalikan dalam respon. 
+	Namun, Anda dapat menggunakan pengalihan output untuk menangkap output dari perintah. Ada folder yang ditulis di:
+
+		/var/www/images/
+
+	Aplikasi ini menyajikan gambar untuk katalog produk dari lokasi ini. Anda dapat mengarahkan output dari perintah yang disuntikkan ke file di folder ini, 
+	dan kemudian menggunakan URL pemuatan gambar untuk mengambil isi file.
+
+Tujuan:
+	eksekusi perintah whoami dan ambil outputnya
+	
+Analisa:
+	1. pergi ke laman feedback
+	
+	2. isi semua kolom dan kirim ke repeater
+	
+	3. pada parameter email=x||PAYLOAD|| dan kirim	
+		payload nya ||whoami>/var/www/images/output.txt||
+
+	4. load request gambar
+	
+	5. ganti parameter filename=(GAMBAR) menjadi filename=output.txt dan berhasil
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
