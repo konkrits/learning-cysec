@@ -1,0 +1,22 @@
+Lab 3 File path traversal, traversal sequences stripped non-recursively
+
+Brief:
+
+	 Laboratorium ini mengandung kerentanan path traversal dalam tampilan gambar produk.
+
+	Aplikasi ini menghapus urutan path traversal dari nama file yang diberikan oleh pengguna sebelum menggunakannya.
+
+Tujuan:
+
+	dapatkan /etc/passwd
+	
+Analisa:
+
+	1. kirim request gambar ke repeater
+	
+	2. coba metode sebelumnya dan gagal
+	
+	3. lalukan dengan nested ....// -> ....//....//....//etc/passwd dan berhasil
+
+
+

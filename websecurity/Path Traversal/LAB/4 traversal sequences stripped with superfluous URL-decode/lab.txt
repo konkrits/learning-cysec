@@ -1,0 +1,21 @@
+LAB 4 traversal sequences stripped with superfluous URL-decode
+
+Brief:
+
+	 Laboratorium ini mengandung kerentanan path traversal dalam tampilan gambar produk.
+	 
+	 web memblokir traversal input lalu kemudian melakukan url decode input sebelum melakukannya
+	 
+Tujuan:
+
+	dapatkan /etc/passwd
+	
+Analisa:
+
+	1. kirim request gambar ke repeater
+	
+	2. coba metode sebelumnya dan gagal
+
+	3. coba dengan encode 2 kali si / nya dan berhasil
+		encoded dulu / dua kali dan menjadi seperti ini ..%25%32%66..%25%32%66..%25%32%66etc/passwd
+

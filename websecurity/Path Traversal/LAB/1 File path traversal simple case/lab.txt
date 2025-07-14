@@ -1,0 +1,22 @@
+LAB 1 File path traversal, simple case
+
+Brief:
+
+	kerentanan di display gambar produk
+
+Tujuan:
+
+	dapatkan isi /etc/passwd
+	
+Analisa:
+
+	1. dapatkan request gambarnya kirim ke repeater
+	
+	2. ganti filenamenya dengan payload dan berhasil
+		dikarenakan ini tidak ada sanitasi sekali jadi langsung saja ../../../etc/passwd
+
+
+
+
+
+

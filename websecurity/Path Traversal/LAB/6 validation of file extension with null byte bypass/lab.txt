@@ -1,0 +1,16 @@
+LAB 6 validation of file extension with null byte bypass
+
+Brief:
+
+	 Laboratorium ini mengandung kerentanan path traversal dalam tampilan gambar produk.
+	 web mengharapkan file ekstensi yang ditentukan
+	 
+Tujuan:
+
+	dapatkan /etc/passwd
+	
+Analisa:
+
+	1. kirim ke request
+	2. langsung saja ../../../etc/passwd%00.jpg karena file ekstensinya jpg
+	3. berhasil

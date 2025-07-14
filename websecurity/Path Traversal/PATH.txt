@@ -1,0 +1,128 @@
+Path traversal
+
+Apa itu path traversal?
+
+	Kerentanan ini memungkinkan penyerang untuk membaca file sewenang-wenang pada server yang menjalankan aplikasi. Ini mungkin termasuk:
+
+	    Kode aplikasi dan data.
+	    Kredensial untuk sistem back-end.
+	    File sistem operasi yang sensitif.
+
+	Dalam beberapa kasus, penyerang mungkin dapat menulis ke file sewenang-wenang di server, memungkinkan mereka untuk memodifikasi data aplikasi atau perilaku, dan akhirnya mengambil kendali penuh dari server.
+
+Membaca file sewenang-wenang melalui path traversal
+
+  (LAB 1 Path traversal kasus sederhana)
+
+	Bayangkan aplikasi belanja yang menampilkan gambar barang untuk dijual. Ini mungkin memuat gambar menggunakan HTML berikut:
+	
+		<img src="/loadImage?filename=218.png">
+
+	Yang load ImageURL mengambil a filename parameter dan mengembalikan isi dari file yang ditentukan. File gambar disimpan di disk di lokasi /var/www/images/. 
+	Untuk mengembalikan gambar, aplikasi menambahkan nama file yang diminta ke direktori dasar ini dan menggunakan API filesystem untuk membaca isi file. 
+
+	Dengan kata lain, aplikasi membaca dari jalur file berikut:
+
+		/var/www/images/218.png
+
+	Aplikasi ini tidak menerapkan pertahanan terhadap serangan traversal jalur. Akibatnya, 
+
+	penyerang dapat meminta URL berikut untuk mengambil /etc/passwd file dari filesystem server:
+
+		https://insecure-website.com/loadImage?filename=../../../etc/passwd
+
+	Hal ini menyebabkan aplikasi untuk membaca dari jalur file berikut:
+
+		/var/www/images/../../../etc/passwd
+
+	Urutan ../ valid dalam jalur file, dan berarti untuk meningkatkan satu tingkat dalam struktur direktori. 
+	
+	Tiga kali berturut-turut ../urutan melangkah dari /var/www/images/ke akar sistem file /, 
+
+	sehingga file yang benar-benar dibaca adalah:
+
+		/etc/passwd
+
+	Pada sistem operasi berbasis Unix, ini adalah file standar yang berisi rincian pengguna yang terdaftar di server, tetapi penyerang dapat mengambil file sewenang-wenang lainnya menggunakan teknik yang sama.
+
+	Pada Windows, keduanya ../dan ..\adalah urutan traversal direktori yang valid. Berikut ini adalah contoh serangan setara terhadap server berbasis Windows:
+
+		https://insecure-website.com/loadImage?filename=..\..\..\windows\win.ini
+
+Hambatan umum untuk mengeksploitasi jalur traversal kerentanan
+
+  (lAB 2 File path traversal, urutan traversal diblokir dengan bypass jalur mutlak)
+
+	Banyak aplikasi yang menempatkan input pengguna ke jalur file menerapkan pertahanan terhadap serangan traversal jalur. Ini sering bisa dilewati.
+
+	Jika aplikasi strip atau blok urutan traversal direktori dari nama file yang dipasok pengguna, dimungkinkan untuk melewati pertahanan menggunakan berbagai teknik.
+
+	Anda mungkin dapat menggunakan jalur absolut dari akar sistem file, seperti filename=/etc/passwd, untuk secara langsung referensi file tanpa menggunakan urutan traversal apapun.
+
+  (LAB 3 traversal sequences stripped non-recursively)
+  	
+  	Anda mungkin dapat menggunakan urutan penjelajahan bersarang, seperti ....// atau ....\/. Ini akan kembali ke urutan penjelajahan sederhana ketika urutan bagian dalam dihapus.
+
+  (LAB 4 traversal sequences stripped with superfluous URL-decode)
+
+	Dalam beberapa konteks, seperti di jalur URL atau filename parameter dari a multipart/form-data permintaan, 
+	server web dapat menghapus urutan traversal direktori sebelum memberikan masukan Anda ke aplikasi. Anda terkadang dapat melewati jenis sanitasi ini dengan pengkodean URL, 
+	atau bahkan pengkodean URL ganda, 
+	
+		../karakter. Hasil ini dalam %2e%2e%2f dan %252e%252e%252f masing-masing. 
+		
+	Berbagai encodings non-standar, 
+	
+		seperti ..%c0%af atau ..%ef%bc%8f, juga bisa bekerja.
+	
+  (LAB 5 awal jalur yang diharapkan)
+  
+	Sebuah aplikasi mungkin memerlukan nama file yang dipasok pengguna untuk memulai dengan folder dasar yang diharapkan, seperti /var/www/images. 
+	Dalam hal ini, dimungkinkan untuk menyertakan folder dasar yang diperlukan diikuti oleh urutan traversal yang sesuai. 
+	Sebagai contoh: filename=/var/www/images/../../../etc/passwd
+
+  (LAB 6 ekstensi yang diharapkan)
+
+	Aplikasi mungkin memerlukan nama file yang dipasok pengguna untuk diakhiri dengan ekstensi file yang diharapkan, seperti .png. 
+
+	Dalam hal ini, dimungkinkan untuk menggunakan byte nol untuk secara efektif mengakhiri jalur file sebelum ekstensi yang diperlukan. 
+
+		Sebagai contoh: namafile=../../../../etc/passwd%00.png.
+
+Cara mencegah serangan traversal jalan
+
+	 Cara yang paling efektif untuk mencegah kerentanan penelusuran jalur adalah dengan menghindari meneruskan input yang disediakan pengguna ke API sistem berkas. 
+	 Banyak fungsi aplikasi yang melakukan hal ini dapat ditulis ulang untuk memberikan perilaku yang sama dengan cara yang lebih aman.
+
+	Jika Anda tidak dapat menghindari meneruskan input yang disediakan pengguna ke API sistem berkas, 
+	kami sarankan untuk menggunakan dua lapis pertahanan untuk mencegah serangan:
+
+	    Memvalidasi input pengguna sebelum memprosesnya. Idealnya, bandingkan masukan pengguna dengan daftar putih nilai yang diizinkan. Jika tidak memungkinkan, 
+	    verifikasi bahwa input hanya berisi konten yang diizinkan, seperti karakter alfanumerik saja.
+	    
+    	Setelah memvalidasi masukan yang diberikan, tambahkan masukan ke direktori dasar dan gunakan API sistem berkas platform untuk mengkanonisasikan jalur. 
+    	Pastikan bahwa jalur yang dikanonikalisasi dimulai dengan direktori dasar yang diharapkan.
+
+	Di bawah ini adalah contoh beberapa kode Java sederhana untuk memvalidasi jalur kanonik sebuah berkas berdasarkan masukan dari pengguna:
+
+		Translated with DeepL.com (free version)
+
+		File file = new File(BASE_DIRECTORY, userInput);
+		if (file.getCanonicalPath().startsWith(BASE_DIRECTORY)) {
+		    // process file
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

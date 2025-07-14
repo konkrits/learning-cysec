@@ -1,0 +1,30 @@
+LAB traversal sequences blocked with absolute path bypass
+
+Brief:
+	vulnerable di image produk, web memblokir jalur .. / tetapi memberlakukan relatif dengan nama direktori default
+	
+Tujuan:
+	dapatkan file /etc/passwd
+	
+Analisa:
+
+	1. dapatkan request kirim ke repeater
+	
+	2. 2 coba dengan ../../../etc/passwd
+		dan ternyata gagal ini dikaranakan .. diblokir	
+	
+	3. coba dengan jalur langsung /etc/passwd dan berhasil
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
