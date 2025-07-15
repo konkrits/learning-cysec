@@ -1,0 +1,39 @@
+LAB 4 extension blacklist bypass
+
+Brief:
+	bebarapa ekstensi file di blacklist, tapi ini bisa dibypass dengan konfigurasi pemblacklist itu sendiri
+	
+Tujuan:
+	dapatkan /home/carlos/secret
+	
+Analisa:
+	1. upload gambar dapatkan request GET filename
+	
+	2. upload php dan response menginditasikan bahwa tipe file tidak diijinkan
+	
+	3. kirim request tadi ke repeater dan diresponse server menggunakan apache2 
+	
+	4. kamu perlu mengubah hal berikut:
+	
+		filename     = shell.php 		-> 	filename     = .htaccess
+		Content-Type = application/x-php	->	Content-Type = text/plai 
+		isi skripnya:
+				AddType application/x-httpd-php .l33t
+				
+				artinya .l33t ditambahkan ke application/x-httpd-php dan dapat di eksekusi file dan mod_php sudah tau cara menghandle ini
+				
+	5. kirim request
+	
+	6. di sekarang kembali ke request upload php dan ubah ekstensinya jadi .l33t lalu kirim dan berhasil
+		
+			ini menjadikan ekstensi .l33t dapat dieksekusi
+			
+	7. di get request filename dapatkan file nya dan berhasil			
+				
+				
+				
+				
+				
+				
+				
+				

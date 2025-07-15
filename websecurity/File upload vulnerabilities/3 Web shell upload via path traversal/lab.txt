@@ -1,0 +1,19 @@
+Brief:
+	Web shell upload via path traversal
+	
+Tujuan:
+	dapatkan file /home/secret/carlos
+	
+Analisa:
+	1. upload gambar seperti biasa dan kirim request GET filename
+	
+	2. upload file php dan berhasil
+	
+	3. tapi ketika didapatkan malah dikembalikan jadi teks
+	
+	4. coba dengan path traversal / dan response nya avatars/shell.php ini berarti / dihapus dari nama file
+	
+	5. coba encode / dan berhasil 
+	
+	6. pada get request filename:/files/shell.php
+	

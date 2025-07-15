@@ -1,0 +1,20 @@
+LAB 4 extension blacklist bypass
+
+Brief:
+	tipe file bisa dibypass via klasik obfuscation technique
+	
+Tujuan:
+	dapatkan /home/carlos/secret
+	
+Analisa:
+
+	1. upload gambar dapatkan request GET filename
+	
+	2. upload php dan response menginditasikan bahwa tipe file tidak diijinkan
+	
+	3. di filename coba ubah jadi filename="shell.php%00.jpg"
+	
+	4. response files /avatars/shell.php uploaded
+		ini mengidentifikasi bahwa server menstrip null byte
+		
+	5. dapatkan file dan berhasil

@@ -1,0 +1,353 @@
+File upload vulnerabilities
+
+	File upload vulnerabilities adalah ketika server web memungkinkan pengguna untuk mengunggah file ke sistem file tanpa cukup memvalidasi hal-hal seperti nama, jenis, konten, atau ukuran mereka. 
+	Gagal menegakkan pembatasan ini dengan benar dapat berarti bahwa bahkan fungsi unggahan gambar dasar dapat digunakan untuk mengunggah file yang sewenang-wenang dan berpotensi berbahaya. 
+	Ini bahkan dapat mencakup file skrip sisi server yang memungkinkan eksekusi kode jarak jauh.
+
+	Dalam beberapa kasus, tindakan mengunggah file itu sendiri cukup untuk menyebabkan kerusakan. Serangan lain mungkin melibatkan permintaan HTTP tindak lanjut untuk file, biasanya untuk memicu eksekusi oleh server.
+
+What is the impact of file upload vulnerabilities?
+
+	Dampak kerentanan unggah file umumnya tergantung pada dua faktor kunci:
+
+	    - Aspek mana dari file yang gagal divalidasi oleh situs web dengan benar, apakah itu ukuran, jenis, konten, dan sebagainya.
+	    
+	    - Pembatasan apa yang dikenakan pada file setelah berhasil diunggah.
+
+	Dalam skenario terburuk, jenis file tidak divalidasi dengan benar, dan konfigurasi server memungkinkan beberapa jenis file (seperti .phpdan .jsp) 
+	untuk dieksekusi sebagai kode. Dalam hal ini, penyerang berpotensi mengunggah file kode sisi server yang berfungsi sebagai cangkang web, secara efektif memberikan mereka kontrol penuh atas server.
+
+	Jika nama file tidak divalidasi dengan benar, ini dapat memungkinkan penyerang untuk menimpa file kritis hanya dengan mengunggah file dengan nama yang sama. 
+	Jika server juga rentan terhadap direktur traversal, ini bisa berarti penyerang bahkan dapat mengunggah file ke lokasi yang tidak dinanti-nantikan.
+
+	Gagal memastikan bahwa ukuran file termasuk dalam ambang batas yang diharapkan juga dapat memungkinkan bentuk serangan denial-of-service (DoS), 
+	di mana penyerang mengisi ruang disk yang tersedia.
+
+How do file upload vulnerabilities arise?
+
+	Mengingat bahaya yang cukup jelas, jarang situs web di alam liar tidak memiliki batasan apa pun di mana pengguna diizinkan untuk mengunggah file. 
+	Lebih umum, pengembang menerapkan apa yang mereka yakini sebagai validasi kuat yang secara inheren cacat atau dapat dengan mudah dilewati.
+
+	Misalnya, mereka mungkin mencoba untuk memasukkan daftar hitam jenis file yang berbahaya, tetapi gagal memperhitungkan perbedaan parsing saat memeriksa ekstensi file. 
+	Seperti halnya daftar hitam, juga mudah untuk secara tidak sengaja menghilangkan jenis file yang lebih tidak jelas yang mungkin masih berbahaya.
+
+	Dalam kasus lain, situs web dapat mencoba untuk memeriksa jenis file dengan memverifikasi properti yang dapat dengan mudah dimanipulasi oleh penyerang menggunakan alat seperti Burp Proxy atau Repeater.
+
+	Pada akhirnya, langkah-langkah validasi yang kuat dapat diterapkan secara tidak konsisten di seluruh jaringan host dan direktori yang membentuk situs web, menghasilkan perbedaan yang dapat dieksploitasi.
+
+Bagaimana server web menangani permintaan untuk file statis?
+
+	Secara historis, situs web hampir seluruhnya terdiri dari file statis yang akan disajikan kepada pengguna ketika diminta. Akibatnya, 
+	jalur setiap permintaan dapat dipetakan 1:1 dengan hierarki direktori dan file pada sistem file server. Saat ini, situs web semakin dinamis dan 
+	jalur permintaan sering tidak memiliki hubungan langsung dengan sistem file sama sekali. Namun demikian, server web masih berurusan dengan permintaan untuk beberapa file statis, 
+	termasuk stylesheets, gambar, dan sebagainya.
+
+	Proses untuk menangani file statis ini sebagian besar masih sama. Pada titik tertentu, server mengurai jalur dalam permintaan untuk mengidentifikasi ekstensi file. 
+	Kemudian menggunakan ini untuk menentukan jenis file yang diminta, biasanya dengan membandingkannya dengan daftar pemetaan pra-konfigurasi antara ekstensi dan tipe MIME. 
+	Apa yang terjadi selanjutnya tergantung pada jenis file dan konfigurasi server.
+
+    	- Jika jenis file ini tidak dapat dieksekusi, seperti gambar atau halaman HTML statis, server mungkin hanya mengirim konten file ke klien dalam respons HTTP.
+    	
+    	- Jika jenis file dapat dieksekusi, seperti file PHP, dan server dikonfigurasi untuk mengeksekusi file jenis ini, itu akan menetapkan variabel berdasarkan header 
+    		dan parameter dalam permintaan HTTP sebelum menjalankan script. Output yang dihasilkan kemudian dapat dikirim ke klien dalam respon HTTP.
+    	
+    	- jika jenis file dapat dieksekusi, tetapi server tidak dikonfigurasi untuk mengeksekusi file jenis ini, umumnya akan merespon dengan kesalahan. Namun, dalam beberapa kasus, 
+    		isi file masih dapat disajikan kepada klien sebagai teks biasa. Miskonfigurasi semacam itu kadang-kadang dapat dieksploitasi untuk membocorkan kode sumber dan informasi sensitif lainnya. 
+
+		
+		
+		NOTE:  
+		
+			Content-TypeHeader respon dapat memberikan petunjuk tentang jenis file apa yang menurut server telah dilayani. 
+			Jika header ini belum secara eksplisit ditetapkan oleh kode aplikasi, biasanya berisi hasil pemetaan ekstensi file / tipe MIME.
+
+
+Exploiting unrestricted file uploads to deploy a web shell
+
+  (LAB1 Eksekusi kode jarak jauh melalui unggahan shell web)
+
+	Dari perspektif keamanan, skenario terburuk yang mungkin adalah ketika sebuah situs web memungkinkan Anda untuk mengunggah skrip sisi server, 
+	seperti file PHP, Java, atau Python, dan juga dikonfigurasi untuk mengeksekusinya sebagai kode. Hal ini membuat ini sepele untuk membuat cangkang web Anda sendiri di server.
+
+	Jika Anda berhasil mengunggah web shell, Anda secara efektif memiliki kontrol penuh atas server. Ini berarti Anda dapat membaca dan menulis file sewenang-wenang, 
+	exfiltrate data sensitif, bahkan menggunakan server untuk memutar serangan terhadap infrastruktur internal dan server lain di luar jaringan. 
+
+	Misalnya, PHP berikut dapat digunakan untuk membaca file sewenang-wenang dari sistem file server:
+
+		<?php echo file_get_contents('/path/to/target/file'); ?>
+
+	Setelah diunggah, mengirim permintaan untuk file berbahaya ini akan mengembalikan isi file target dalam response.
+
+	 A more versatile web shell may look something like this:
+	 
+		<?php echo system($_GET['command']); ?>
+
+	This script enables you to pass an arbitrary system command via a query parameter as follows:
+	
+		GET /example/exploit.php?command=id HTTP/1.1
+  
+Memanfaatkan validasi yang salah dari unggahan file
+
+	Di alam liar, tidak mungkin Anda akan menemukan situs web yang tidak memiliki perlindungan terhadap serangan unggah file seperti yang kita lihat di lab sebelumnya. 
+	Tetapi hanya karena pertahanan ada di tempat, itu tidak berarti bahwa mereka kuat. Anda terkadang masih dapat mengeksploitasi kelemahan dalam mekanisme ini untuk mendapatkan shell web untuk eksekusi kode jarak jauh.
+
+  (LAB 2 Web shell upload melalui Content-Type pembatasan bypass)
+
+     - Validasi tipe file yang cacat 
+
+	Saat mengirimkan formulir HTML, browser biasanya mengirimkan data yang disediakan dalam POST permintaan dengan jenis konten application/x-www-form-url-encoded. 
+	Ini bagus untuk mengirim teks sederhana seperti nama atau alamat Anda. Namun, tidak cocok untuk mengirim sejumlah besar data biner, seperti file gambar keseluruhan atau dokumen PDF. 
+	Dalam hal ini, jenis konten multipart/form-data yang lebih cocok.
+
+	Pertimbangkan formulir yang berisi bidang untuk mengunggah gambar, memberikan deskripsinya, dan masukkan nama pengguna Anda. 
+	Mengirimkan bentuk seperti itu dapat menghasilkan permintaan yang terlihat seperti ini:
+
+		    POST /images HTTP/1.1
+		    Host: normal-website.com
+		    Content-Length: 12345
+		    Content-Type: multipart/form-data; boundary=---------------------------012345678901234567890123456
+
+		    ---------------------------012345678901234567890123456
+		    Content-Disposition: form-data; name="image"; filename="example.jpg"
+		    Content-Type: image/jpeg
+
+		    [...binary content of example.jpg...]
+
+		    ---------------------------012345678901234567890123456
+		    Content-Disposition: form-data; name="description"
+
+		    This is an interesting description of my image.
+
+		    ---------------------------012345678901234567890123456
+		    Content-Disposition: form-data; name="username"
+
+		    wiener
+		    ---------------------------012345678901234567890123456--
+
+	Seperti yang Anda lihat, tubuh pesan dibagi menjadi bagian yang terpisah untuk setiap input formulir. Setiap bagian berisi Content-Disposition header,
+	yang memberikan beberapa informasi dasar tentang bidang input yang berkaitan dengannya. Bagian-bagian individu ini juga dapat berisi mereka sendiri Content-Type header, 
+	yang memberi tahu server jenis MIME dari data yang dikirimkan menggunakan input ini.
+
+	Salah satu cara yang dapat dicoba situs web untuk memvalidasi unggahan file adalah dengan memeriksa bahwa input-spesifik ini. 
+	Content-Type sundulan cocok dengan tipe MIME yang diharapkan. Jika server hanya mengharapkan file gambar, 
+	
+	misalnya, itu hanya memungkinkan jenis seperti image/jpeg dan image/png. Masalah dapat muncul ketika nilai header ini secara implisit dipercaya oleh server. 
+	Jika tidak ada validasi lebih lanjut yang dilakukan untuk memeriksa apakah isi file benar-benar cocok dengan tipe MIME yang seharusnya, 
+	pertahanan ini dapat dengan mudah dilewati menggunakan alat seperti Burp Repeater.
+
+     - Mencegah eksekusi file di direktori yang dapat diakses pengguna
+
+  (LAB3 Web shell upload via path traversal)
+	
+	Meskipun jelas lebih baik untuk mencegah jenis file berbahaya yang diunggah di tempat pertama, 
+	garis pertahanan kedua adalah untuk menghentikan server dari mengeksekusi setiap skrip yang menyelinap melalui internet.
+
+	Sebagai tindakan pencegahan, server umumnya hanya menjalankan skrip yang jenis MIME mereka telah secara eksplisit dikonfigurasi untuk dieksekusi. 
+	Jika tidak, mereka mungkin hanya mengembalikan beberapa jenis pesan kesalahan atau, dalam beberapa kasus,
+	
+	melayani isi file sebagai teks biasa sebagai gantinya:
+
+		    GET /static/exploit.php?command=id HTTP/1.1
+	   	    Host: normal-website.com
+
+
+		    HTTP/1.1 200 OK
+		    Content-Type: text/plain
+		    Content-Length: 39
+
+		    <?php echo system($_GET['command']); ?>
+
+	Perilaku ini berpotensi menarik dalam dirinya sendiri, karena dapat memberikan cara untuk membocorkan kode sumber, tetapi membatalkan setiap upaya untuk membuat web shell.
+
+	Konfigurasi semacam ini sering berbeda antara direktori. Sebuah direktori yang file user-supplied diunggah kemungkinan akan memiliki kontrol yang lebih ketat 
+	daripada lokasi lain pada sistem file yang diasumsikan berada di luar jangkauan untuk pengguna akhir. Jika Anda dapat menemukan cara untuk mengunggah skrip ke direktori yang berbeda 
+	yang tidak seharusnya berisi file yang disediakan pengguna, server dapat menjalankan skrip Anda.
+
+		
+		NOTE:
+
+			Web servers often use the filename field in multipart/form-data requests to determine the name and location where the file should be saved. 
+
+
+Tidak cukup daftar hitam dari jenis file berbahaya
+
+	Salah satu cara yang lebih jelas untuk mencegah pengguna mengunggah skrip berbahaya adalah dengan memasukkan ekstensi file yang berpotensi berbahaya. .php. 
+	Praktik blacklisting secara inheren cacat karena sulit untuk secara eksplisit memblokir setiap ekstensi file yang mungkin dapat digunakan untuk mengeksekusi kode. 
+	Daftar hitam tersebut kadang-kadang dapat dilewati dengan menggunakan lebih rendah dikenal, ekstensi file alternatif yang mungkin masih dapat dieksekusi, seperti .php5, .shtml, dan sebagainya.
+
+  - Overriding the server configuration
+
+  LAB 4 Web shell upload via extension blacklist bypass
+
+	Seperti yang kita bahas di bagian sebelumnya, server biasanya tidak akan mengeksekusi file kecuali mereka telah dikonfigurasi untuk melakukannya. 
+	Misalnya, sebelum server Apache akan mengeksekusi file PHP yang diminta oleh klien, pengembang mungkin harus menambahkan arahan berikut ke mereka. 
+
+	/etc/apache2/apache2.confberkas:
+
+		LoadModule php_module /usr/lib/apache2/modules/libphp.so
+		    AddType application/x-httpd-php .php
+
+	Banyak server juga memungkinkan pengembang untuk membuat file konfigurasi khusus dalam direktori individu untuk menimpa atau menambah satu atau lebih dari pengaturan global. 
+	Apache server, 
+	misalnya, akan memuat konfigurasi khusus direktori dari file yang disebut .htaccess jika ada yang hadir.
+
+	Demikian pula, pengembang dapat membuat konfigurasi khusus direktori pada server IIS menggunakan web.config berkas. Ini mungkin termasuk arahan seperti berikut, 
+	yang dalam hal ini memungkinkan file JSON untuk dilayani kepada pengguna:
+
+	<staticContent>
+	    <mimeMap fileExtension=".json" mimeType="application/json" />
+	    </staticContent>
+
+	Server web menggunakan jenis file konfigurasi ini saat ada, tetapi Anda biasanya tidak diizinkan untuk mengaksesnya menggunakan permintaan HTTP. 
+	Namun, Anda kadang-kadang dapat menemukan server yang gagal menghentikan Anda mengunggah file konfigurasi berbahaya Anda sendiri. 
+	Dalam hal ini, bahkan jika ekstensi file yang Anda butuhkan masuk daftar hitam, Anda mungkin dapat mengelabui server agar dapat memetakan ekstensi file khusus yang sewenang-wenang ke tipe MIME yang dapat dieksekusi.
+
+  - Ekstensi berkas yang membingungkan
+
+  (LAB 5 Upload shell web melalui ekstensi file yang tidak jelas)
+
+	Bahkan daftar hitam yang paling lengkap pun berpotensi dilewati menggunakan teknik kebingungan klasik. 
+	
+	Katakanlah kode validasi adalah kasus sensitif dan gagal mengenali itu exploit.pHp sebenarnya adalah sebuah .php file. 
+	Jika kode yang kemudian memetakan ekstensi file ke tipe MIME tidak sensitif terhadap kasus, 
+	perbedaan ini memungkinkan Anda untuk menyelinap file PHP berbahaya melewati validasi yang pada akhirnya dapat dieksekusi oleh server.
+
+	Anda juga dapat mencapai hasil yang serupa dengan menggunakan teknik berikut:
+
+	    - Berikan beberapa ekstensi. 
+	    	
+	    	Bergantung pada algoritma yang digunakan untuk mengurai nama file, file berikut dapat ditafsirkan sebagai file PHP atau gambar JPG: exploit.php.jpg
+	    
+	    - Tambahkan karakter trailing. 
+	    
+	    	Beberapa komponen akan melucuti atau mengabaikan trailing whitespaces, titik-titik, dan sejenisnya: exploit.php.
+	    	
+	    - Coba gunakan encoding URL (atau encoding URL ganda) untuk titik-titik, garis miring ke depan, dan garis miring ke belakang. 
+	    
+	    	Jika nilai tidak diterjemahkan ketika memvalidasi ekstensi file, tetapi kemudian didekodekan server-sisi, 
+	    	ini juga dapat memungkinkan Anda untuk mengunggah file berbahaya yang jika tidak akan diblokir: exploit%2Ephp
+	    
+	    - Tambahkan semikolon atau karakter batte batel URL-encoded sebelum ekstensi file. 
+	    
+	    	Jika validasi ditulis dalam bahasa tingkat tinggi seperti PHP atau Java, namun server memproses file menggunakan fungsi tingkat rendah di C / C ++, 
+	    	misalnya, ini dapat menyebabkan perbedaan dalam apa yang diperlakukan sebagai akhir dari nama file: exploit.asp;.jpgatau exploit.asp%00.jpg
+	    	
+	    - Coba gunakan karakter unicode multibyte, 
+	    
+	    	yang dapat dikonversi menjadi bats dan titik-titik setelah konversi unicode atau normalisasi. Sekuensi seperti xC0 x2E, xC4 xAE atau xC0 xAE dapat diterjemahkan ke x2E 
+	    	jika nama file diurai sebagai string UTF-8, tetapi kemudian dikonversi ke karakter ASCII sebelum digunakan di jalan.
+
+	Pertahanan lain melibatkan pengupasan atau penggantian ekstensi berbahaya untuk mencegah file dieksekusi. Jika transformasi ini tidak diterapkan secara rekursif, 
+	Anda dapat memposisikan string yang dilarang sedemikian rupa sehingga menghapusnya masih tertinggal di belakang ekstensi file yang valid. 
+	Misalnya, pertimbangkan apa yang terjadi jika Anda strip .php dari nama file berikut:
+
+		exploit.p.phphp
+
+	Ini hanya pilihan kecil dari banyak cara yang mungkin untuk mengaburkan ekstensi file.
+
+  - Validasi konten file yang cacat
+  
+  (LAB 6 polyglot web shell upload)
+
+	Alih-alih secara implisit memercayai Tipe-Konten yang ditentukan dalam permintaan, 
+	server yang lebih aman mencoba memverifikasi bahwa isi berkas benar-benar sesuai dengan yang diharapkan.
+
+	Dalam kasus fungsi unggah gambar, server mungkin mencoba memverifikasi properti intrinsik tertentu dari suatu gambar, 
+	seperti dimensinya. Jika Anda mencoba mengunggah skrip PHP, misalnya, skrip tersebut tidak akan memiliki dimensi sama sekali. 
+	Oleh karena itu, server dapat menyimpulkan bahwa itu tidak mungkin sebuah gambar, dan menolak unggahan tersebut.
+
+	Demikian pula, jenis berkas tertentu mungkin selalu berisi urutan byte tertentu di header atau footer-nya. 
+	Ini dapat digunakan seperti sidik jari atau tanda tangan untuk menentukan apakah isinya sesuai dengan jenis yang diharapkan. Misalnya, berkas JPEG selalu dimulai dengan byte FF D8 FF.
+
+	Ini adalah cara yang jauh lebih andal untuk memvalidasi jenis berkas, tetapi ini pun tidak sepenuhnya aman. 
+	Dengan menggunakan alat khusus, seperti ExifTool, membuat berkas JPEG poliglot yang berisi kode berbahaya dalam metadatanya dapat menjadi hal yang mudah.
+
+  - Exploiting file upload race conditions
+  
+  (LAB 7 Web shell upload via race condition)
+  
+	Framework modern lebih tangguh dalam menghadapi serangan semacam ini. framework ini umumnya tidak mengunggah berkas langsung ke tujuannya di sistem berkas. 
+	Sebaliknya, mereka mengambil tindakan pencegahan seperti mengunggah ke direktori sementara yang ter-sandbox terlebih dahulu dan mengacak namanya untuk menghindari penimpaan berkas yang sudah ada. 
+	Kemudian, mereka melakukan validasi pada berkas sementara ini dan baru mentransfernya ke tujuannya setelah dianggap aman.
+
+	Meskipun demikian, pengembang terkadang menerapkan pemrosesan unggahan berkas mereka sendiri secara independen dari Framework apa pun. 
+	Hal ini tidak hanya cukup rumit untuk dilakukan dengan baik, tetapi juga dapat menimbulkan race condition berbahaya yang memungkinkan penyerang untuk sepenuhnya melewati validasi yang paling kuat sekalipun.
+
+	Misalnya, beberapa situs web mengunggah berkas langsung ke sistem berkas utama dan kemudian menghapusnya lagi jika tidak lolos validasi. 
+	Perilaku seperti ini umum terjadi di situs web yang mengandalkan perangkat lunak antivirus dan sejenisnya untuk memeriksa malware. 
+	Proses ini mungkin hanya membutuhkan beberapa milidetik, tetapi selama berkas tersebut berada di server dalam waktu singkat, penyerang berpotensi masih dapat mengeksekusinya.
+
+	Kerentanan ini sering kali sangat sulit dideteksi, sehingga sulit dideteksi selama pengujian kotak hitam kecuali Anda dapat menemukan cara untuk membocorkan kode sumber yang relevan.
+
+Kondisi ras dalam unggahan file berbasis URL
+
+Kondisi ras serupa dapat terjadi dalam fungsi yang memungkinkan Anda mengunggah file dengan menyediakan URL. Dalam hal ini, server harus mengambil file melalui internet dan membuat salinan lokal sebelum dapat melakukan validasi.
+
+Karena file dimuat menggunakan HTTP, pengembang tidak dapat menggunakan mekanisme built-in kerangka kerja mereka untuk memvalidasi file dengan aman. Sebaliknya, mereka dapat secara manual membuat proses mereka sendiri untuk sementara menyimpan dan memvalidasi file, yang mungkin tidak cukup aman.
+
+Misalnya, jika file dimuat ke direktori sementara dengan nama acak, secara teori, seharusnya tidak mungkin bagi penyerang untuk mengeksploitasi kondisi ras apa pun. Jika mereka tidak tahu nama direktori, mereka tidak akan dapat meminta file untuk memicu eksekusi. Di sisi lain, jika nama direktori acak dihasilkan menggunakan fungsi pseudo-acak seperti PHP uniqid(), itu berpotensi menjadi brute-forced.
+
+Untuk membuat serangan seperti ini lebih mudah, Anda dapat mencoba untuk memperpanjang jumlah waktu yang dibutuhkan untuk memproses file, sehingga memperpanjang jendela untuk brute-memaksa nama direktori. Salah satu cara untuk melakukan ini adalah dengan mengunggah file yang lebih besar. Jika diproses dalam potongan, Anda berpotensi memanfaatkan ini dengan membuat file berbahaya dengan muatan di awal, diikuti oleh sejumlah besar byte padding sewenang-wenang.
+Memanfaatkan kerentanan unggah file tanpa eksekusi kode jarak jauh
+
+Dalam contoh yang telah kami lihat sejauh ini, kami dapat mengunggah skrip sisi server untuk eksekusi kode jarak jauh. Ini adalah konsekuensi paling serius dari fungsi unggahan file yang tidak aman, tetapi kerentanan ini masih dapat dieksploitasi dengan cara lain.
+Mengunggah skrip sisi klien berbahaya
+
+Meskipun Anda mungkin tidak dapat mengeksekusi skrip di server, Anda mungkin masih dapat mengunggah skrip untuk serangan sisi klien. Misalnya, jika Anda dapat mengunggah file HTML atau gambar SVG, Anda berpotensi dapat menggunakan <script>tag untuk membuat muatan XSS yang disimpan.
+
+Jika file yang diunggah kemudian muncul di halaman yang dikunjungi oleh pengguna lain, browser mereka akan mengeksekusi skrip ketika mencoba untuk membuat halaman. Perhatikan bahwa karena pembatasan kebijakan asal yang sama, serangan semacam ini hanya akan berfungsi jika file yang diunggah disajikan dari asal yang sama dengan yang Anda unggah.
+Memanfaatkan kerentanan dalam mengurai file yang diunggah
+
+Jika file yang diunggah tampaknya disimpan dan disajikan dengan aman, pilihan terakhir adalah mencoba mengeksploitasi kerentanan khusus untuk penguraian atau pemrosesan format file yang berbeda. Misalnya, Anda tahu bahwa server mengurai file berbasis XML, seperti Microsoft Office. .docatau .xlsfile, ini mungkin vektor potensial untuk serangan injeksi XXE.
+Mengunggah file menggunakan PUT
+
+Perlu dicatat bahwa beberapa server web dapat dikonfigurasi untuk mendukung PUTpermintaan. Jika pertahanan yang tepat tidak ada, ini dapat memberikan cara alternatif untuk mengunggah file berbahaya, bahkan ketika fungsi unggahan tidak tersedia melalui antarmuka web.
+PUT /images/exploit.php HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-httpd-php
+Content-Length: 49
+
+<?php echo file_get_contents('/path/to/file'); ?>
+Tip
+
+Anda dapat mencoba mengirim OPTIONSpermintaan ke titik akhir yang berbeda untuk menguji setiap yang mengiklankan dukungan untuk PUTmetode.
+Cara mencegah kerentanan unggah file
+
+Mengizinkan pengguna untuk mengunggah file adalah hal biasa dan tidak harus berbahaya selama Anda mengambil tindakan pencegahan yang tepat. Secara umum, cara paling efektif untuk melindungi situs web Anda sendiri dari kerentanan ini adalah dengan menerapkan semua praktik berikut:
+
+    Periksa ekstensi file terhadap daftar putih ekstensi yang diizinkan daripada daftar hitam yang dilarang. Jauh lebih mudah untuk menebak ekstensi mana yang mungkin ingin Anda izinkan daripada menebak mana yang mungkin mencoba mengunggah.
+    Pastikan nama file tidak mengandung substring yang dapat ditafsirkan sebagai direktori atau urutan traversal.../).
+    Mengganti nama file yang diunggah untuk menghindari tabrakan yang dapat menyebabkan file yang ada ditimpa.
+    Jangan mengunggah file ke sistem file permanen server sampai mereka telah sepenuhnya divalidasi.
+    Sebisa mungkin, gunakan kerangka kerja yang mapan untuk mengunggah file preprocessing daripada mencoba menulis mekanisme validasi Anda sendiri.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

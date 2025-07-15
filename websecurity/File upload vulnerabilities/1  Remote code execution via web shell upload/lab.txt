@@ -1,0 +1,27 @@
+Lab 1 : Remote code execution via web shell upload
+
+Brief:
+	lab tidak memvalidasi sama sekali fungsi upload
+	
+Tujuan:
+	dapatkan file /home/carlos/secret
+	
+Analisa:
+	1. upload gambar seperti biasa dan kirim request GET /files/avatars/GAMBAR.jpg
+	
+	2. sekarang upload web shellnya dan secret file dikirim ke response
+	
+	3. submit dan berhasil
+
+
+
+
+
+
+
+
+
+
+
+
+

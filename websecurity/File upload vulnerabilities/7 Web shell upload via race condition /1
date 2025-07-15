@@ -1,0 +1,23 @@
+LAB 7 Web shell upload via race condition
+
+Brief:
+	vulenrable upload meskipun validasi kuat tapi bisa dibypass dengan race condition
+	
+Tujuan:
+	dapatkan /home/carlos/secret
+	
+
+Catatan:
+	
+	Seperti yang Anda lihat dari kode sumber di atas, berkas yang diunggah dipindahkan ke folder yang dapat diakses, tempat berkas tersebut diperiksa virusnya. 
+	Berkas berbahaya hanya dihapus setelah pemeriksaan virus selesai. Ini berarti berkas dapat dieksekusi dalam rentang waktu singkat sebelum dihapus.
+	
+	Karena rentang waktu yang cukup lama untuk race condition ini, lab ini dapat diselesaikan dengan mengirimkan dua permintaan secara manual secara berurutan menggunakan Burp Repeater. 
+	Solusi yang dijelaskan di sini mengajarkan Anda pendekatan praktis untuk mengeksploitasi kerentanan serupa di alam liar, di mana rentang waktu tersebut mungkin hanya beberapa milidetik.	
+	
+Analisa:
+	1. upload gambar dapatkan request GET filename
+	
+	2. upload php dan di blacklist meskipun menggunakan teknik sebelumnya
+	
+	3. 
