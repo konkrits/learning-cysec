@@ -1,0 +1,22 @@
+(LAB 2 document.write sink using source location.search inside a select element)
+
+Brief:
+
+Tujuan: lakukan alert(1)
+
+Analisa:
+	1. Pada halaman produk, perhatikan bahwa JavaScript yang berbahaya mengekstrak parameter storeId dari sumber pencari. 
+		Kemudian menggunakan document.write untuk membuat opsi baru dalam elemen tertentu untuk fungsi stock checker.
+		
+	2. di url productId=3 jadikan productId=1&storeId=1
+		dan lihat kalo di stok sekarang ada pilihan nomor 1	
+		
+	3. inspect bahwa string kamu ada di elemnent
+	
+	4. tambahkan ini di url:
+	
+		product?productId=1&storeId="></select><img%20src=1%20onerror=alert(1)>	
+		
+	dan berhasil
+		
+		

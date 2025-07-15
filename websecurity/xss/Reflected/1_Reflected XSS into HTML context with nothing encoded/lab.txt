@@ -1,0 +1,14 @@
+LAB 1 Reflected XSS into HTML context with nothing encoded
+
+Brief:
+	simple xss di fungsi pencarian
+	
+Tujua:
+	alert()
+	
+Analisa:
+	1. masukan di pencarian <script>alert(xss by Konkrits)</script>
+	
+	2. exploit berjalan
+	
+	3. berhasil

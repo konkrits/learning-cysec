@@ -1,0 +1,13 @@
+LAB 3 (LAB 3 innerHTML sink using source location.search)
+
+Brief: Laboratorium ini berisi kerentanan scripting cross-site berbasis DOM dalam fungsi blog pencarian. Ini menggunakan tugas innerHTML, yang mengubah isi HTML dari elemen div, menggunakan data dari location.search.
+
+Tujuan: lakukan alert(1)
+
+Analisa:
+
+	1. masukan payload ini: <img src=1 onerror=alert(12)> di pencarian
+		
+		ini akan menyebabkan img mencari file 1 dan pasti tidak ada, ketika tidak ada error akan menyebabkan alert()
+	
+	2. berhasil

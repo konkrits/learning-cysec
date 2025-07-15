@@ -1,0 +1,85 @@
+Stored XSS
+
+stored cross-site scripting	(LAB 1 Stored XSS into HTML context with nothing encoded)
+
+	Skrip lintas situs yang disimpan (juga dikenal sebagai pesanan kedua atau XSS persisten) muncul ketika aplikasi menerima data dari sumber yang tidak tepercaya 
+	dan menyertakan data tersebut dalam respons HTTP yang lebih baru dengan cara yang tidak aman.
+
+	Misalkan situs web memungkinkan pengguna untuk mengirimkan komentar di posting blog, yang ditampilkan kepada pengguna lain. 
+	Pengguna mengirimkan komentar menggunakan permintaan HTTP seperti berikut:
+
+		POST /post/comment HTTP/1.1
+		Host: vulnerable-website.com
+		Content-Length: 100
+
+		postId=3&comment=This+post+was+extremely+helpful.&name=Carlos+Montoya&email=carlos%40normal-user.net
+
+	Setelah komentar ini diajukan, setiap pengguna yang mengunjungi posting blog akan menerima yang berikut dalam tanggapan aplikasi:
+
+		<p>This post was extremely helpful.</p>
+		
+	Dengan asumsi aplikasi tidak melakukan pemrosesan data lainnya, penyerang dapat mengirimkan komentar berbahaya seperti ini:
+	
+		<script>/* Bad stuff here... */</script>
+		
+	Dalam permintaan penyerang, komentar ini akan dikodekan URL sebagai:
+	
+		comment=%3Cscript%3E%2F*%2BBad%2Bstuff%2Bhere...%2B*%2F%3C%2Fscript%3E
+		
+	Setiap pengguna yang mengunjungi posting blog sekarang akan menerima yang berikut dalam respon aplikasi:
+	
+		<p><script>/* Bad stuff here... */</script></p>
+
+	Skrip yang disediakan oleh penyerang kemudian akan mengeksekusi di browser pengguna korban, dalam konteks sesi mereka dengan aplikasi.
+
+Impact of stored XSS attacks
+
+	Jika penyerang dapat mengontrol skrip yang dieksekusi di browser korban, maka mereka biasanya dapat sepenuhnya membahayakan pengguna tersebut. 
+	Penyerang dapat melakukan salah satu tindakan yang berlaku untuk dampak kerentanan XSS yang tercermin.
+
+	Dalam hal eksploitasi, perbedaan utama antara XSS yang dipantulkan dan disimpan adalah bahwa kerentanan XSS yang tersimpan memungkinkan serangan yang mandiri dalam aplikasi itu sendiri. 
+	Penyerang tidak perlu menemukan cara eksternal untuk mendorong pengguna lain untuk membuat permintaan tertentu yang berisi eksploitasi mereka. 
+	Sebaliknya, penyerang menempatkan eksploitasi mereka ke dalam aplikasi itu sendiri dan hanya menunggu pengguna untuk menemukannya.
+
+	Sifat mandiri dari eksploitasi skrip lintas situs yang disimpan sangat relevan dalam situasi di mana kerentanan XSS hanya mempengaruhi pengguna yang saat ini masuk ke aplikasi. 
+	Jika XSS tercermin, maka serangan harus ditepat waktu: pengguna yang diinduksi untuk membuat permintaan penyerang pada saat mereka tidak masuk tidak akan dikompromikan. 
+	Sebaliknya, jika XSS disimpan, maka pengguna dijamin akan masuk pada saat mereka menemukan exploit
+
+How to find and test for stored XSS vulnerabilities
+
+	Pengujian untuk kerentanan XSS yang tersimpan secara manual dapat menjadi tantangan. 
+	Anda perlu menguji semua "titik masuk" yang relevan di mana data yang dapat dikontrol penyerang dapat memasuki pemrosesan aplikasi, dan semua "titik keluar" di mana data tersebut mungkin muncul dalam tanggapan aplikasi.
+
+	Titik masuk ke dalam pemrosesan aplikasi meliputi:
+
+		- Parameter atau data lain dalam string kueri URL dan tubuh pesan.
+		- Jalur file URL.
+		- HTTP meminta header yang mungkin tidak dapat dieksploitasi dalam kaitannya dengan XSS yang diresapi.
+		- Setiap rute out-of-band di mana penyerang dapat mengirimkan data ke dalam aplikasi. Rute yang ada sepenuhnya tergantung pada fungsionalitas yang diterapkan oleh aplikasi: 
+		  aplikasi webmail akan memproses data yang diterima dalam email; aplikasi yang menampilkan umpan Twitter mungkin memproses data yang terkandung dalam tweet pihak ketiga;
+		  dan agregator berita akan mencakup data yang berasal dari situs web lain.
+
+	Titik keluar untuk serangan XSS yang tersimpan adalah semua kemungkinan respons HTTP yang dikembalikan ke segala jenis pengguna aplikasi dalam situasi apa pun.
+
+	Langkah pertama dalam pengujian untuk kerentanan XSS yang tersimpan adalah menemukan hubungan antara titik masuk dan keluar, 
+	di mana data yang dikirimkan ke titik masuk dipancarkan dari titik keluar. Alasan mengapa hal ini bisa menjadi tantangan adalah bahwa:
+
+    	Data yang dikirimkan ke titik masuk pada prinsipnya dapat dipancarkan dari titik keluar mana pun. 
+    	Misalnya, nama tampilan yang dipasok pengguna dapat muncul dalam log audit yang tidak jelas yang hanya terlihat oleh beberapa pengguna aplikasi.
+    	Data yang saat ini disimpan oleh aplikasi sering rentan untuk ditimpa karena tindakan lain yang dilakukan dalam aplikasi. 
+    	Misalnya, fungsi pencarian mungkin menampilkan daftar pencarian terbaru, yang dengan cepat diganti saat pengguna melakukan pencarian lain.
+
+	Untuk secara komprehensif mengidentifikasi hubungan antara titik masuk dan keluar akan melibatkan pengujian setiap permutasi secara terpisah, 
+	mengirimkan nilai spesifik ke titik masuk, menavigasi langsung ke titik keluar, dan menentukan apakah nilai muncul di sana. 
+	Namun, pendekatan ini tidak praktis dalam aplikasi dengan lebih dari beberapa halaman.
+
+	Sebaliknya, pendekatan yang lebih realistis adalah bekerja secara sistematis melalui titik masuk data, mengirimkan nilai spesifik ke masing-masing, 
+	dan memantau tanggapan aplikasi untuk mendeteksi kasus-kasus di mana nilai yang diajukan muncul. 
+	Perhatian khusus dapat diberikan pada fungsi aplikasi yang relevan, seperti komentar di posting blog. Ketika nilai yang diajukan diamati dalam suatu respons, 
+	Anda perlu menentukan apakah data memang disimpan di berbagai permintaan, sebagai lawan hanya tercermin dalam respons langsung.
+
+	Ketika Anda telah mengidentifikasi tautan antara titik masuk dan keluar dalam pemrosesan aplikasi, setiap tautan perlu diuji secara khusus untuk mendeteksi jika kerentanan XSS yang tersimpan hadir. 
+	Ini melibatkan penentuan konteks dalam respons di mana data yang disimpan muncul dan menguji bayar XSS kandidat yang sesuai yang berlaku untuk konteks itu.
+	Pada titik ini, metodologi pengujian secara luas sama dengan untuk menemukan kerentanan XSS yang tercermin.
+
+

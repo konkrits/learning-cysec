@@ -1,0 +1,118 @@
+Reflected XSS
+
+   (LAB 1 Reflected XSS into HTML context with nothing encoded.)
+
+	Reflected cross-site scripting (atau XSS) muncul ketika aplikasi menerima data dalam permintaan HTTP dan menyertakan data tersebut dalam respon langsung dengan cara yang tidak aman.
+
+	Misalkan situs web memiliki fungsi pencarian yang menerima istilah pencarian yang disediakan pengguna dalam parameter URL:
+
+		https://insecure-website.com/search?term=gift
+		
+	The application echoes the supplied search term in the response to this URL: 
+
+		<p>You searched for: gift</p>
+	
+	Dengan asumsi aplikasi tidak melakukan pemrosesan data lainnya, penyerang dapat membangun serangan seperti ini:
+	
+		https://insecure-website.com/search?term=<script>/*+Bad+stuff+here...+*/</script>
+		
+	URL ini menghasilkan respons berikut:
+	
+		<p>You searched for: <script>/* Bad stuff here... */</script></p>
+		
+	Jika pengguna lain dari aplikasi meminta URL penyerang, maka skrip yang disediakan oleh penyerang akan mengeksekusi di browser pengguna korban, dalam konteks sesi mereka dengan aplikasi.
+
+Impact of reflected XSS attacks
+
+	Jika penyerang dapat mengontrol skrip yang dieksekusi di browser korban, maka mereka biasanya dapat sepenuhnya membahayakan pengguna tersebut. Antara lain, penyerang bisa:
+
+	    Lakukan tindakan apa pun dalam aplikasi yang dapat dilakukan pengguna.
+	    Lihat informasi apa pun yang dapat dilihat pengguna.
+	    Memodifikasi informasi apa pun yang dapat diubah pengguna.
+	    Memulai interaksi dengan pengguna aplikasi lain, termasuk serangan berbahaya, yang akan muncul berasal dari pengguna korban awal.
+
+	Ada berbagai cara di mana penyerang dapat mendorong pengguna korban untuk membuat permintaan yang mereka kendalikan, untuk memberikan serangan XSS yang dipantulkan. 
+	Ini termasuk menempatkan tautan di situs web yang dikendalikan oleh penyerang, atau di situs web lain yang memungkinkan konten dibuat, 
+	atau dengan mengirim tautan di email, tweet, atau pesan lainnya. Serangan itu dapat ditargetkan langsung terhadap pengguna yang dikenal, atau bisa menjadi serangan sembarangan terhadap setiap pengguna aplikasi.
+
+	Kebutuhan akan mekanisme pengiriman eksternal untuk serangan tersebut berarti bahwa dampak XSS yang dipantulkan umumnya kurang parah daripada XSS yang disimpan, 
+	di mana serangan mandiri dapat disampaikan dalam aplikasi yang rentan itu sendiri.
+
+Reflected XSS in different contexts
+
+	Ada banyak varietas yang berbeda dari scripting lintas situs yang dipantulkan. 
+	Lokasi data yang dipantulkan dalam respons aplikasi menentukan jenis muatan apa yang diperlukan untuk mengeksploitasinya dan mungkin juga mempengaruhi dampak kerentanan.
+
+	Selain itu, jika aplikasi melakukan validasi atau pemrosesan lain pada data yang dikirimkan sebelum dipantulkan, ini umumnya akan mempengaruhi jenis muatan XSS apa.
+
+How to find and test for reflected XSS vulnerabilities
+
+	Pengujian untuk kerentanan XSS yang dipantulkan secara manual melibatkan langkah-langkah berikut:
+	
+		- Menguji setiap titik masuk. 
+		
+			Uji secara terpisah setiap titik masuk untuk data dalam permintaan HTTP aplikasi. Ini termasuk parameter atau data lain dalam string kueri URL dan badan pesan, dan jalur file URL. 
+			Ini juga mencakup header HTTP, meskipun perilaku seperti XSS yang hanya dapat dipicu melalui header HTTP tertentu mungkin tidak dapat dieksploitasi dalam praktiknya.
+			
+		- Kirim nilai alfanumerik acak. 
+		
+			Untuk setiap titik masuk, kirimkan nilai acak yang unik dan menentukan apakah nilai tersebut tercermin dalam respons. 
+			Nilai harus dirancang untuk bertahan dari sebagian besar validasi input, sehingga perlu cukup pendek dan hanya mengandung karakter alfanumerik. 
+			Tetapi perlu cukup lama untuk membuat pertandingan yang tidak disengaja dalam respons sangat tidak mungkin. Nilai alfanumerik acak sekitar 8 karakter biasanya ideal. 
+			Anda dapat menggunakan muatan nomor Burp Intruder dengan nilai hex yang dihasilkan secara acak untuk menghasilkan nilai acak yang sesuai. 
+			Dan Anda dapat menggunakan pengaturan muatan ggres Burp Intruder untuk secara otomatis menandai tanggapan yang mengandung nilai yang dikirimkan.
+			
+		- Menentukan konteks refleksi. 
+		
+			Untuk setiap lokasi dalam respon di mana nilai acak tercermin, menentukan konteksnya. Ini mungkin dalam teks antara tag HTML, 
+			dalam atribut tag yang mungkin dikutip, dalam string JavaScript, dll.
+			
+		- Uji gaji kandidat. 
+		
+			Berdasarkan konteks refleksi, uji bayar XSS kandidat awal yang akan memicu eksekusi JavaScript jika tercermin tidak dimodifikasi dalam respons. 
+			Cara termudah untuk menguji muatan adalah dengan mengirim permintaan ke Burp Repeater, memodifikasi permintaan untuk memasukkan muatan kandidat, mengeluarkan permintaan, 
+			dan kemudian meninjau respons untuk melihat apakah muatan berfungsi. Cara yang efisien untuk bekerja adalah dengan meninggalkan nilai acak asli 
+			dalam permintaan dan menempatkan gaji kandidat XSS sebelum atau sesudahnya. Kemudian tetapkan nilai acak sebagai istilah pencarian dalam pandangan respons Burp Repeater. 
+			Burp akan menyoroti setiap lokasi di mana istilah pencarian muncul, membiarkan Anda dengan cepat menemukan refleksi.
+			
+		- Uji muatan alternatif. 
+		
+			Jika payload XSS kandidat dimodifikasi oleh aplikasi, atau diblokir sama sekali, maka Anda perlu menguji muatan dan teknik alternatif yang mungkin 
+			memberikan serangan XSS yang berfungsi berdasarkan konteks refleksi dan jenis validasi input yang sedang dilakukan. Untuk detail lebih lanjut, lihat konteks skrip lintas situs
+
+		- Uji serangan di browser. 
+		
+			Akhirnya, jika Anda berhasil menemukan muatan yang tampaknya berfungsi dalam Burp Repeater, transfer serangan ke browser nyata (dengan menempelkan URL ke bilah alamat, 
+			atau dengan memodifikasi permintaan dalam tampilan pencegatan Burp Proxy, dan lihat apakah JavaScript yang disuntikkan memang dieksekusi. 
+			Seringkali, yang terbaik adalah mengeksekusi beberapa JavaScript sederhana seperti peringatan (dokumen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

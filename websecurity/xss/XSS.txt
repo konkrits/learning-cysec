@@ -1,0 +1,200 @@
+Cross-site scripting
+
+What is cross-site scripting (XSS)?
+
+	Cross-site scripting (juga dikenal sebagai XSS) adalah kerentanan keamanan web yang memungkinkan penyerang untuk mengkompromikan interaksi yang dimiliki pengguna dengan aplikasi yang rentan. 
+	Hal ini memungkinkan penyerang untuk menghindari kebijakan asal yang sama, yang dirancang untuk memisahkan situs web yang berbeda dari satu sama lain. 
+	Kerentanan scripting lintas situs biasanya memungkinkan penyerang untuk menyamar sebagai pengguna korban, untuk melakukan tindakan apa pun yang dapat dilakukan pengguna, 
+	dan untuk mengakses data pengguna. Jika pengguna korban memiliki akses istimewa dalam aplikasi, maka penyerang mungkin bisa mendapatkan kontrol penuh atas semua fungsi dan data aplikasi.
+
+How does XSS work?
+
+	Cross-site scripting bekerja dengan memanipulasi situs web yang rentan sehingga mengembalikan JavaScript berbahaya kepada pengguna. 
+	Ketika kode berbahaya mengeksekusi di dalam browser korban, penyerang dapat sepenuhnya mengkompromikan interaksi mereka dengan aplikasi.
+
+Types of XSS attacks
+
+	- Reflected XSS di mana script berbahaya berasal dari permintaan HTTP saat ini.
+	- stored XSS di mana skrip berbahaya berasal dari database situs web.
+	- DOM-based XSS di mana kerentanan ada dalam kode sisi klien daripada kode sisi server.
+
+Reflected cross-site scripting
+
+	Reflected XSS adalah variasi skrip lintas situs yang paling sederhana. Muncul ketika aplikasi menerima data dalam permintaan HTTP dan menyertakan data tersebut dalam respon langsung dengan cara yang tidak aman.
+
+ 	Berikut adalah contoh sederhana dari kerentanan Reflected XSS:
+ 		
+ 		https://insecure-website.com/status?message=All+is+well.
+		<p>Status: All is well.</p>
+	
+	Aplikasi ini tidak melakukan pemrosesan data lainnya, sehingga penyerang dapat dengan mudah membangun serangan seperti ini:
+
+		https://insecure-website.com/status?message=<script>/*+Bad+stuff+here...+*/</script>
+		<p>Status: <script>/* Bad stuff here... */</script></p>
+
+	Jika pengguna mengunjungi URL yang dibangun oleh penyerang, maka skrip penyerang mengeksekusi di browser pengguna, dalam konteks sesi pengguna dengan aplikasi. 
+	Pada saat itu, skrip dapat melakukan tindakan apa pun, dan mengambil data apa pun, yang dapat diakses pengguna.
+
+Stored cross-site scripting
+
+	Disimpan XSS (juga dikenal sebagai XSS persisten atau second-order) muncul ketika aplikasi menerima data 
+	dari sumber yang tidak dipercaya dan menyertakan data tersebut dalam respons HTTP kemudian dengan cara yang tidak aman.
+
+	Data yang dimaksud mungkin dikirimkan ke aplikasi melalui permintaan HTTP; 
+		misalnya, komentar pada posting blog, nama panggilan pengguna di ruang obrolan, atau detail kontak pada pesanan pelanggan. 
+		
+	Dalam kasus lain, data mungkin berasal dari sumber tidak tepercaya lainnya; 
+		misalnya, aplikasi webmail yang menampilkan pesan yang diterima melalui SMTP, aplikasi pemasaran yang menampilkan posting media sosial, 
+		
+	atau aplikasi pemantauan jaringan yang menampilkan data paket dari lalu lintas jaringan.
+
+	Berikut adalah contoh sederhana dari kerentanan XSS yang tersimpan. Aplikasi papan pesan memungkinkan pengguna mengirimkan pesan, 
+	yang ditampilkan kepada pengguna lain:
+
+		<p>Hello, this is my message!</p>
+		
+	Aplikasi ini tidak melakukan pemrosesan data lainnya, sehingga penyerang dapat dengan mudah mengirim pesan yang menyerang pengguna lain:
+	
+		<p><script>/* Bad stuff here... */</script></p>
+
+DOM-based cross-site scripting
+
+	XSS berbasis DOM (juga dikenal sebagai DOM XSS) muncul ketika aplikasi berisi beberapa JavaScript sisi klien yang memproses data dari sumber yang tidak dipercaya dengan cara yang tidak aman, 
+	biasanya dengan menulis data kembali ke DOM.
+
+	Dalam contoh berikut, aplikasi menggunakan beberapa JavaScript untuk membaca nilai dari bidang input dan menulis nilai itu ke elemen dalam HTML:
+
+		var search = document.getElementById('search').value;
+		var results = document.getElementById('results');
+		results.innerHTML = 'You searched for: ' + search;
+
+	Jika penyerang dapat mengontrol nilai bidang input, 
+	mereka dapat dengan mudah membangun nilai berbahaya yang menyebabkan skrip mereka sendiri mengeksekusi:
+
+		You searched for: <img src=1 onerror='/* Bad stuff here... */'>
+
+	Dalam kasus yang khas, bidang input akan diisi dari bagian dari permintaan HTTP, seperti parameter string kueri URL, 
+	memungkinkan penyerang untuk mengirimkan serangan menggunakan URL berbahaya, dengan cara yang sama seperti Reflected XSS.
+
+What can XSS be used for?
+
+	- Meniru atau menyamar sebagai pengguna korban.
+	
+	- Lakukan tindakan apa pun yang dapat dilakukan pengguna.
+	
+	- Baca data apa pun yang dapat diakses pengguna.
+	
+	- Tangkap kredensial login pengguna.
+	
+	- Lakukan defacement virtual dari situs web.
+	
+	- Menyuntikkan fungsi trojan ke situs web.
+
+Impact of XSS vulnerabilities
+
+	Dampak aktual dari serangan XSS umumnya tergantung pada sifat aplikasi, fungsi dan data, dan status pengguna yang dikompromikan. 
+	Sebagai contoh:
+
+		- Dalam aplikasi brochureware, di mana semua pengguna anonim dan semua informasi bersifat publik, dampaknya akan sering minimal.
+
+		- Dalam aplikasi yang menyimpan data sensitif, seperti transaksi perbankan, email, atau catatan kesehatan, dampaknya biasanya akan serius.
+
+		- Jika pengguna yang dikompromikan memiliki hak istimewa yang meningkat dalam aplikasi, maka dampaknya umumnya akan sangat penting, 
+			memungkinkan penyerang untuk mengambil kendali penuh atas aplikasi yang rentan dan membahayakan semua pengguna dan data mereka.
+
+How to find and test for XSS vulnerabilities
+
+	Pengujian manual untuk XSS yang dipantulkan dan disimpan biasanya melibatkan mengirimkan beberapa input unik sederhana (seperti string alfanumerik pendek) ke setiap titik masuk dalam aplikasi, 
+	mengidentifikasi setiap lokasi di mana input yang dikirimkan dikembalikan dalam tanggapan HTTP, dan menguji setiap lokasi secara individual untuk menentukan apakah 
+	input yang dibuat sesuai dapat digunakan untuk mengeksekusi JavaScript sewenang-wenang. Dengan cara ini, Anda dapat menentukan konteks di mana XSS terjadi dan memilih muatan yang sesuai untuk mengeksploitasinya.
+
+	Pengujian manual untuk XSS berbasis DOM yang timbul dari parameter URL melibatkan proses yang serupa: menempatkan beberapa input unik sederhana dalam parameter, 
+	menggunakan alat pengembang browser untuk mencari DOM untuk input ini, dan menguji setiap lokasi untuk menentukan apakah itu dapat dieksploitasi. 
+	Namun, jenis DOM XSS lainnya lebih sulit dideteksi. Untuk menemukan kerentanan berbasis DOM dalam input berbasis non-URL (seperti dokumen.cookie) 
+	atau wastafel berbasis non-HTML (seperti setTimeout), tidak ada pengganti untuk meninjau kode JavaScript, yang bisa sangat memakan waktu.
+
+Content security policy
+
+	Content Security Policy (CSP) adalah mekanisme browser yang bertujuan untuk mengurangi dampak scripting lintas situs dan beberapa kerentanan lainnya. 
+	Jika aplikasi yang menggunakan CSP mengandung perilaku seperti XSS, maka CSP dapat menghambat atau mencegah eksploitasi kerentanan. 
+	Seringkali, CSP dapat dielakkan untuk memungkinkan eksploitasi kerentanan yang mendasarinya.
+
+Dangling markup injection 
+
+	Menjuntai markup injeksi adalah teknik yang dapat digunakan untuk menangkap data cross-domain dalam situasi di mana eksploitasi skrip lintas situs penuh tidak mungkin, 
+	karena filter input atau pertahanan lainnya. Hal ini sering dapat dieksploitasi untuk menangkap informasi sensitif yang terlihat oleh pengguna lain, 
+	termasuk token CSRF yang dapat digunakan untuk melakukan tindakan tidak sah atas nama pengguna.
+
+How to prevent XSS attacks
+
+	Mencegah skrip lintas situs adalah sepele dalam beberapa kasus tetapi bisa jauh lebih sulit tergantung pada kompleksitas aplikasi dan cara menangani data yang dapat dikontrol pengguna.
+
+	Secara umum, secara efektif mencegah kerentanan XSS cenderung melibatkan kombinasi dari langkah-langkah berikut:
+	
+		- Filter input on arrival. Pada titik di mana input pengguna diterima, filter seketat mungkin berdasarkan input yang diharapkan atau valid.
+	
+		- Encode data on output. Pada titik di mana data yang dapat dikontrol pengguna adalah output dalam respons HTTP, menyandikan output untuk mencegahnya ditafsirkan sebagai konten aktif. 
+			Tergantung pada konteks output, ini mungkin memerlukan penerapan kombinasi HTML, URL, JavaScript, dan pengkodean CSS.
+	
+		- Use appropriate response headers Untuk mencegah XSS dalam respons HTTP yang tidak dimaksudkan untuk berisi HTML atau JavaScript apa pun, 
+			Anda dapat menggunakan header Content-Type dan X-Content-Type-Options untuk memastikan bahwa browser menafsirkan tanggapan dengan cara yang Anda inginkan.
+	
+		- Content Security Policy. Sebagai garis pertahanan terakhir, Anda dapat menggunakan Content Security Policy (CSP) untuk mengurangi keparahan kerentanan XSS yang masih terjadi.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,124 @@
+DOM-based XSS
+
+ Apa itu scripting lintas situs berbasis DOM?
+ 
+ 	Menguji sink HTML
+
+	Untuk menguji DOM XSS dalam sink HTML, letakkan string alfanumerik acak ke dalam sumber (seperti location.search), lalu gunakan developer tool untuk memeriksa HTML 
+	dan menemukan di mana string Anda muncul. Perhatikan bahwa opsi “Lihat sumber” pada browser tidak akan berfungsi untuk pengujian DOM XSS karena opsi ini tidak memperhitungkan perubahan 
+	yang telah dilakukan pada HTML oleh JavaScript. Di alat pengembang Chrome, Anda dapat menggunakan Control+F (atau Command+F di MacOS) untuk mencari DOM untuk string Anda.
+
+	Untuk setiap lokasi di mana string Anda muncul di dalam DOM, Anda perlu mengidentifikasi konteksnya. 
+	Berdasarkan konteks ini, Anda perlu menyempurnakan input Anda untuk melihat bagaimana input tersebut diproses. 
+	Sebagai contoh, jika string Anda muncul dalam atribut dengan tanda kutip ganda, cobalah untuk menyuntikkan tanda kutip ganda pada string Anda untuk melihat apakah Anda dapat keluar dari atribut tersebut.
+
+	Perhatikan bahwa peramban berperilaku berbeda dalam hal pengodean URL, Chrome, Firefox, dan Safari akan meng-encode URL location.search dan location.hash, 
+	sementara IE11 dan Microsoft Edge (pra-Chromium) tidak akan meng-encode URL sumber-sumber ini. Jika data Anda di-encode URL sebelum diproses, maka serangan XSS tidak mungkin berhasil.
+
+ Menguji sink eksekusi JavaScript
+
+	Menguji sink eksekusi JavaScript untuk XSS berbasis DOM sedikit lebih sulit. Dengan sink ini, input Anda tidak selalu muncul di mana pun di dalam DOM, sehingga Anda tidak dapat mencarinya. 
+	Sebagai gantinya, Anda harus menggunakan debugger JavaScript untuk menentukan apakah dan bagaimana input Anda dikirim ke sink.
+
+	Untuk setiap sumber potensial, seperti lokasi, pertama-tama Anda harus menemukan kasus di dalam kode JavaScript halaman di mana sumber tersebut direferensikan. 
+	Di alat pengembang Chrome, Anda dapat menggunakan Control+Shift+F (atau Command+Alt+F di MacOS) untuk mencari semua kode JavaScript halaman yang menjadi sumbernya.
+
+	Setelah Anda menemukan di mana sumbernya dibaca, Anda dapat menggunakan debugger JavaScript untuk menambahkan titik jeda dan mengikuti bagaimana nilai sumber tersebut digunakan. 
+	Anda mungkin menemukan bahwa sumber tersebut ditugaskan ke variabel lain. 
+	Jika ini yang terjadi, Anda harus menggunakan fungsi pencarian lagi untuk melacak variabel-variabel tersebut dan melihat apakah variabel-variabel tersebut diteruskan ke sink. 
+	Ketika Anda menemukan sink yang diberi data yang berasal dari sumber, Anda dapat menggunakan debugger untuk memeriksa nilainya dengan mengarahkan kursor ke variabel untuk menampilkan nilainya sebelum dikirim ke sink. 
+	Kemudian, seperti halnya dengan HTML sink, Anda perlu menyempurnakan masukan Anda untuk melihat apakah Anda dapat mengirimkan serangan XSS yang berhasil.
+
+Menguji DOM XSS menggunakan DOM Invader
+
+ Mengidentifikasi dan mengeksploitasi DOM XSS 
+
+	di alam bebas bisa menjadi proses yang membosankan, sering kali mengharuskan Anda untuk menelusuri secara manual JavaScript yang rumit dan diperkecil. 
+	Namun, jika Anda menggunakan peramban Burp, Anda bisa memanfaatkan ekstensi DOM Invader bawaannya, yang melakukan banyak kerja keras untuk Anda.
+ 
+Exploiting DOM XSS with different sources and sinks
+ 
+  (LAB 1 document.write sink using source location.search)
+ 
+	  Pada prinsipnya, sebuah situs web rentan terhadap skrip lintas situs berbasis DOM jika ada jalur yang dapat dieksekusi di mana data dapat menyebar dari sumber ke sink. 
+	  Pada praktiknya, sumber dan sink yang berbeda memiliki sifat dan perilaku yang berbeda yang dapat memengaruhi kemampuan eksploitasi, dan menentukan teknik apa yang diperlukan. 
+	  Selain itu, skrip situs web mungkin melakukan validasi atau pemrosesan data lainnya yang harus diakomodasi saat mencoba mengeksploitasi kerentanan. 
+	  Ada berbagai sink yang relevan dengan kerentanan berbasis DOM. Silakan lihat daftar di bawah ini untuk detailnya.
+
+	 Sink document.write bekerja dengan elemen skrip, sehingga Anda dapat menggunakan muatan sederhana, seperti yang ada di bawah ini:
+	 
+	 	document.write('... <script>alert(document.domain)</script> ...');
+	 	
+ (LAB 2 document.write sink using source location.search inside a select element)
+ 	 	
+ 	Perhatikan, bagaimanapun, bahwa dalam beberapa situasi konten yang ditulis untuk mendokumentasikan. menulis mencakup beberapa konteks di sekitarnya yang perlu Anda perhitungkan dalam eksploitasi Anda. 
+ 	Misalnya, Anda mungkin perlu menutup beberapa elemen yang ada sebelum menggunakan muatan JavaScript Anda.
+ 
+ (LAB 3 innerHTML sink using source location.search)
+ 
+  	Sink innerHTML tidak menerima elemen skrip pada peramban modern mana pun, dan juga tidak akan menjalankan event svg onload. 
+  	Ini berarti Anda harus menggunakan elemen alternatif seperti img atau iframe. Penangan peristiwa seperti onload dan onerror dapat digunakan bersama dengan elemen-elemen ini. Sebagai contoh:
+
+		element.innerHTML='... <img src=1 onerror=alert(document.domain)> ...'
+ 
+Sources and sinks in third-party dependencies 
+
+  (LAB 4 jQuery anchor href attribute sink using location.search source)
+
+	Aplikasi web modern biasanya dibangun menggunakan sejumlah pustaka dan kerangka kerja pihak ketiga, 
+	yang seringkali menyediakan fungsi dan kapabilitas tambahan bagi pengembang. Penting untuk diingat bahwa beberapa di antaranya juga merupakan sumber dan sink potensial untuk DOM XSS.
+
+  - DOM XSS di jQuery
+
+	Jika pustaka JavaScript seperti jQuery digunakan, perhatikan sink yang dapat mengubah elemen DOM di halaman.
+	Misalnya, fungsi attr() jQuery dapat mengubah atribut elemen DOM. Jika data dibaca dari sumber yang dikontrol pengguna seperti URL, 
+	lalu diteruskan ke fungsi attr(), maka dimungkinkan untuk memanipulasi nilai yang dikirim untuk menyebabkan XSS. 
+	Misalnya, di sini kita memiliki beberapa JavaScript yang mengubah atribut href elemen jangkar menggunakan data dari URL:
+
+		$(function() {
+		$('#backLink').attr("href",(new URLSearchParams(window.location.search)).get('returnUrl'));
+		});
+
+	Anda dapat memanfaatkan ini dengan memodifikasi URL sehingga sumber location.search berisi URL JavaScript berbahaya. 
+	Setelah JavaScript halaman menerapkan URL berbahaya ini ke href tautan balik, mengeklik tautan balik akan mengeksekusinya:
+
+		?returnUrl=javascript:alert(document.domain)
+
+   (LAB 5  jQuery selector sink using a hashchange event)
+ 
+ 	Sink potensial lain yang perlu diwaspadai adalah fungsi pemilih $() milik jQuery, yang dapat digunakan untuk menyuntikkan objek berbahaya ke dalam DOM.
+
+	jQuery dulunya sangat populer, dan kerentanan DOM XSS klasik disebabkan oleh situs web yang menggunakan pemilih ini bersama dengan sumber location.hash untuk animasi
+	atau pengguliran otomatis ke elemen tertentu pada halaman. Perilaku ini sering diimplementasikan menggunakan penangan peristiwa perubahan hash yang rentan, 
+
+	mirip dengan yang berikut ini:
+
+		$(window).on('hashchange', function() {
+		var element = $(location.hash);
+		element[0].scrollIntoView();
+		});
+
+	Karena hash dapat dikontrol oleh pengguna, penyerang dapat menggunakan ini untuk menyuntikkan vektor XSS ke dalam sink pemilih $(). 
+	Versi jQuery yang lebih baru telah menambal kerentanan khusus ini dengan mencegah Anda menyuntikkan HTML ke dalam selektor ketika input dimulai dengan karakter hash (#). 
+	Namun, Anda mungkin masih menemukan kode yang rentan di alam liar.
+
+	Untuk benar-benar mengeksploitasi kerentanan klasik ini, Anda harus menemukan cara untuk memicu peristiwa perubahan hash tanpa interaksi pengguna.
+
+	salah satu cara paling sederhana untuk melakukannya adalah dengan mengirimkan eksploitasi melalui iframe:
+
+		<iframe src="https://vulnerable-website.com#" onload="this.src+=‘<img src=1 onerror=alert(1)>’">
+
+	Dalam contoh ini, atribut src mengarah ke halaman yang rentan dengan nilai hash kosong. Ketika iframe dimuat, vektor XSS ditambahkan ke hash, sehingga menyebabkan peristiwa perubahan hash terjadi.
+	
+	Catatan:
+
+		Bahkan versi jQuery yang lebih baru pun masih bisa rentan melalui selector sink $(), asalkan Anda memiliki kontrol penuh atas inputnya dari sumber yang tidak memerlukan awalan #.
+
+
+
+
+
+
+
+
+

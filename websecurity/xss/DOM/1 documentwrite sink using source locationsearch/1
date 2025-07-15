@@ -1,0 +1,17 @@
+LAB 1 document.write sink using source location.search
+
+brief:
+	Lab ini berisi kerentanan skrip lintas situs berbasis DOM dalam fungsi pelacakan kueri penelusuran. Lab ini menggunakan fungsi document.write JavaScript, 
+	yang menulis data ke halaman. Fungsi document.write dipanggil dengan data dari location.search, yang dapat Anda kendalikan menggunakan URL situs web.
+	
+Tujuan:
+	lakukan alert()
+	
+Analisa:	
+	1. ketik nomor random di pencarian
+	
+	2. dan liat bahwa string ditambahkan di <img src
+	
+	3. masukan di pencarian "><svg onload=alert("1221")>
+	
+	4. berhasil

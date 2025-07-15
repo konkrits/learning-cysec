@@ -1,0 +1,20 @@
+LAB 5 jQuery selector sink using a hashchange event
+
+Brief: 
+	vulnerabilty dilaman home, fungsi pemilih jQuery $ () untuk auto-scroll ke pos tertentu, yang judulnya dilewatkan melalui properti location.hash.
+	
+Tujuan: lakukan print() ke korban
+
+Analisa:
+	1. liat source html vulnerable
+	
+	2. pergi ke exploit server
+	
+	3. tambahkan ke bodi:
+	
+		<iframe src="https://YOUR-LAB-ID.web-security-academy.net/#" onload="this.src+='<img src=x onerror=print()>'"></iframe>
+
+			ini akan memanggil 		
+		
+	4. dan kirim ke korban
+	

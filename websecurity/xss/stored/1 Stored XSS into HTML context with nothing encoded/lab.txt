@@ -1,0 +1,14 @@
+LAB 1 Stored XSS into HTML context with nothing encoded
+
+Brief:
+	fungsi rentan di komentar
+	
+Tujuan:
+	gunakan alert() untuk menyelasaikan lab
+	
+Analisa:
+	pergi ke kolom komentar dan masukan payload
+	
+		<script>alert('PAYLOAD')</script>
+		
+	dan berhasil

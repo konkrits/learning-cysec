@@ -1,0 +1,28 @@
+LAB 4 jQuery anchor href attribute sink using location.search source
+
+Brief:
+	Laboratorium ini berisi kerentanan scripting lintas situs berbasis DOM di halaman umpan balik submit. Ini menggunakan fungsi pemilih $ perpustakaan jQuery untuk menemukan elemen jangkar, 
+	dan mengubah atribut href menggunakan data dari location.search.
+
+Tujuan:
+	membuat "back" link alert document.cookie.
+	
+Analisa:
+	1. di url tambahkan nomor acak returnPATH/12123122123
+	
+	2. konfirmasi dengan inspect dan cari nomor acaknya
+	
+	3. sekarang masukan payload di url returnPATH/javascript:alert(document.cookie)
+	
+		ini menyebabkan tombol kembali ketika di klik menampilkan alert(document.cookie)
+	
+	4. klik kembali dan berhasil 
+
+
+
+
+
+
+
+
+
