@@ -1,0 +1,21 @@
+LAB 1 Basic SSRF against the local server
+
+Brief:
+	web mengambil data stok produk di internal system yang dimana itu rentan ssrf 
+	
+Tujuan:
+	Akses admin panel di http://localhost/admin dan hapus carlos
+	
+Analisa:
+	1. check stok dan kirim request ke repeater
+	
+	2. di stock api ganti urlnya jadi http://localhost/admin dan kirim
+	
+	3. cari di response carlos
+	
+	4. berhasil
+	
+	meskipun unauthorize tapi dikarenakan request berasal dari dalam jadi berhasil
+	
+	
+	

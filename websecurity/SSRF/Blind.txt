@@ -1,0 +1,43 @@
+blind SSRF
+	
+Apa itu SSRF buta?
+
+	Kerentanan SSRF yang buta muncul ketika aplikasi dapat diinduksi untuk mengeluarkan permintaan HTTP back-end ke URL yang disediakan, 
+	  tetapi tanggapan dari permintaan back-end tidak dikembalikan dalam respons front-end aplikasi.	
+	  
+Apa dampak kerentanan SSRF buta?
+
+	Dampak kerentanan SSRF buta seringkali lebih rendah daripada kerentanan SSRF yang sepenuhnya terinformasi karena sifat satu arah mereka. 
+	  Mereka tidak dapat dieksploitasi secara sepele untuk mengambil data sensitif dari sistem back-end, meskipun dalam beberapa situasi mereka dapat dieksploitasi untuk mencapai eksekusi kode jarak jauh penuh.
+	  
+Cara menemukan dan mengeksploitasi kerentanan SSRF yang buta
+
+  LAb 4 Blind SSRF dengan deteksi out-of-band
+
+	Cara yang paling dapat diandalkan untuk mendeteksi kerentanan SSRF buta adalah menggunakan teknik out-of-band (OAST). 
+	Ini melibatkan upaya untuk memicu permintaan HTTP ke sistem eksternal yang Anda kontrol, dan pemantauan untuk interaksi jaringan dengan sistem tersebut.
+
+	Cara termudah dan paling efektif untuk menggunakan teknik out-of-band adalah menggunakan Burp Collaborator. Anda dapat menggunakan Burp Collaborator untuk menghasilkan nama domain yang unik, 
+	mengirimkan ini dalam muatan ke aplikasi, dan memantau untuk setiap interaksi dengan domain tersebut. Jika permintaan HTTP yang masuk diamati berasal dari aplikasi, maka itu rentan terhadap SSRF.
+
+
+		Catatan
+
+		Adalah umum ketika pengujian untuk kerentanan SSRF untuk mengamati pencarian DNS untuk domain Kolaborator yang disediakan, tetapi tidak ada permintaan HTTP berikutnya. 
+		Ini biasanya terjadi karena aplikasi berusaha untuk membuat permintaan HTTP ke domain, yang menyebabkan pencarian DNS awal, 
+		tetapi permintaan HTTP yang sebenarnya diblokir oleh penyaringan tingkat jaringan. Hal ini relatif umum untuk infrastruktur untuk memungkinkan lalu lintas DNS keluar, 
+		karena ini diperlukan untuk begitu banyak tujuan, tetapi memblokir koneksi HTTP ke tujuan yang tidak terduga.
+
+
+  LAB 5 Blind SSRF with Shellshock exploitation
+
+	Simply identifying a blind SSRF vulnerability that can trigger out-of-band HTTP requests doesn't in itself provide a route to exploitability. 
+	Since you cannot view the response from the back-end request, the behavior can't be used to explore content on systems that the application server can reach. 
+	However, it can still be leveraged to probe for other vulnerabilities on the server itself or on other back-end systems. You can blindly sweep the internal IP address space, 
+	sending payloads designed to detect well-known vulnerabilities. If those payloads also employ blind out-of-band techniques, then you might uncover a critical vulnerability on an unpatched internal server. 
+
+
+
+	Another avenue for exploiting blind SSRF vulnerabilities is to induce the application to connect to a system under the attacker's control, 
+	and return malicious responses to the HTTP client that makes the connection. If you can exploit a serious client-side vulnerability in the server's HTTP implementation, 
+	you might be able to achieve remote code execution within the application infrastructure. 

@@ -1,0 +1,24 @@
+LAB 2 Basic SSRF against another back-end system
+
+Brief:
+
+	Lab ini rentan ssrf di check stock
+	
+Tujuan:
+	
+	scan 192.168.0.x dengan port 8080 untuk menghapus carlos
+	
+Analisa:
+
+	1. check stok produk dan intercept lalu kirim ke intruder
+	
+	2. di intruder di stockapi ganti jadi http://192.168.0.x/admin lalu tambahkan posisi di octet terakhir dan di payload gunakan nomor 1 ke 255
+	
+	3. jika status 200 berhasil kemudian kirim ke repeater
+	
+	4. di response repeater cari carlos dan masukan ke isi stockAPI kemudian kirim
+	
+	5. berhasil
+
+
+

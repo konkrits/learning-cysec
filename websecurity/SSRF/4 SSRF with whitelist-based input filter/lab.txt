@@ -1,0 +1,22 @@
+LAB 4 SSRF with whitelist-based input filter
+
+Brief:
+	1. cek stok kirim ke repeater
+	
+	2. coba dengan localhost,coba dengan loopback
+	
+		tetapi keduanya diresponse dengan harus berasal dari hostname yang sama
+		
+	3. coba tambahkan username@stock.welietoshop.net/ dan ini diterima dan mengindikasikan bahwaurl parse mensupport embeded kredensial
+	
+	4. tambahkan char # di username dan sekarang jadi bad request dan ditolak
+	
+	5. double url encoded # -> http://username%25%32%33@stock.weliketoshop.net/ 
+		dan ini internal server error, mengindikasikan server mencoba menghubgi 'username'
+		
+	6. sekarang ganti hostname nya jadi localhost dan akses admin panel dan ini berhasil
+		http://localhost:80%2523@stock.weliketoshop.net/admin
+	
+	7. cari carlos di response dan tambahkan endpointnya
+	
+	8. berhasil

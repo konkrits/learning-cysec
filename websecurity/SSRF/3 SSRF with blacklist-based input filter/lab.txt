@@ -1,0 +1,22 @@
+LAB 3 SSRF with blacklist-based input filter
+
+Brief:
+
+	Lab ini memfetch stok dengan internal sistem
+	
+Tujuan:
+	
+	akses http://localhost/admin untuk menghapus carlos
+	
+Analisa:
+
+	1. check stok dan intercept kirim ke repeater
+	
+	2. kita coba dengan localhost dan 127.0.0.1 dan gagal
+	
+	3. coba dengan character 127.0.0.1 alternatif yaitu: 127.1, 2130706433, 017700000001 tetap gagl
+	4. double encoding char a di admin jadi http://127.1/%25%36%31dmin dan bisa
+	
+	5. cari carlos dan hapus
+	
+	6. berhasil

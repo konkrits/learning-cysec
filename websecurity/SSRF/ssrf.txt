@@ -1,0 +1,193 @@
+Server-side request forgery (SSRF)
+
+What is SSRF?
+
+	kerentanan keamanan web yang memungkinkan penyerang menyebabkan aplikasi sisi server untuk membuat permintaan ke lokasi yang tidak diinginkan.
+
+	Dalam serangan SSRF yang khas, penyerang dapat menyebabkan server membuat koneksi ke layanan internal saja dalam infrastruktur organisasi. 
+	Dalam kasus lain, mereka mungkin dapat memaksa server untuk terhubung ke sistem eksternal yang sewenang-wenang. Ini bisa membocorkan data sensitif, seperti kredensial otorisasi.
+	
+Apa dampak dari serangan SSRF?
+	
+	Serangan SSRF yang sukses sering dapat mengakibatkan tindakan yang tidak sah atau akses ke data dalam organisasi. 
+	Ini bisa dalam aplikasi yang rentan, atau pada sistem back-end lainnya yang aplikasi dapat berkomunikasi dengan. 
+	Dalam beberapa situasi, kerentanan SSRF memungkinkan penyerang untuk melakukan eksekusi perintah sewenang-wenang.
+
+	Eksploitasi SSRF yang menyebabkan koneksi ke sistem pihak ketiga eksternal dapat mengakibatkan serangan berbahaya ke depan. Ini dapat muncul berasal dari organisasi yang menjadi tuan rumah aplikasi yang rentan.
+	
+Serangan SSRF Umum
+
+  (LAB 1 SSRF dasar terhadap server lokal)
+
+	Serangan SSRF sering mengeksploitasi hubungan kepercayaan untuk meningkatkan serangan dari aplikasi yang rentan dan melakukan tindakan yang tidak sah. 
+	Hubungan kepercayaan ini mungkin ada dalam kaitannya dengan server, atau dalam kaitannya dengan sistem back-end lainnya dalam organisasi yang sama.
+	Serangan SSRF terhadap server
+
+	Dalam serangan SSRF terhadap server, penyerang menyebabkan aplikasi untuk membuat permintaan HTTP kembali ke server yang hosting aplikasi, melalui antarmuka jaringan loopback. 
+	Ini biasanya melibatkan penyediaan URL dengan nama host seperti 127.0.0.1(alamatkan IP yang dipesan yang menunjuk ke adaptor loopback) atau localhost(nama yang umum digunakan untuk adaptor yang sama).
+
+	Misalnya, bayangkan aplikasi belanja yang memungkinkan pengguna melihat apakah suatu barang tersedia di toko tertentu. Untuk memberikan informasi stok, 
+	aplikasi harus menanyakan berbagai API REST back-end. Ini dilakukan dengan meneruskan URL ke enderal API back-end yang relevan melalui permintaan HTTP front-end. 
+	Ketika pengguna melihat status stok untuk suatu item, browser mereka membuat permintaan berikut:
+	
+		POST /product/stock HTTP/1.0
+		Content-Type: application/x-www-form-urlencoded
+		Content-Length: 118
+
+		stockApi=http://stock.weliketoshop.net:8080/product/stock/check%3FproductId%3D6%26storeId%3D1
+
+	Hal ini menyebabkan server membuat permintaan ke URL yang ditentukan, mengambil status saham, dan mengembalikan ini ke pengguna.
+
+	Dalam contoh ini, penyerang dapat memodifikasi permintaan untuk menentukan URL lokal ke server:
+
+		POST /product/stock HTTP/1.0
+		Content-Type: application/x-www-form-urlencoded
+		Content-Length: 118
+
+		stockApi=http://localhost/admin
+
+	Server mengambil isi dari /adminURL dan mengembalikannya ke pengguna.
+
+	Seorang penyerang dapat mengunjungi /adminURL, tetapi fungsi administrasi biasanya hanya dapat diakses oleh pengguna yang diautentikasi. 
+	Ini berarti penyerang tidak akan melihat sesuatu yang menarik. Namun, jika permintaan tersebut kepada /adminURL berasal dari mesin lokal, kontrol akses normal dilewati. 
+	Aplikasi ini memberikan akses penuh ke fungsi administrasi, karena permintaan tersebut tampaknya berasal dari lokasi yang terpercaya.
+	
+	Mengapa aplikasi berperilaku seperti ini, dan secara implisit mempercayai permintaan yang berasal dari mesin lokal? 
+
+	Hal ini dapat muncul karena berbagai alasan:
+
+	    - Pemeriksaan kontrol akses dapat diimplementasikan dalam komponen yang berbeda yang berada di depan server aplikasi. Ketika koneksi dibuat kembali ke server, cek dilewati.
+	    
+	    - Untuk tujuan pemulihan bencana, aplikasi dapat memungkinkan akses administratif tanpa masuk, kepada setiap pengguna yang datang dari mesin lokal. 
+	    	Ini memberikan cara bagi administrator untuk memulihkan sistem jika mereka kehilangan kredensial mereka. Ini mengasumsikan bahwa hanya pengguna yang sepenuhnya dipercaya akan datang langsung dari server.
+	    
+	    - Antarmuka administrasi mungkin mendengarkan nomor port yang berbeda ke aplikasi utama, dan mungkin tidak dapat dijangkau secara langsung oleh pengguna.
+
+	Hubungan kepercayaan semacam ini, di mana permintaan yang berasal dari mesin lokal ditangani secara berbeda dari permintaan biasa, sering membuat SSRF menjadi kerentanan kritis.	
+	
+Serangan SSRF terhadap sistem back-end lainnya
+
+  (LAB 2 Basic SSRF terhadap sistem back-end lainnya	
+	
+	Dalam beberapa kasus, server aplikasi dapat berinteraksi dengan sistem back-end yang tidak dapat dijangkau secara langsung oleh pengguna. 
+	Sistem ini sering memiliki alamat IP pribadi non-root. Sistem back-end biasanya dilindungi oleh topologi jaringan, sehingga mereka sering memiliki postur keamanan yang lebih lemah. 
+	Dalam banyak kasus, sistem back-end internal mengandung fungsi sensitif yang dapat diakses tanpa otentikasi oleh siapa saja yang dapat berinteraksi dengan sistem.
+
+	Dalam contoh sebelumnya, bayangkan ada antarmuka administratif di URL back-end https://192.168.0.68/admin. Penyerang dapat mengajukan permintaan berikut untuk mengeksploitasi kerentanan SSRF, 
+	dan mengakses antarmuka admin:
+
+		POST /product/stock HTTP/1.0
+		Content-Type: application/x-www-form-urlencoded
+		Content-Length: 118
+
+		stockApi=http://192.168.0.68/admin
+		
+Menghindari pertahanan SSRF umum
+
+  - SSRF dengan daftar yang ditolak
+ 
+  (LAB 3 SSRF dengan daftar hitam)
+
+	Beberapa aplikasi memblokir input yang berisi nama host seperti 127.0.0.1 dan localhost, atau URL sensitif seperti /admin. 
+	 Dalam situasi ini, Anda seringkali dapat menghindari filter menggunakan teknik berikut:
+
+		- Gunakan representasi IP alternatif 127.0.0.1, seperti 2130706433, 017700000001, atau 127.1.
+		
+		- Daftar nama domain Anda sendiri yang memiliki resolusi 127.0.0.1. Anda dapat menggunakan spoofed.burpcollaborator.net untuk tujuan ini.
+	
+		- obfuscated string yang diblokir menggunakan penyandian URL atau variasi huruf besar/kecil.
+		
+		- Sediakan URL yang Anda kendalikan, yang dialihkan ke URL target. Coba gunakan kode pengalihan yang berbeda, serta protokol yang berbeda untuk URL target. 
+			Misalnya, beralih dari URL http: ke https: selama pengalihan telah terbukti dapat melewati beberapa filter anti-SSRF.
+
+  - SSRF dengan daftar yang dijinkan
+  
+  (LAB 4 dengan daftar putih)
+  
+  	Beberapa aplikasi hanya mengizinkan input yang cocok dengan daftar putih berisi nilai yang diizinkan. Filter mungkin mencari kecocokan di awal input, 
+  	atau yang terdapat di dalamnya. Anda mungkin dapat melewati filter ini dengan memanfaatkan inkonsistensi dalam penguraian URL.
+
+	Spesifikasi URL berisi sejumlah fitur yang mungkin terlewatkan ketika URL menerapkan penguraian dan validasi ad-hoc menggunakan metode ini:
+
+	- Anda dapat menyematkan kredensial di URL sebelum nama host, menggunakan karakter @. 
+	
+	   Misalnya:
+
+		https://expected-host:fakepassword@evil-host
+
+	- Anda dapat menggunakan karakter # untuk menunjukkan fragmen URL. 
+	
+	  Misalnya:
+	
+		https://evil-host#expected-host
+
+	- Anda dapat memanfaatkan hierarki penamaan DNS untuk menempatkan input yang diperlukan ke dalam nama DNS yang sepenuhnya memenuhi syarat yang Anda kendalikan. 
+
+	  Misalnya:
+	  
+		https://expected-host.evil-host
+	
+	
+	- Anda dapat mengodekan karakter URL untuk membingungkan kode penguraian URL. Hal ini sangat berguna jika kode yang mengimplementasikan filter menangani karakter yang dikodekan URL 
+		secara berbeda dari kode yang menjalankan permintaan HTTP back-end. Anda juga dapat mencoba karakter dengan pengkodean ganda; beberapa server secara rekursif mendekode URL input yang mereka terima, 
+		yang dapat menyebabkan perbedaan lebih lanjut.
+	
+	Anda dapat menggunakan kombinasi teknik-teknik ini secara bersamaan.
+
+Bypassing SSRF filters via open redirection
+
+	Kadang-kadang dimungkinkan untuk memotong pertahanan berbasis filter dengan mengeksploitasi open redirect.
+
+	Dalam contoh sebelumnya, bayangkan URL yang dikirimkan pengguna divalidasi secara ketat untuk mencegah eksploitasi berbahaya terhadap perilaku SSRF. 
+	Namun, aplikasi yang URL-nya diizinkan berisi kerentanan open redirect. Asalkan API yang digunakan untuk membuat permintaan HTTP back-end mendukung pengalihan, 
+	Anda dapat membangun URL yang memenuhi filter dan menghasilkan permintaan yang diarahkan ke target back-end yang diinginkan.
+
+	Misalnya, aplikasi berisi kerentanan pengalihan terbuka di mana URL berikut:
+
+		/produk/nextProduct?currentProductId=6&path=http://evil-user.net
+
+	Mengembalikan pengalihan ke:
+
+		http://evil-user.net
+
+	Anda dapat memanfaatkan kerentanan open redirect untuk melewati filter URL, dan mengeksploitasi kerentanan SSRF sebagai berikut:
+
+		POST / produk/saham HTTP/1.0
+		Konten-Type: aplikasi/x-www-form-urlencoded
+		Konten-panjang: 118
+
+		stockApi=http://weliketoshop.net/product/nextProductI?currentProductId=6&path=http://192.168.0.68/admin
+
+	Eksploitasi SSRF ini berfungsi karena aplikasi pertama kali memvalidasi bahwa URL stockAPI yang disediakan ada pada domain yang diizinkan. 
+	Aplikasi kemudian meminta URL yang disediakan, yang memicu pengalihan terbuka. Ini mengikuti pengalihan, dan membuat permintaan ke URL internal yang dipilih penyerang.
+
+
+Menemukan permukaan serangan tersembunyi untuk kerentanan SSRF
+
+	Banyak model forgery permintaan server mudah ditemukan, karena lalu lintas normal aplikasi melibatkan parameter permintaan yang berisi URL lengkap. Contoh lain dari SSRF lebih sulit ditemukan.
+
+  - URL parsial dalam permintaan
+
+	Terkadang, aplikasi hanya menempatkan nama host atau bagian dari jalur URL ke parameter permintaan. Nilai yang dikirimkan kemudian dimasukkan ke sisi server ke dalam URL lengkap yang diminta. 
+	Jika nilainya mudah dikenali sebagai nama host atau jalur URL, potensi permukaan serangan mungkin jelas. Namun, eksploitasi sebagai SSRF penuh mungkin terbatas karena Anda tidak mengontrol seluruh URL yang diminta.
+	
+  - URL dalam format data
+
+	Beberapa aplikasi mengirimkan data dalam format dengan spesifikasi yang memungkinkan dimasukkannya URL yang mungkin diminta oleh pengurai data untuk format. 
+	Contoh yang jelas dari ini adalah format data XML, yang telah banyak digunakan dalam aplikasi web untuk mengirimkan data terstruktur dari klien ke server. 
+	Ketika aplikasi menerima data dalam format XML dan mengurainya, mungkin rentan terhadap injeksi XXE. Ini mungkin juga rentan terhadap SSRF melalui XXE. 
+	Kami akan membahas ini secara lebih rinci ketika kita melihat kerentanan injeksi XXE.
+
+  - SSRF melalui header Wasit
+
+	Beberapa aplikasi menggunakan perangkat lunak analisis sisi server untuk melacak pengunjung. Perangkat lunak ini sering mencatat header Referer dalam permintaan, 
+	sehingga dapat melacak tautan masuk. Seringkali perangkat lunak analitik mengunjungi URL pihak ketiga yang muncul di header Referer. 
+	Hal ini biasanya dilakukan untuk menganalisis isi situs mengacu, termasuk teks jangkar yang digunakan dalam link incoming. Akibatnya, header Referer sering merupakan permukaan serangan yang berguna untuk kerentanan SSRF.
+
+
+
+
+
+
+
+
