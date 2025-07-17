@@ -114,6 +114,45 @@ Sources and sinks in third-party dependencies
 
 		Bahkan versi jQuery yang lebih baru pun masih bisa rentan melalui selector sink $(), asalkan Anda memiliki kontrol penuh atas inputnya dari sumber yang tidak memerlukan awalan #.
 
+DOM XSS dalam AngularJS
+
+  (LAB 6 DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded)
+
+	Jika kerangka kerja seperti AngularJS digunakan, dimungkinkan untuk mengeksekusi JavaScript tanpa kurung sudut atau peristiwa. 
+	Ketika sebuah situs menggunakan atribut ng-app pada elemen HTML, itu akan diproses oleh AngularJS. Dalam hal ini, 
+	AngularJS akan mengeksekusi JavaScript di dalam double curly braces yang dapat terjadi langsung dalam atribut HTML atau di dalam.
+
+DOM XSS combined with reflected and stored data
+
+  (LAB 7 Reflected DOM XSS)
+
+	 Beberapa kerentanan berbasis DOM murni bersifat mandiri dalam satu halaman. Jika skrip membaca data dari URL dan menuliskannya ke sink berbahaya, 
+	 maka kerentanan tersebut sepenuhnya berada di sisi klien.
+
+	 Namun, sumber data tidak terbatas pada data yang secara langsung diekspos oleh browser—mereka juga dapat berasal dari situs web itu sendiri. 
+	 Misalnya, situs web sering kali mencerminkan parameter URL dalam respons HTML dari server. Hal ini umumnya dikaitkan dengan XSS biasa, tetapi juga dapat menyebabkan kerentanan DOM XSS yang direfleksikan.
+
+	Dalam kerentanan DOM XSS yang direfleksikan, server memproses data dari permintaan dan memantulkan data tersebut ke dalam respons. 
+	Data yang direfleksikan mungkin ditempatkan dalam literal string JavaScript atau item data dalam DOM, seperti bidang formulir. 
+	Skrip di halaman kemudian memproses data yang direfleksikan dengan cara yang tidak aman, akhirnya menuliskannya ke dalam “sink” yang berbahaya.
+
+		eval('var data = "reflected string"');
+
+  LAB 8 Stored DOM XSS
+
+ Situs web juga dapat menyimpan data di server dan menampilkannya di tempat lain. Dalam kerentanan XSS DOM yang disimpan, server menerima data dari satu permintaan, menyimpannya, 
+ dan kemudian menyertakan data tersebut dalam respons berikutnya. Skrip dalam respons berikutnya mengandung sink yang kemudian memproses data tersebut dengan cara yang tidak aman.
+ 
+	element.innerHTML = comment.author
+
+
+
+
+
+
+
+
+
 
 
 

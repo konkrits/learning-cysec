@@ -1,0 +1,42 @@
+LAb 7 reflected dom
+
+	Laboratorium ini menunjukkan kerentanan DOM yang direfleksikan. Kerentanan DOM yang direfleksikan terjadi ketika aplikasi sisi server memproses data dari permintaan dan mengembalikan data tersebut dalam respons. 
+	Skrip di halaman kemudian memproses data yang direfleksikan dengan cara yang tidak aman, dan pada akhirnya menulisnya ke tujuan yang berbahaya.
+
+Tujuan:
+	gunakan alert()
+	
+Analisa:
+	1. di pencarian ketikan string bebas
+	
+	2. string di reflected dengan json bernama search result
+	
+	3. cari di site map searchresult.js dan lihat ada eval()
+	
+	4. dengan mencoba berbagai string tanda kutip di escape tapi / tidak
+	
+	5. sekarang masukan ke pencarian \"-alert('XSS-By-Konkrits)}//
+	
+	6. berhasil
+	
+		 Karena Anda telah menyisipkan tanda backslash dan situs web tidak melakukan escaping terhadapnya, saat respons JSON mencoba melakukan escaping terhadap karakter tanda kutip ganda pembuka, 
+		 ia menambahkan tanda backslash kedua. Tanda backslash ganda yang dihasilkan menyebabkan proses escaping menjadi tidak berlaku. Hal ini berarti tanda kutip ganda diproses tanpa escaping, 
+		 yang mengakibatkan string yang seharusnya berisi kata kunci pencarian menjadi tertutup.
+
+		Operator aritmatika (dalam hal ini operator pengurangan) kemudian digunakan untuk memisahkan ekspresi sebelum fungsi alert() dipanggil. 
+		Akhirnya, kurung kurawal penutup dan dua tanda slash penutup menutup objek JSON secara prematur dan mengomentari sisa objek yang seharusnya ada. 
+		Akibatnya, respons dihasilkan sebagai berikut:
+
+			{“searchTerm”:“\\”-alert(1)}//“, ”results":[]}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+

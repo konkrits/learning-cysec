@@ -1,0 +1,16 @@
+LAB 6 DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded
+
+Brief:
+	fungsi pencarian AngularJS adalah perpustakaan JavaScript yang populer, yang memindai isi node HTML yang berisi atribut ng-app (juga dikenal sebagai arahan AngularJS). 
+	Ketika arahan ditambahkan ke kode HTML, Anda dapat mengeksekusi ekspresi JavaScript dalam curly braces ganda. Teknik ini berguna ketika kurung sudut sedang dikodekan.
+	
+Tujuan:
+	eksekusi javascript ecsperession dan gunakan alert()
+	
+Analisa:
+	1. masukan nomor di kolom pencarian dan cari nomor itu di inspeksi
+	
+	2. masukan payload dan berhasil
+		
+		{{$on.constructor('alert(1)')()}}
+	

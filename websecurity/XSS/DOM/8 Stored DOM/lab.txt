@@ -1,0 +1,16 @@
+Lab 7 Stored DOM XSS
+
+Brief:
+	web rentan stored DOM di comment blog
+	
+Tujuan:
+	gunakan alert()
+	
+Analisa:
+	1. masukan payload <><img src=1 onerror=alert(1)>
+	
+	2. berhasil
+	
+	Dalam upaya untuk mencegah XSS, situs web menggunakan JavaScript replace()fungsi untuk mengkodekan kurung sudut. Namun, ketika argumen pertama adalah string, fungsi hanya menggantikan kejadian pertama. 
+	Kami mengeksploitasi kerentanan ini hanya dengan menyertakan satu set tambahan tanda kurung sudut di awal komentar. Kurung sudut ini akan dikodekan, 
+	tetapi setiap tanda sudut berikutnya tidak akan terpengaruh, memungkinkan kita untuk secara efektif melewati filter dan menyuntikkan HTML.
