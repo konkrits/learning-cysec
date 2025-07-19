@@ -44,12 +44,73 @@ Subverting Application logic / menumbangkan logika aplikasi
 	 	dalam kasus ini penyerang bisa login menjadi user apa aja tanpa password dengan cara menghapus password check di WHERE clause dengan -- contoh
 	 	mensubmit username administrator'-- dan passwordnya kosong di sql querynya jadi: SELECT * FROM users WHERE username 'administrator'--' AND password ''
 	 	
-	 	
+SQL injeksi UNION attack
+
+	Ketika aplikasi rentan terhadap injeksi SQL, dan hasil kueri dikembalikan dalam tanggapan aplikasi, 
+	Anda dapat menggunakan kata kunci UNION untuk mengambil data dari tabel lain dalam database. Ini umumnya dikenal sebagai serangan SQL injection UNION.
+
+	Kata kunci UNION memungkinkan Anda untuk mengeksekusi satu atau lebih pertanyaan SELECT tambahan dan menambahkan hasil ke kueri asli. 
+
+	Sebagai contoh:
+		
+		PILIH, b DARI tabel1 UNION SELECT c, d dari meja2
+
+	Kueri SQL ini mengembalikan satu set hasil dengan dua kolom, berisi nilai dari kolom a dan b dalam tabel dan kolom c dan d dalam tabel 2.	 	
+		
 	
+	 Untuk a UNION query untuk bekerja, dua persyaratan utama harus dipenuhi:
+
+	    Kueri individu harus mengembalikan jumlah kolom yang sama.
+	    Jenis data di setiap kolom harus kompatibel antara kueri individu.
+
+	Untuk melakukan serangan SQL injection UNION, pastikan bahwa serangan Anda memenuhi dua persyaratan ini. Ini biasanya melibatkan mencari tahu:
+
+	    Berapa banyak kolom yang dikembalikan dari kueri asli.
+	    Kolom mana yang dikembalikan dari kueri asli adalah jenis data yang sesuai untuk menahan hasil dari kueri yang disuntikkan.
+
 	
+Menentukan jumlah kolom yang diperlukan
+
+	Ketika Anda melakukan serangan SQL injection UNION, ada dua metode efektif untuk menentukan berapa banyak kolom yang dikembalikan dari kueri asli.
+
+	Salah satu metode melibatkan menyuntikkan serangkaian ORDER BY klausa dan incrementing indeks kolom yang ditentukan sampai kesalahan terjadi. 
+	Misalnya, jika titik injeksi adalah string yang dikutip dalam WHERE klausul dari kueri asli, Anda akan mengirimkan:
+
+	' ORDER BY 1--
+	' ORDER BY 2--
+	' ORDER BY 3--
+	etc.
+
+	Rangkaian muatan ini memodifikasi kueri asli untuk memesan hasil dengan kolom yang berbeda dalam set hasil. Kolom dalam ORDER BYKlausul dapat ditentukan oleh indeksnya, 
+	sehingga Anda tidak perlu mengetahui nama-nama kolom apa pun. Ketika indeks kolom yang ditentukan melebihi jumlah kolom aktual dalam set hasil, 
+	database mengembalikan kesalahan, seperti:
+
+	The ORDER BY position number 3 is out of range of the number of items in the select list.
+
+	Aplikasi ini mungkin benar-benar mengembalikan kesalahan database dalam respons HTTP-nya, 
+	tetapi juga dapat mengeluarkan respons kesalahan generik. Dalam kasus lain, itu mungkin hanya mengembalikan hasil sama sekali. 
+	Either way, selama Anda dapat mendeteksi beberapa perbedaan dalam respon, Anda dapat menyimpulkan berapa banyak kolom yang dikembalikan dari kueri.
+
+	 Metode kedua melibatkan mengirimkan serangkaian UNION SELECTpayloads yang menentukan jumlah nilai nol yang berbeda:
+
+		' UNION SELECT NULL--
+		' UNION SELECT NULL,NULL--
+		' UNION SELECT NULL,NULL,NULL--
+		etc.
+
+	Jika jumlah batal tidak sesuai dengan jumlah kolom, database mengembalikan kesalahan, seperti:
 	
-	
-	
+		All queries combined using a UNION, INTERSECT or EXCEPT operator must have an equal number of expressions in their target lists.
+
+	Kami menggunakan NULL sebagai nilai-nilai kembali dari disuntikkan Meme it SELECT query karena jenis data di setiap kolom harus kompatibel antara kueri asli dan yang disuntikkan. 
+	NULL dapat dikonversi ke setiap jenis data umum, sehingga memaksimalkan kemungkinan bahwa muatan akan berhasil ketika jumlah kolom benar.
+
+	Seperti dengan yang ORDER BY teknik, aplikasi mungkin benar-benar mengembalikan kesalahan database dalam respon HTTP, 
+	tetapi dapat mengembalikan kesalahan generik atau hanya tidak mengembalikan hasil. Ketika jumlah batang sesuai dengan jumlah kolom,
+	database mengembalikan baris tambahan dalam set hasil, yang mengandung nilai nol di setiap kolom. Efek pada respon HTTP tergantung pada kode aplikasi. 
+	Jika Anda beruntung, Anda akan melihat beberapa konten tambahan dalam respon, seperti baris tambahan pada tabel HTML. 
+	Jika tidak, nilai-nilai nol dapat memicu kesalahan yang berbeda, seperti NullPointerException. 
+	Dalam kasus terburuk, respons mungkin terlihat sama dengan respons yang disebabkan oleh jumlah null yang salah. Ini akan membuat metode ini tidak efektif. 	
 	
 	
 	
