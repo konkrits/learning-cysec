@@ -1,0 +1,66 @@
+Konteks scripting lintas situs
+
+	Ketika pengujian untuk XSS yang dipantulkan dan disimpan, tugas utama adalah mengidentifikasi konteks XSS:
+
+	    Lokasi dalam respon di mana data yang dapat dikontrol penyerang muncul.
+	    Setiap validasi input atau pemrosesan lain yang sedang dilakukan pada data tersebut oleh aplikasi.
+
+	Berdasarkan rincian ini, Anda kemudian dapat memilih satu atau lebih gaji XSS kandidat, dan menguji apakah itu efektif.
+	
+XSS between HTML tags
+
+	When the XSS context is text between HTML tags, you need to introduce some new HTML tags designed to trigger execution of JavaScript.
+
+	Some useful ways of executing JavaScript are:
+	
+		<script>alert(document.domain)</script>
+		<img src=1 onerror=alert(1)>	
+		
+	LAB Reflected XSS into HTML context with most tags and attributes blocked
+	
+	LAB Reflected XSS into HTML context with all tags blocked except custom ones
+
+	LAB Reflected XSS with event handlers and href attributes blocked
+
+	LAB Reflected XSS with some SVG markup allowed
+
+XSS in HTML tag attributes	
+	
+ LAB Reflected XSS into attribute with angle brackets HTML-encoded	
+	
+	When the XSS context is into an HTML tag attribute value, you might sometimes be able to terminate the attribute value, close the tag, and introduce a new one. 
+	
+		For example:
+		
+			"><script>alert(document.domain)</script>
+
+		More commonly in this situation, angle brackets are blocked or encoded, so your input cannot break out of the tag in which it appears. 
+		Provided you can terminate the attribute value, you can normally introduce a new attribute that creates a scriptable context, such as an event handler. 
+
+		For example:
+
+			" autofocus onfocus=alert(document.domain) x="
+
+		The above payload creates an onfocus event that will execute JavaScript when the element receives the focus, and also adds the autofocus attribute to try to trigger the onfocus event 
+		automatically without any user interaction. Finally, it adds x=" to gracefully repair the following markup.
+		
+  LAAB Stored XSS into anchor href attribute with double quotes HTML-encoded	
+	
+	Kadang-kadang konteks XSS adalah menjadi jenis atribut tag HTML yang dengan sendirinya dapat membuat konteks scriptable. Di sini, 
+	Anda dapat mengeksekusi JavaScript tanpa perlu menghentikan nilai atribut.
+	Misalnya, jika konteks XSS menjadi atribut href dari tag jangkar, Anda dapat menggunakan javascript pseudo-protocol untuk mengeksekusi skrip. 
+	
+	Sebagai contoh:
+
+		<a href="javascript:alert(document.domain)">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
