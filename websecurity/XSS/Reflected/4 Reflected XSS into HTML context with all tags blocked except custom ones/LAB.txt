@@ -1,0 +1,21 @@
+LAB Reflected XSS into HTML context with all tags blocked except custom ones
+
+brief:
+	semua tag html di lab ini di block kecuali yang satu dikustom
+	
+Tujuan:
+	lakukan alert(document.cookie) otomatis
+	
+Analisa:
+	1. pergi ke exploit server
+		location = 'https://YOUR-LAB-ID.web-security-academy.net/?search=<xss+id=x+onfocus=alert(document.cookie) tabindex=1>#x';
+	
+		Injeksi ini menciptakan tag khusus dengan ID x, yang berisi penanganan event onfocus yang memicu fungsi alert. 
+		Hash di akhir URL berfokus pada elemen ini segera setelah halaman dimuat, menyebabkan payload peringatan dipanggil.
+		
+	2. klik store dan lihat
+	
+	3. berhasil
+	
+	
+
