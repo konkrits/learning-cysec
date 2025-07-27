@@ -44,7 +44,7 @@ XSS in HTML tag attributes
 		The above payload creates an onfocus event that will execute JavaScript when the element receives the focus, and also adds the autofocus attribute to try to trigger the onfocus event 
 		automatically without any user interaction. Finally, it adds x=" to gracefully repair the following markup.
 		
-  LAAB Stored XSS into anchor href attribute with double quotes HTML-encoded	
+  LAB Stored XSS into anchor href attribute with double quotes HTML-encoded	
 	
 	Kadang-kadang konteks XSS adalah menjadi jenis atribut tag HTML yang dengan sendirinya dapat membuat konteks scriptable. Di sini, 
 	Anda dapat mengeksekusi JavaScript tanpa perlu menghentikan nilai atribut.
@@ -55,8 +55,14 @@ XSS in HTML tag attributes
 		<a href="javascript:alert(document.domain)">
 	
 	
+  LAB Reflected XSS in canonical link tag
 	
-	
+	Anda mungkin menemukan situs web yang mengkodekan tanda kurung sudut tetapi masih memungkinkan Anda untuk menyuntikkan atribut. Kadang-kadang, 
+	suntikan ini dimungkinkan bahkan dalam tag yang biasanya tidak menyala secara otomatis, seperti tag kanonik. 
+	Anda dapat memanfaatkan perilaku ini menggunakan kunci akses dan interaksi pengguna di Chrome. Tombol akses memungkinkan Anda untuk memberikan pintasan keyboard yang merujuk pada elemen tertentu. 
+	Atribut accesskey memungkinkan Anda untuk menentukan huruf yang, ketika ditekan dalam kombinasi dengan kunci lain (ini bervariasi di berbagai platform), 
+	akan menyebabkan peristiwa untuk menembak. 
+	Di laboratorium berikutnya Anda dapat bereksperimen dengan kunci akses dan mengeksploitasi tag kanonik.
 	
 	
 	

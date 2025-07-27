@@ -53,7 +53,7 @@ SQL injeksi UNION attack
 
 	Sebagai contoh:
 		
-		PILIH, b DARI tabel1 UNION SELECT c, d dari meja2
+		SELECT a, b FROM table1 UNION SELECT c, d FROM table2
 
 	Kueri SQL ini mengembalikan satu set hasil dengan dua kolom, berisi nilai dari kolom a dan b dalam tabel dan kolom c dan d dalam tabel 2.	 	
 		
@@ -91,7 +91,7 @@ Menentukan jumlah kolom yang diperlukan
 	tetapi juga dapat mengeluarkan respons kesalahan generik. Dalam kasus lain, itu mungkin hanya mengembalikan hasil sama sekali. 
 	Either way, selama Anda dapat mendeteksi beberapa perbedaan dalam respon, Anda dapat menyimpulkan berapa banyak kolom yang dikembalikan dari kueri.
 
-	 Metode kedua melibatkan mengirimkan serangkaian UNION SELECTpayloads yang menentukan jumlah nilai nol yang berbeda:
+	 Metode kedua melibatkan mengirimkan serangkaian UNION SELECT payloads yang menentukan jumlah nilai nol yang berbeda:
 
 		' UNION SELECT NULL--
 		' UNION SELECT NULL,NULL--

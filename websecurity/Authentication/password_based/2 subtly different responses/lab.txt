@@ -1,0 +1,23 @@
+Lab 2 : Username enumeration via subtly different responses
+
+Brief:
+	lab rentan brute force password dan username
+	
+Tujuan:
+	login menjadi akun yang ada di list
+	
+Analisa:
+	1. kirim POST request untuk login kirim ke intruder
+	
+	2. masukan list username dan set posisinya
+	
+	3. ke setting kanan lalu grep extract
+		dan masukan "Invalid username or password."
+		
+	4. lalu start attack pas berhasil ada satu response yang typo tidak menginput titik.
+
+		seharusnya Invalid username or password. malah jadi Invalid username or password
+		
+	5. sekarang set posisi untuk password dan masukan listnya
+	
+	6. ketika berhasil ada redirect dan login lalu berhasil

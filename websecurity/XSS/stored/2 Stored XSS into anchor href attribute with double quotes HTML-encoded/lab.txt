@@ -1,0 +1,16 @@
+LAB Stored XSS into anchor href attribute with double quotes HTML-encoded
+
+Brief:
+	kerentanan di komen
+	
+Tujuan:
+	alert()
+	
+Analisa:
+	1. kirim nomor random di kolom "web"
+	
+	2. di response ada nomor tersebut ada di tag href="nomor"
+	
+	3. ulangi proses tapi dengan payload: javascript:alert(1)
+	
+	4. klik nama pengguna untuk meng alert()
