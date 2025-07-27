@@ -1,0 +1,17 @@
+Lab 3 SQL injection UNION attack, determining the number of columns returned by the query
+
+Brief:
+	lab ini rentan sqli di product category filter, hasil query dikembalikan ke aplikasi jadi bisa pakai union attack untuk data table lain
+	step 1 dari attack ini untuk menentukan nomor colomn yang dikembalikan yang akan berguna untuk lab berikutnya
+
+Tujuan:
+	tentukan kolom yang dikembalikan dari query dengan sqli union yang berisi baris tambahan dan berisi nilai null
+
+Analisa:
+	1. intercept request dari category
+
+	2. ubah parameter category jadi category='UNION+SELECT+NULL--
+		dan error terjadi
+
+	3. sekarang tambahkan terus nilai null sampai error menghilang dan berhasil
+		'UNION+SELECT+NULL,NULL,NULL--
