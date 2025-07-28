@@ -1,0 +1,18 @@
+Lab 8 Reflected XSS in canonical link tag
+
+Brief:
+	situs ini mereflect user input di canonnical link tag dan mengescape angle bracket
+
+Tujuan:
+	lakukan alert() 
+
+Analisa:
+	1. masukan payload di url: https://YOUR-LAB-ID.web-security-academy.net/?%27accesskey=%27x%27onclick=%27alert(1)
+
+		ini memastikan tombol x memiliki akses ke seluruh halaman ketika user menekan tombol akses fungsi alert muncul
+
+	2. untuk mentrigger exploit
+
+		di windows: Tekan ALT + SHIFT + X
+		di mac	  : CTRL+ALT+X
+		di Linux  : ALT + X

