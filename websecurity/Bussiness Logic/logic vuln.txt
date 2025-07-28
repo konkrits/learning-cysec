@@ -1,0 +1,221 @@
+Business logic vulnerabilities
+
+Apa itu kerentanan logika bisnis?
+
+	Kerentanan logika bisnis adalah kekurangan dalam desain dan implementasi aplikasi yang memungkinkan penyerang untuk mendapatkan perilaku yang tidak diinginkan. 
+	  Hal ini berpotensi memungkinkan penyerang untuk memanipulasi fungsi yang sah untuk mencapai tujuan jahat.
+	  
+	Kelemahan ini umumnya merupakan hasil dari kegagalan untuk mengantisipasi aplikasi yang tidak biasa menyatakan bahwa hal yang mungkin terjadi dan, akibatnya, gagal menanganinya dengan aman.
+
+
+	Catatan:
+
+		Dalam konteks ini, istilah "logika bisnis" hanya mengacu pada seperangkat aturan yang menentukan bagaimana aplikasi beroperasi. 
+		Karena aturan-aturan ini tidak selalu terkait langsung dengan bisnis, kerentanan terkait juga dikenal sebagai "kerentanan logika aplikasi" atau hanya "kelemahan logika".
+
+	Kelemahan logika sering tidak terlihat oleh orang-orang yang tidak secara eksplisit mencari mereka karena mereka biasanya tidak akan terkena dengan penggunaan aplikasi normal. 
+	Namun, penyerang mungkin dapat mengeksploitasi kebiasaan perilaku dengan berinteraksi dengan aplikasi dengan cara yang tidak pernah dimaksudkan oleh pengembang.
+
+	Salah satu tujuan utama logika bisnis adalah untuk menegakkan aturan dan kendala yang didefinisikan saat merancang aplikasi atau fungsi. 
+	Secara umum, aturan bisnis menentukan bagaimana aplikasi harus bereaksi ketika skenario tertentu terjadi. 
+	Ini termasuk mencegah pengguna melakukan hal-hal yang akan berdampak negatif pada bisnis atau yang tidak masuk akal.
+
+	Cacat dalam logika dapat memungkinkan penyerang untuk menghindari aturan-aturan ini. Misalnya, mereka mungkin dapat menyelesaikan transaksi tanpa melalui alur kerja pembelian yang dimaksudkan. 
+	Dalam kasus lain, validasi data yang dilipat atau tidak ada yang tidak ada dapat memungkinkan pengguna untuk membuat perubahan sewenang-wenang terhadap nilai transaksi-kritis atau mengirimkan input yang tidak masuk akal. 
+
+	Dengan memberikan nilai-nilai tak terduga ke dalam logika sisi server, penyerang berpotensi dapat mendorong aplikasi untuk melakukan sesuatu yang tidak seharusnya.
+
+	Kerentanan berbasis logika bisa sangat beragam dan sering unik untuk aplikasi dan fungsi spesifiknya. Mengidentifikasi mereka sering membutuhkan sejumlah pengetahuan manusia, 
+	seperti pemahaman tentang domain bisnis atau tujuan apa yang mungkin dimiliki penyerang dalam konteks tertentu. Hal ini membuat mereka sulit dideteksi menggunakan pemindai kerentanan otomatis. 
+	Akibatnya, kelemahan logika adalah target besar untuk pemburu hadiah bug dan penguji manual pada umumnya.
+
+
+Bagaimana kerentanan logika bisnis muncul?
+
+	Kerentanan logika bisnis sering muncul karena tim desain dan pengembangan membuat asumsi yang salah tentang bagaimana pengguna akan berinteraksi dengan aplikasi. 
+	Asumsi buruk ini dapat menyebabkan validasi input pengguna yang tidak memadai. Misalnya, jika pengembang berasumsi bahwa pengguna akan meneruskan data secara eksklusif melalui browser web, 
+	aplikasi dapat bergantung sepenuhnya pada kontrol sisi klien yang lemah untuk memvalidasi input. Ini mudah dilewati oleh penyerang menggunakan proxy intercept.
+
+		Pada akhirnya, ini berarti bahwa ketika seorang penyerang menyimpang dari perilaku pengguna yang diharapkan, aplikasi gagal mengambil langkah yang tepat untuk mencegah hal ini dan, 
+		kemudian, gagal menangani situasi dengan aman.
+
+	Kelemahan logika sangat umum dalam sistem yang terlalu rumit yang bahkan tim pengembangan sendiri tidak sepenuhnya mengerti. Untuk menghindari kekurangan logika, 
+	pengembang perlu memahami aplikasi secara keseluruhan. Ini termasuk menyadari bagaimana fungsi yang berbeda dapat dikombinasikan dengan cara yang tidak terduga. 
+	Pengembang yang bekerja pada basis kode besar mungkin tidak memiliki pemahaman yang mendalam tentang bagaimana semua bidang aplikasi bekerja. 
+	
+		Seseorang yang bekerja pada satu komponen dapat membuat asumsi cacat tentang bagaimana komponen lain bekerja dan, sebagai hasilnya, 
+		secara tidak sengaja memperkenalkan kelemahan logika yang serius. Jika pengembang tidak secara eksplisit mendokumentasikan asumsi apa pun yang sedang dibuat, 
+		mudah bagi kerentanan semacam ini untuk merayap ke dalam aplikasi.
+
+Apa dampak dari kerentanan logika bisnis?
+
+	Dampak kerentanan logika bisnis kadang-kadang bisa menjadi cukup sepele. Ini adalah kategori yang luas dan dampaknya sangat bervariasi. 
+	Namun, setiap perilaku yang tidak diinginkan berpotensi menyebabkan serangan tingkat tinggi jika penyerang mampu memanipulasi aplikasi dengan cara yang benar. 
+	Untuk alasan ini, logika unik idealnya harus diperbaiki bahkan jika Anda tidak dapat mengetahui cara mengeksploitasinya sendiri. Selalu ada risiko yang bisa dilakukan orang lain.
+
+		Pada dasarnya, dampak dari setiap cacat logika tergantung pada apa fungsi itu terkait. Jika cacat ada dalam mekanisme otentikasi, misalnya, 
+		ini bisa berdampak serius pada keamanan Anda secara keseluruhan. Penyerang berpotensi mengeksploitasi ini untuk eskalasi hak istimewa, atau untuk melewati otentikasi sepenuhnya, 
+		mendapatkan akses ke data dan fungsionalitas yang sensitif. Ini juga mengekspos peningkatan permukaan serangan untuk eksploitasi lainnya.
+
+	Logika cacat dalam transaksi keuangan jelas dapat menyebabkan kerugian besar bagi bisnis melalui dana curian, penipuan, dan sebagainya.
+
+		Anda juga harus mencatat bahwa meskipun kelemahan logika mungkin tidak memungkinkan penyerang untuk mendapatkan keuntungan secara langsung, 
+		mereka masih bisa memungkinkan pihak jahat untuk merusak bisnis dalam beberapa cara.
+
+Cara Mencegah Kerentanan Logika Bisnis
+
+	Singkatnya, kunci untuk mencegah kerentanan logika bisnis adalah untuk:
+
+	    Pastikan pengembang dan penguji memahami domain yang dilayani aplikasi
+	    Hindari membuat asumsi implisit tentang perilaku pengguna atau perilaku bagian lain dari aplikasi
+
+	Anda harus mengidentifikasi asumsi apa yang telah Anda buat tentang keadaan sisi server dan menerapkan logika yang diperlukan untuk memverifikasi bahwa asumsi ini terpenuhi. 
+	Ini termasuk memastikan bahwa nilai input apa pun masuk akal sebelum melanjutkan.
+
+	Penting juga untuk memastikan bahwa pengembang dan penguji dapat sepenuhnya memahami asumsi ini dan bagaimana aplikasi seharusnya bereaksi dalam skenario yang berbeda. 
+	Ini dapat membantu tim untuk menemukan kelemahan logika sedini mungkin. Untuk memfasilitasi ini, 
+	
+	 tim pengembangan harus mematuhi praktik terbaik berikut ini jika memungkinkan:
+
+    		- Pertahankan dokumen desain yang jelas dan arus data untuk semua transaksi dan alur kerja, mencatat setiap asumsi yang dibuat pada setiap tahap.
+    		
+    		- Tulis kode sejelas mungkin. Jika sulit untuk memahami apa yang seharusnya terjadi, akan sulit untuk menemukan kekurangan logika. 
+    			Idealnya, kode yang ditulis dengan baik seharusnya tidak perlu dokumentasi untuk memahaminya. Dalam kasus yang tidak dapat dihindari, 
+    			menghasilkan dokumentasi yang jelas sangat penting untuk memastikan bahwa pengembang dan penguji lain tahu asumsi apa yang dibuat dan apa perilaku yang diharapkan.
+    
+    		- Perhatikan referensi apa pun untuk kode lain yang menggunakan masing-masing komponen. Pikirkan tentang efek samping dari dependensi ini jika pihak jahat memanipulasi mereka dengan cara yang tidak biasa.
+
+	Karena sifat yang relatif unik dari banyak kekurangan logika, mudah untuk menepisnya sebagai kesalahan satu kali karena kesalahan manusia dan melanjutkan. 
+	Namun, seperti yang telah kami tunjukkan, kekurangan ini sering merupakan hasil dari praktik buruk dalam fase awal membangun aplikasi. Menganalisis mengapa cacat logika ada di tempat pertama, 
+	dan bagaimana hal itu terlewatkan oleh tim, dapat membantu Anda menemukan kelemahan dalam proses Anda. 
+	
+	Dengan membuat penyesuaian kecil, Anda dapat meningkatkan kemungkinan bahwa kekurangan serupa akan terputus pada sumbernya atau tertangkap sebelumnya dalam proses pengembangan.
+
+Example Business logic vulnerabilities :
+
+	Business logic vulnerabilities are relatively specific to the context in which they occur. However, although individual instances of logic flaws differ hugely, 
+	 they can share many common themes. In particular, they can be loosely grouped based on the initial mistakes that introduced the vulnerability in the first place.
+ 
+	Whether you're developing your own applications, or auditing existing ones, you can take the lessons learned from these examples and apply the same critical thinking to other applications that you encounter.
+
+	Examples of logic flaws include:
+
+	    - Excessive trust in client-side controls
+	    
+	    - Failing to handle unconventional input
+	    
+	    - Making flawed assumptions about user behavior 
+	    
+	    - Domain-specific flaws
+	    
+	    - Providing an encryption oracle
+	    
+	    - Email address parser discrepancies
+
+	In this section, we'll look at examples of some typical mistakes that design and development teams make and show you how they can directly lead to business logic flaws.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

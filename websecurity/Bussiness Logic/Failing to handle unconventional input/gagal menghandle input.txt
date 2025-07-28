@@ -1,0 +1,90 @@
+Gagal menangani input yang tidak konvensional
+
+	Salah satu tujuan dari logika aplikasi adalah untuk membatasi input pengguna untuk nilai-nilai yang mematuhi aturan bisnis. 
+	   Misalnya, aplikasi dapat dirancang untuk menerima nilai-nilai sewenang-wenang dari jenis data tertentu, tetapi logika menentukan apakah nilai ini dapat diterima atau tidak dari perspektif bisnis. 
+	 Banyak aplikasi menggabungkan batas numerik ke dalam logika mereka. Ini mungkin termasuk batasan yang dirancang untuk mengelola inventaris, menerapkan pembatasan anggaran, memicu fase rantai pasokan, dan sebagainya.
+
+	Mari kita ambil contoh sederhana dari sebuah toko online. Saat memesan produk, pengguna biasanya menentukan jumlah yang ingin mereka pesan. 
+	  Meskipun setiap bilangan depan secara teoritis adalah input yang valid, logika bisnis mungkin mencegah pengguna dari memesan lebih banyak unit daripada yang saat ini dalam stok, misalnya.
+
+	Untuk menerapkan aturan seperti ini, pengembang perlu mengantisipasi semua skenario yang mungkin dan menggabungkan cara untuk menanganinya ke dalam logika aplikasi. 
+	   Dengan kata lain, mereka perlu memberi tahu aplikasi apakah itu harus memungkinkan input yang diberikan dan bagaimana harus bereaksi berdasarkan berbagai kondisi. 
+	Jika tidak ada logika eksplisit untuk menangani kasus tertentu, ini dapat menyebabkan perilaku yang tak terduga dan berpotensi dieksploitasi.
+
+	Misalnya, tipe data numerik mungkin menerima nilai negatif. Tergantung pada fungsi terkait, mungkin tidak masuk akal untuk logika bisnis untuk memungkinkan hal ini. 
+	  Namun, jika aplikasi tidak melakukan validasi sisi server yang memadai dan menolak input ini, penyerang mungkin dapat meneruskan nilai negatif dan menginduksi perilaku yang tidak diinginkan.
+
+	Pertimbangkan transfer dana antara dua rekening bank. 
+	Fungsionalitas ini hampir pasti akan memeriksa apakah pengirim memiliki dana yang cukup sebelum menyelesaikan transfer:
+	
+			$transferAmount = $_POST['amount'];
+			$currentBalance = $user->getBalance();
+
+			if ($transferAmount <= $currentBalance) {
+			    // Complete the transfer
+			} else {
+			    // Block the transfer: insufficient funds
+			}
+	
+	Tetapi jika logika tidak cukup mencegah pengguna dari menyediakan nilai negatif dalam Memelihara amount 
+	parameter, ini dapat dieksploitasi oleh penyerang untuk memotong pemeriksaan saldo dan mentransfer dana ke arah yang "salah". 
+	Jika penyerang mengirim  -$1000 ke akun korban, ini mungkin mengakibatkan mereka menerima $1000 dari korban sebagai gantinya. 
+	Logika akan selalu mengevaluasi bahwa -1000 kurang dari saldo saat ini dan menyetujui transfer.
+
+	Kelemahan logika sederhana seperti ini dapat menghancurkan jika terjadi dalam fungsi yang tepat. Mereka juga mudah dilewatkan selama pengembangan dan pengujian, 
+	terutama mengingat bahwa input tersebut dapat diblokir oleh kontrol sisi klien pada antarmuka web.
+
+	Saat mengaudit aplikasi, Anda harus menggunakan alat seperti Burp Proxy dan Repeater untuk mencoba mengirimkan nilai yang tidak konvensional. 
+	Secara khusus, cobalah masukan dalam rentang yang tidak mungkin dilakukan pengguna yang sah. 
+	Ini termasuk input numerik yang sangat tinggi atau sangat rendah dan string panjang yang tidak normal untuk bidang berbasis teks. Anda bahkan dapat mencoba jenis data yang tidak terduga. 
+	Dengan mengamati respons aplikasi, Anda harus mencoba dan menjawab pertanyaan berikut:
+
+	   - Apakah ada batasan yang dikenakan pada data?
+	   - Apa yang terjadi ketika Anda mencapai batas-batas itu?
+	   - Apakah ada transformasi atau normalisasi yang dilakukan pada input Anda?
+
+	Ini dapat mengekspos validasi input yang lemah yang memungkinkan Anda untuk memanipulasi aplikasi dengan cara yang tidak biasa. 
+	Perlu diingat bahwa jika Anda menemukan satu formulir di situs web target yang gagal menangani input yang tidak konvensional dengan aman, kemungkinan bentuk lain akan memiliki masalah yang sama.
+	
+	
+	
+	lab 1 Kerentanan logika tingkat tinggi
+	
+	lab 2 Cacat logika tingkat rendah
+	
+	lab 3 tidak konsisten menghandle input yang dikecualikan
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

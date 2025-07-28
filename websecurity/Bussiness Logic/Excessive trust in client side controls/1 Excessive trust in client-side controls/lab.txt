@@ -1,0 +1,58 @@
+Lab 1 : Excessive trust in client-side controls
+
+
+Brief:
+	lab ini tidak cukup kuat untuk memvalidasi user input, kamu bisa mengekploitasi ini untuk membeli item dengan harga yang tidak wajar
+
+Tujuan:
+	Beli item "Lightweight l33t leather jacket"
+
+	
+Analisa:
+
+	pre:
+		2. ini adalah laman produk dan request GET /
+		3. ini laman keranjang
+		4. ini request dan laman setelah mencekout
+		5. ini request chekout
+
+	1. login
+	
+	2. pergi ke laman produk
+	
+	3. tambahkan ke keranjang
+	
+		perhatikan request paramater pricenya
+		
+	4. ini adalah harga normal
+	
+	5. sekarang di POST /cart atau yang dipakai untuk menambahkan ke keranjang
+	
+		ubah pricenya menjadi bebas, price=5
+	
+		coba ke keranjang melalui request burp  atau browser dan sekarang harga nya berubah
+		
+	6. POST checkout kirim atau dilaman keranjang juga bisa dan berhasil	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
