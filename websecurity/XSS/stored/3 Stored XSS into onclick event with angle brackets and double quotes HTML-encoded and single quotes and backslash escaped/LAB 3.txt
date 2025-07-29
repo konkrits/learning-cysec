@@ -1,0 +1,20 @@
+LAB 3 Stored XSS into onclick event with angle brackets and double quotes HTML-encoded and single quotes and backslash escape
+
+Brief:
+	stored xss di komen
+
+Tujuan:
+	lakukan alert ketika mengklik nama pengguna
+
+Analisa:
+	1. post komen dengan nomor di kolom web dan kirim ke repeater
+
+	2. GET post dan kirim ke repeater
+
+	3. lihat di response bahwa nomor di refleksikan di dalam onclick event handler attribute
+
+	4. masukan payload di kolom web: http://foo?&apos;-alert(1)-&apos;
+
+	5. lihat url web di response
+
+	6. klik nama author dan berhasil

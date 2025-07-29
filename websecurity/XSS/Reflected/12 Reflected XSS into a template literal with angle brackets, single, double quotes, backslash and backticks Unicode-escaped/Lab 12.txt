@@ -1,0 +1,15 @@
+Lab 12 Reflected XSS into a template literal with angle brackets, single, double quotes, backslash and backticks Unicode-escaped
+
+Brief:
+	reflected xss di fungsi pencarian blog. refleksi terjadi di dalam template string, <angle bracket>, 'tanda kutip satu' "tanda kutip dua" html encode dan backticks di escape `
+
+Tujuan:
+	lakukan alert() ketika didalam template string
+
+Analisa:
+	1. input nomor random dan direfleksi ke dalam string
+
+	2. masukan payload: ${alert(ISI)}
+
+	3. payload berhasil
+

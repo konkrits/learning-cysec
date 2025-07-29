@@ -1,0 +1,32 @@
+LAB 10 Reflected XSS into a JavaScript string with angle brackets and double quotes HTML-encoded and single quotes escaped
+
+brief:
+	reflected xss di fungsi pencarian query tracking, di mana tanda kurung sudut (< dan >) dan tanda kutip ganda (") diubah ke format HTML, dan tanda kutip tunggal (') di-escape 
+
+Tujuan:
+	Break javascript string dan lakukan alert()
+
+Analisa:
+	1. masukan di pencarian nomor random dan kirim ke repeater
+
+	2. lihat di response nomor itu di refleksikan
+
+	3. masukan test payload contoh: test'test
+	
+	   di response tanda kutip tersebut di escape dengan \'
+
+	4. tes lagi dengan backslash \ contoh: test\test
+	
+	   di response backslash itu tidak diescape dan ditampilkan \\
+
+	5. sekarang masukan payload \'-alert(1)//
+
+		\ awal karena tidak di escape jadi bisa membuat skrip baru
+
+		' untuk menutup string
+
+		- tidak ada fungsi khusus tapi bisa saja untuk mentolerir error
+
+		// komentar di gunakan untuk menutup skrip setelah nya agar tidak terjadi error
+	
+	   

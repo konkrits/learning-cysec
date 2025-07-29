@@ -1,0 +1,39 @@
+Lab 9 Reflected XSS into a JavaScript string with single quote and backslash escaped
+
+Brief:
+	xss reflected di fungsi pencarian query tracking, reflection occurs didalam Javascript string dengan single quotes ' dan / escaped
+
+Tujuan:
+	break out javascript string dan lakukan alert()
+
+Analisa:
+	
+	1. masukan nomor random di pencarian dan kirim ke repeater
+
+	2. lihat di response nomornya di refleksikan ke js string
+
+	3. coba kirim di pencarian dengan test'payload dan diresponse di escape \' untuk mencegah string di break
+
+	4. masukan payload untuk mem break blok skrip dan memasukan script baru
+
+		</script><script>alert()</script>
+
+	5. verifikasi teknik dengan mengcopy url dan paste di browser
+
+	   alternatifnya masukan di kolom pencarian payloadnya
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
