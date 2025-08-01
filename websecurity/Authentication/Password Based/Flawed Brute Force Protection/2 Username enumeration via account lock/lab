@@ -1,0 +1,23 @@
+LAB 2 username enumeration via account lock
+
+Brief:
+	
+	lab vulnarable dengan username enumeration, lab menggunakan account locking tapi ada cacat logika
+	
+Tujuan:
+	enumerate valid username dan password lalu login
+	
+Analisa:
+	1. intercept POST login request
+	
+	2. alternatif burp intruder menggunakan FFUF skripnya jadi setiap akun merequest 5 kali dengan password yang sama tujuannya untuk mengetahui akun mana yang dikunci
+	
+	3. di ffuf report ada lenght yang beda dari yang lain dengan username am
+	
+	4. coba login dengan am dan password random dan ternyata dikunci
+	
+		username sudah valid berikutnya
+		
+	5. sekarang brute force dengan ffuf passwordnya
+	
+	login dan berhasil

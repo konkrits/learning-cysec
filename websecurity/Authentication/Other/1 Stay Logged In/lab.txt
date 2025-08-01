@@ -1,0 +1,20 @@
+LAB 1 Stay Logged in
+
+Brief:
+	1. login dan intercept
+	
+	2. setelah login ada parameter stay loged in
+	
+	3. seleksi parameternya dan kirim  ke decoder
+	
+	4. ini menggunakan base64 encoding dan ketika di decode ada wiener:(md5Hash) dan passwordnya di hashing dengan md5
+	
+	5. kita buat setiap list password dengan diencode dan dihash base64 (username:md5(password))
+	
+	6.
+
+	7. brute force cookie dengan ffuf
+	
+	8. setelah selesai ada satu response yang beda, cari password plainnya
+	
+	9. login dan berhasil

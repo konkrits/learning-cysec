@@ -87,9 +87,14 @@ Flawed two-factor verification logic
 		Hal ini sangat berbahaya jika penyerang kemudian dapat menggunakan brute force pada kode verifikasi karena hal ini akan memungkinkan mereka untuk masuk ke akun pengguna acak 
 		hanya berdasarkan nama pengguna mereka. Mereka bahkan tidak perlu mengetahui kata sandi pengguna.
 	
+Brute-forcing 2FA verification codes	
 	
-	
-	
+	Seperti halnya kata sandi, situs web perlu mengambil langkah-langkah untuk mencegah pemaksuan kasar dari kode verifikasi 2FA. 
+	Ini sangat penting karena kodenya sering merupakan angka 4 atau 6 digit yang sederhana. Tanpa perlindungan brute-force yang memadai, memecahkan kode semacam itu sepele.
+
+	Beberapa situs web mencoba untuk mencegah hal ini dengan secara otomatis mencatat pengguna jika mereka memasukkan sejumlah kode verifikasi yang salah. 
+	Ini tidak efektif dalam praktiknya karena penyerang tingkat lanjut bahkan dapat mengotomatisasi proses multi-langkah ini dengan menciptakan makro untuk Burp Intruder. 
+	Ekstensi Turbo Intruder juga dapat digunakan untuk tujuan ini.
 	
 	
 	

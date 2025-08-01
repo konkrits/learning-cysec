@@ -1,0 +1,46 @@
+LAB Broken brute-force protection, IP block
+
+Brief:
+	situs vulnerable dengan brute force password
+Tujuan:
+	brute force carlos dan login jadi carlos
+	
+Analisa:
+	1. login dengan username carlos dan password random
+	
+		setelah 3 kali ip diblok tapi jika login sebelum 3 kali, yaitu pas ke 2 setelah gagal
+		login menjadi wiener dan otomatis ip tidak diblok
+		
+	2. intercept request login ke intruder
+	
+	3. pilih pitchfork attack set posisi username dan password lalu tambahkan kedua payloadnya
+	
+	4. set resource pool dan pilih create dan set maksimal jadi 1
+	
+	5. setelah selesai ada status 302 di username carlos login dan berhasil.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

@@ -1,0 +1,20 @@
+LAB 3 Password brute-force via password change
+
+Brief:
+	fungsi ganti password web ini membuat rentan web itu sendiri terhadap brute-force attack
+
+	 Your credentials: wiener:peter
+	Victim's username: carlos 
+	
+Tujuan:
+
+	brute-force password akun carlos dan akses halaman my-account nya
+
+Analisa:
+	1. login
+	
+	2. setelah login di halaman my account ada feature reset password
+
+
+
+

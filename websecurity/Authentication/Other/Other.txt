@@ -1,0 +1,66 @@
+Vulnerabilities in other authentication mechanisms
+
+	Selain fungsi login dasar, sebagian besar situs web menyediakan fungsi tambahan untuk memungkinkan pengguna mengelola akun mereka. 
+	Misalnya, pengguna biasanya dapat mengubah kata sandi mereka atau mengatur ulang kata sandi mereka saat mereka melupakannya. 
+	Mekanisme ini juga dapat memperkenalkan kerentanan yang dapat dieksploitasi oleh penyerang.
+
+	Situs web biasanya berhati-hati untuk menghindari kerentanan yang terkenal di halaman login mereka. 
+	Tetapi mudah untuk mengabaikan fakta bahwa Anda perlu mengambil langkah-langkah serupa untuk memastikan bahwa fungsi terkait sama kuatnya. 
+	Hal ini sangat penting dalam kasus-kasus di mana penyerang mampu membuat akun mereka sendiri dan, akibatnya, memiliki akses mudah untuk mempelajari halaman-halaman tambahan ini.
+
+Keeping users logged in
+
+  (LAB 1: Brute-forcing a stay-logged-in cookie)
+
+	Fitur umum adalah opsi untuk tetap masuk bahkan setelah menutup sesi browser. 
+	Ini biasanya kotak centang sederhana berlabel sesuatu seperti "Ingat saya" atau "Keep me log in".
+
+	Fungsionalitas ini sering diimplementasikan dengan menghasilkan token "ingat saya" dari beberapa jenis, yang kemudian disimpan dalam cookie persisten. 
+	Karena memiliki cookie ini secara efektif memungkinkan Anda untuk melewati seluruh proses login, adalah praktik terbaik untuk cookie ini tidak praktis untuk menebak. 
+	Namun, beberapa situs web menghasilkan cookie ini berdasarkan konsektasi nilai statis yang dapat diprediksi, seperti nama pengguna dan stempel waktu. 
+
+	Beberapa bahkan menggunakan password sebagai bagian dari cookie. Pendekatan ini sangat berbahaya jika penyerang mampu membuat akun mereka sendiri karena mereka dapat mempelajari cookie mereka sendiri 
+	dan berpotensi menyimpulkan bagaimana itu dihasilkan. Setelah mereka mengerjakan formula, mereka dapat mencoba untuk brute-force cookie pengguna lain untuk mendapatkan akses ke akun mereka.
+
+	Beberapa situs web berasumsi bahwa jika cookie dienkripsi dalam beberapa cara, itu tidak akan dapat ditebak bahkan jika itu menggunakan nilai statis. 
+	Meskipun ini mungkin benar jika dilakukan dengan benar, dengan naif "mengenkripsi" cookie menggunakan pengkodean dua arah sederhana seperti Base64 tidak menawarkan perlindungan apa pun. 
+	Bahkan menggunakan enkripsi yang tepat dengan fungsi hash satu arah tidak sepenuhnya antipeluru. Jika penyerang dapat dengan mudah mengidentifikasi algoritma hashing, 
+	dan tidak ada salt yang digunakan, mereka berpotensi dapat brute-memaksa cookie dengan hanya hashing wordlist mereka. 
+	Metode ini dapat digunakan untuk melewati batas upaya login jika batas yang sama tidak diterapkan pada tebakan cookie.
+
+	Bahkan jika penyerang tidak dapat membuat akun mereka sendiri, mereka mungkin masih dapat mengeksploitasi kerentanan ini. 
+	Menggunakan teknik yang biasa, seperti XSS, penyerang bisa mencuri pengguna lain "ingat saya" cookie dan menyimpulkan bagaimana cookie dibangun dari itu. 
+	Jika situs web dibangun menggunakan kerangka kerja open-source, rincian kunci dari konstruksi cookie bahkan dapat didokumentasikan secara publik.
+
+  (Lab 2: Offline password cracking)
+	
+	Dalam beberapa kasus langka, mungkin saja mendapatkan kata sandi asli pengguna dalam bentuk teks biasa dari cookie, meskipun kata sandi tersebut telah di-hash. 
+	Versi yang di-hash dari daftar kata sandi yang terkenal tersedia secara online, jadi jika kata sandi pengguna muncul dalam salah satu daftar tersebut, 
+	mendekripsi hash tersebut kadang-kadang bisa sesederhana hanya dengan menempelkan hash ke mesin pencari. Hal ini menunjukkan pentingnya penggunaan salt dalam enkripsi yang efektif.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

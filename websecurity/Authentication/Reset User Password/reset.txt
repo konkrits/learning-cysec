@@ -19,7 +19,7 @@ Sending passwords by email
 	
 Resetting passwords using a URL
 
-	1. (LAB) Password reset broken logic
+  (LAB 1) Password reset broken logic
 
 		Metode yang lebih kuat untuk mengatur ulang kata sandi adalah dengan mengirim URL unik ke pengguna yang membawanya ke halaman reset kata sandi. 
 		Implementasi yang kurang aman dari metode ini menggunakan URL dengan parameter yang mudah ditebak untuk mengidentifikasi akun mana yang sedang diatur ulang, 
@@ -42,7 +42,28 @@ Resetting passwords using a URL
 		Dalam hal ini, penyerang dapat dengan mudah mengunjungi formulir reset dari akun mereka sendiri, menghapus token, 
 		dan memanfaatkan halaman ini untuk mereset kata sandi pengguna yang tidak diinginkan.
 
+  (LAB 2) Password reset poisoning via middleware
 
+		Jika URL dalam email reset dihasilkan secara dinamis, hal ini juga dapat rentan terhadap serangan reset kata sandi. 
+		Dalam hal ini, penyerang berpotensi mencuri token pengguna lain dan menggunakannya untuk mengubah kata sandi mereka.
 
+Changing user passwords
 
+ 
+ (LAB 3) Password brute-force via password change
+ 
+ 	Biasanya, mengubah kata sandi Anda melibatkan memasukkan kata sandi Anda saat ini dan kemudian kata sandi baru dua kali. 
+ 	
+ 	Halaman-halaman ini pada dasarnya bergantung pada proses yang sama untuk memeriksa bahwa nama pengguna dan kata sandi saat ini cocok dengan halaman login normal. 
+ 	Oleh karena itu, halaman-halaman ini bisa rentan terhadap teknik yang sama.
 
+	Fungsionalitas perubahan kata sandi bisa sangat berbahaya jika memungkinkan penyerang mengaksesnya secara langsung tanpa masuk sebagai pengguna korban. 
+	Misalnya, jika nama pengguna disediakan di bidang tersembunyi, penyerang mungkin dapat mengedit nilai ini dalam permintaan untuk menargetkan pengguna yang sewenang-wenang. 
+	
+	Ini berpotensi dieksploitasi untuk menyebutkan nama pengguna dan kata sandi brute-force.
+ 
+ 
+ 
+ 
+ 
+ 
