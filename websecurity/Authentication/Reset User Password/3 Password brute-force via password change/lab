@@ -15,6 +15,25 @@ Analisa:
 	
 	2. setelah login di halaman my account ada feature reset password
 
+	experimen dengan feature itu 	
+
+	3. jika mengenter 2 kali current password salah dan kedua password baru benar aplikasi setelah beberapa kali dicoba aplikasi akan melogout user
+
+	4. jika current password salah dan kedua password baru salah aplikasi akan menampilkan Current password incorrect
+	
+	5.  jika current password benar dan kedua password baru beda aplikasi menampilkan  New passwords do not match	
+
+		nah ini dia yang bisa menyebabkan membrute force password
+
+	6. kirim ke intruder ganti username ke carlos lalu set posisi ke current password lalu tambahkan payload password dan kedua password baru berbeda
+
+	7. lalu ke setting dan tambahkan grep match  New passwords do not match	lalu start attack
+
+	8. ketika selesai ada satu response yang menampilan New passwords do not match, nah ini password yang benar
+
+	9. login ke carlos dengan password yang benar dan berhasil
+
+
 
 
 
