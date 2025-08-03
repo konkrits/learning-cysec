@@ -5,6 +5,47 @@ Brief:
 	
 Tujuan:
 	akses panel admin dan hapus carlos
-	
+
+HINT:
+	Anda dapat menggunakan tautan di banner lab untuk mengakses klien email yang terhubung ke server email pribadi Anda. 
+	Klien tersebut akan menampilkan semua pesan yang dikirim ke @YOUR-EMAIL-ID.web-security-academy.net dan subdomain apa pun. ID email unik Anda ditampilkan di klien email.
+
 Analisa:
-	1
+	1. pergi ke /admin dan disana tertulis kalo panel admin hanya bisa diakses oleh user yang memakai email dontwannacry.com
+	
+	di laman register diberitahukan bahwa pegawai memakai dontwannacry.com
+	
+	2. coba daftar dengan username demo dan string panjang dengan email contoh: stringpanjang@YOUR-EMAIL-ID.web-security-academy.net
+	
+	3. sekarang pergi ke email dan klik link nya
+	
+	4. setelah login dengan username demo, di laman accoutn disana terlihat bahwa string panjang di cut dan dibatasi dengan jumlah karakter
+	
+		disinilah kunci kerentanannya
+	
+	5. hitung karakter dan hasilnya email dicut dengan jumlah 255 karakter saja
+	
+	step berikutnya mendaftar dengan email pegawai/admin yaitu @dontwannacry.com
+	
+	6. hitung dulu jumlah karakter email dengan 255 total dengan @dontwannacry.com didalamnnya lalu tambahkan email untuk menerima link(email lab), kemudian daftarkan.
+	
+		contoh: stringpanjangrandom@dontwannacry.com(disini harus 255 karakter).YOUR-EMAIL-ID.web-security-academy.net
+		
+	7. dan tidak terjadi apa-apa, sepertinya ini berhasil dan lab tidak membatasi ini
+	
+	8. di laman email klik linknya
+	
+	9. dan berhasil meregist
+	
+	10. login dan kita berhasil login menjadi admin
+	
+	11. hapus user carlos dan berhasil
+	
+	lab ini mempunyai kerentanan di laman daftar akun dan di laman admin, fungsi admin ditentukan hanya dengan user yang memiliki email pegawai
+	dan kerentanannya aplikasi membatasi karakter tetapi tidak ketika mendaftarkan akun
+	
+	kerentanan 1: admin ditentukan dengan email pegawai
+		   2: karakter dibatasi 255 ketika sudah mendaftar tetapi tidak ketika mendaftar
+	
+		
+		
