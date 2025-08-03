@@ -1,0 +1,10 @@
+Lab 3 Inconsistent handling of exceptional input
+
+Brief:
+	lab ini tidak cukup memvalidasi user input, kamu bisa mengeksploitasi kerentanan di laman daftar akun untuk mengakses fungsi admin
+	
+Tujuan:
+	akses panel admin dan hapus carlos
+	
+Analisa:
+	1
