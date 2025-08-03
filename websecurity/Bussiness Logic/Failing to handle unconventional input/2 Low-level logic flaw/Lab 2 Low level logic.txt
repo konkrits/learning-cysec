@@ -1,0 +1,41 @@
+Lab 2 Low-level logic flaw
+
+Brief:
+	lab ini tidak cukup memvalidasi user input
+	
+Tujuan:
+	beli produk "Lightweight l33t leather jacket" dengan harga yang tidak wajar
+	
+Analisa:
+	uang yang dimiliki $100 harga produk $1337
+	
+	1. masukan produk ke keranjang
+	
+		maksimal stok untuk dimasukan adalah 99
+		
+		nah disini web tidak memvalidasi
+
+	2. fuzz dengan ffuf di parameter stok dengan 99 tanpa batasan request
+	
+	3. refresh terus di halaman produk
+	
+	4. dan ketika muncul harga negatif berhenti
+	
+		dan itulah kerentanannya
+		
+		hapus keranjang
+		
+	step berikutnya adalah membeli produk tersebut dengan uang yang ada
+	
+	5. tambahkan produk yang lain
+		produk ini sebagai pengkonter produk tujuan
+		
+	6. fuzz lagi produk tujuan dengan request 323 dan tujuan stok 32123
+	
+	7. selesai fuzz
+	
+	8. di keranjang harga menjadi minus -1138 
+	
+	9. tambah stok produk pengcounter menjadi 15 dan sekarang harganya menjadi $22
+	
+	10. beli dan berhasil
