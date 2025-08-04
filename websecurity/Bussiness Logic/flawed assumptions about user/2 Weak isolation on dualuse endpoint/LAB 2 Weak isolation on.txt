@@ -1,0 +1,53 @@
+LAB 2 Weak isolation on dual-use endpoint
+
+Brief:
+	lab ini membuat asumsi yang cacat tentang tingkat hak istimewa pengguna berdasarkan input mereka. 
+	Akibatnya, Anda dapat memanfaatkan logika fitur manajemen akunnya untuk mendapatkan akses ke akun pengguna yang sewenang-wenang.
+	
+	akun penyerang wiener:peter
+
+Tujuan:
+	akses akun admin dan hapus carlos
+
+Analisa:
+	step pertama login dan mengetest dengan akun wiener
+	
+	1. pergi ke /admin dan hanya bisa diakses oleh administrator
+	
+	2. login ke akun wiener
+	
+	3. di laman my account ada fitur ganti password yang berisi 3 kolom
+	
+		yaitu: current-password=
+		       new-password=
+		       confirm-new-password=
+		       
+	ketiga kolom tersebut harus diisi dibrowser tapi apa jadinya jika kita menghapus parameter current-password dan langsung mengisi password baru?
+	
+	4. ini adalah parameter current-password atau password saat ini
+	
+		jika kita bisa menghapus ini otomatis tidak perlu mengisi password saat ini dan membypass ke password baru
+		
+	5. hapus parameter lalu kirim request
+	
+	6. dan ini berhasil otomatis akun wiener langsung diganti passwordnya tanpa perlu mengetahui password sebelumnya
+	
+		tentu secara teori kita bisa mengakses akun mana saja termasuk administrator
+		
+	step berikutnya ganti password akun administrator
+	
+	7. ganti username ke administrator dan isi ketiga kolom
+	
+	8. hapus parameter current-password atau password saat ini
+	
+	9. akun administrator passwordnya telah diganti
+	
+	10. login ke akun administrator menggunakan password baru
+	
+	11. ini adalah panel admin lalu delete akun carlos
+	
+	12. berhasil
+	
+Kesimpulan:
+	
+	kita tidak memerlukan password untuk mengganti ke password baru dan ini menyebabkan kita bisa mengganti password akun mana saja.

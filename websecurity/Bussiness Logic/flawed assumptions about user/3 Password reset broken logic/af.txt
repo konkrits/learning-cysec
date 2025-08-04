@@ -1,0 +1,19 @@
+Lab: Password reset broken logic
+
+Brief:
+	password reset vulnerable
+	
+Tujuan:
+	reset password carlos dan akses laman "my-account"
+	
+Analisa:
+	1. pergi ke login lalu klik forgot-password 
+		lanjutkan untuk mereset password wiener
+		
+	2. nah di history kirim POST /forgot-password
+		dan ubah value username=carlos
+		
+	3. di history kirim ke repeater POST /forgot-password?item-forgot-password-token=18281y1y1892 <- ubah jadi kosong
+		dibawah sama temp token nya kosong dan ubah username dan password akun carlos
+		
+	4. berhasil

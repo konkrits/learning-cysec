@@ -54,7 +54,8 @@ Apa dampak dari kerentanan logika bisnis?
 	Untuk alasan ini, logika unik idealnya harus diperbaiki bahkan jika Anda tidak dapat mengetahui cara mengeksploitasinya sendiri. Selalu ada risiko yang bisa dilakukan orang lain.
 
 		Pada dasarnya, dampak dari setiap cacat logika tergantung pada apa fungsi itu terkait. Jika cacat ada dalam mekanisme otentikasi, misalnya, 
-		ini bisa berdampak serius pada keamanan Anda secara keseluruhan. Penyerang berpotensi mengeksploitasi ini untuk eskalasi hak istimewa, atau untuk melewati otentikasi sepenuhnya, 
+		ini bisa berdampak serius pada keamanan Anda secara keseluruhan. Penyerang berpotensi mengeksploitasi ini untuk eskalasi hak istimewa, 
+		atau untuk melewati otentikasi sepenuhnya, 
 		mendapatkan akses ke data dan fungsionalitas yang sensitif. Ini juga mengekspos peningkatan permukaan serangan untuk eksploitasi lainnya.
 
 	Logika cacat dalam transaksi keuangan jelas dapat menyebabkan kerugian besar bagi bisnis melalui dana curian, penipuan, dan sebagainya.

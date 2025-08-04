@@ -1,0 +1,30 @@
+Lab 1 : Inconsistent security controls
+
+Brief:
+	lab ini cacat secara logik sehingga mengijinkan user mana saja mengakses panel admin yang seharusnya hanya bisa diakses oleh karyawan
+	
+Tujuan:
+	akses panel admin dan hapus user carlos
+	
+Analisa:
+	1. pergi ke /admin disana tertulis hanya bisa diakses oleh user yang memakai email @dontwannacry.com
+	
+	2. lalu ke daftar akun
+	
+	3. daftarkan user secara biasa dan menggunakan email lab
+	
+	4. setelah daftar, di kotak email ada link pendaftaran dan klik
+	
+	sejauh ini hanya mengisi seperti biasa tetapi step selanjutnya adalah kerentanannya
+	
+	5. di halaman my account ada kolom untuk mengganti email ganti dengan email karyawan depannya bebas asalkan harus dontwannacry.com : test@dontwannacry.com
+	
+	6. dan pergantian berhasil tanpa ada proses apa-apa
+	
+	7. ke admin panel
+	
+	8. hapus user carlos dan berhasil
+	
+	lab ini tidak mengecek atau memvalidasi sama sekali untuk pergantian email 
+	jadi user mana saja bisa menggunakan email karyawan
+	
